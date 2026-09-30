@@ -1,0 +1,11 @@
+# Copyright (c) 2026 Majaahh, furbanoramos21, 7jari
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Unified variants for LineageOS a05s
+# Covers SM-A057F / SM-A057G / SM-A057M / SM-E145F / SM-M145F
+
+# Firmware
+on early-init
+    mount none /vendor/firmware/${ro.boot.em.model}/ipa_fws.b01 /vendor/firmware/ipa_fws.b01 bind
+    mount none /vendor/firmware/${ro.boot.em.model}/ipa_fws.elf /vendor/firmware/ipa_fws.elf bind
+    mount none /vendor/firmware/${ro.boot.em.model}/ipa_fws.mdt /vendor/firmware/ipa_fws.mdt bind
+    mount none /vendor/firmware/${ro.boot.em.model}/wlanmdsp.mbn /vendor/firmware/wlanmdsp.mbn bind

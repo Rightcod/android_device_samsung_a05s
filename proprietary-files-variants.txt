@@ -1,0 +1,22 @@
+# Unified per-model firmware for SM-A057F / SM-A057M / SM-E145F / SM-M145F.
+# The G (DYH1) base files come from proprietary-files.txt; other models need
+# their own stock firmware dumps. When a dump is available, copy these lines
+# into proprietary-files.txt (or pass this file to extract-utils) and place
+# the 4 files per model under vendor/firmware/<MODEL>/.
+# init.a05s.unify.rc bind-mounts them at boot via ro.boot.em.model.
+vendor/firmware/SM-A057F/ipa_fws.b01
+vendor/firmware/SM-A057F/ipa_fws.elf
+vendor/firmware/SM-A057F/ipa_fws.mdt
+vendor/firmware/SM-A057F/wlanmdsp.mbn
+vendor/firmware/SM-A057M/ipa_fws.b01
+vendor/firmware/SM-A057M/ipa_fws.elf
+vendor/firmware/SM-A057M/ipa_fws.mdt
+vendor/firmware/SM-A057M/wlanmdsp.mbn
+vendor/firmware/SM-E145F/ipa_fws.b01
+vendor/firmware/SM-E145F/ipa_fws.elf
+vendor/firmware/SM-E145F/ipa_fws.mdt
+vendor/firmware/SM-E145F/wlanmdsp.mbn
+vendor/firmware/SM-M145F/ipa_fws.b01
+vendor/firmware/SM-M145F/ipa_fws.elf
+vendor/firmware/SM-M145F/ipa_fws.mdt
+vendor/firmware/SM-M145F/wlanmdsp.mbn

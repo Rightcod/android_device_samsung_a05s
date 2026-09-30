@@ -1,0 +1,2915 @@
+# Unified blobs: base A057GXXS8DYH1 (OneUI 7 / Android 15) + per-model firmware dirs
+# (header refreshed when the stock vendor download finishes; old base was a05sxx-user 14 UP1A.231005.007 A057GXXS3CXF1)
+
+# ACDB
+vendor/etc/acdbdata/bengal_idp/IDP_acdb_cal.acdb
+vendor/etc/acdbdata/bengal_idp/IDP_workspaceFileXml.qwsp
+vendor/etc/acdbdata/bengal_qrd/QRD_acdb_cal.acdb
+vendor/etc/acdbdata/bengal_qrd/QRD_workspaceFileXml.qwsp
+vendor/etc/acdbdata/bengal_scubaidp/IDP_scuba_acdb_cal.acdb
+vendor/etc/acdbdata/bengal_scubaidp/IDP_scuba_workspaceFileXml.qwsp
+vendor/etc/acdbdata/bengal_scubaqrd/QRD_scuba_acdb_cal.acdb
+vendor/etc/acdbdata/bengal_scubaqrd/QRD_scuba_workspaceFileXml.qwsp
+vendor/etc/acdbdata/factory/bengal_idp/IDP_factory_acdb_cal.acdb
+vendor/etc/acdbdata/factory/bengal_idp/IDP_factory_workspaceFileXml.qwsp
+vendor/etc/acdbdata/nn_ns_models/fai__2.0.0_0.1__3.0.0_0.0__eai_1.00.pmd
+vendor/etc/acdbdata/nn_ns_models/fai__2.2.0_0.1__3.0.0_0.0__eai_1.00.pmd
+vendor/etc/acdbdata/nn_vad_models/fai_3.0.0_0.0_eai_1.00.pmd
+vendor/etc/acdbdata/user/afr/bengal_idp/IDP_user_afr_acdb_cal.acdb
+vendor/etc/acdbdata/user/afr/bengal_idp/IDP_user_afr_workspaceFileXml.qwsp
+vendor/etc/acdbdata/user/bengal_idp/IDP_user_acdb_cal.acdb
+vendor/etc/acdbdata/user/bengal_idp/IDP_user_workspaceFileXml.qwsp
+vendor/etc/acdbdata/user/cis/bengal_idp/IDP_user_cis_acdb_cal.acdb
+vendor/etc/acdbdata/user/cis/bengal_idp/IDP_user_cis_workspaceFileXml.qwsp
+vendor/etc/acdbdata/user/eur/bengal_idp/IDP_user_eur_acdb_cal.acdb
+vendor/etc/acdbdata/user/eur/bengal_idp/IDP_user_eur_workspaceFileXml.qwsp
+vendor/etc/acdbdata/user/mea/bengal_idp/IDP_user_mea_acdb_cal.acdb
+vendor/etc/acdbdata/user/mea/bengal_idp/IDP_user_mea_workspaceFileXml.qwsp
+vendor/etc/acdbdata/user/owb/bengal_idp/IDP_user_owb_acdb_cal.acdb
+vendor/etc/acdbdata/user/owb/bengal_idp/IDP_user_owb_workspaceFileXml.qwsp
+vendor/etc/acdbdata/user/owo/bengal_idp/IDP_user_owo_acdb_cal.acdb
+vendor/etc/acdbdata/user/owo/bengal_idp/IDP_user_owo_workspaceFileXml.qwsp
+vendor/etc/acdbdata/user/sea/bengal_idp/IDP_user_sea_acdb_cal.acdb
+vendor/etc/acdbdata/user/sea/bengal_idp/IDP_user_sea_workspaceFileXml.qwsp
+vendor/etc/acdbdata/user/swa/bengal_idp/IDP_user_swa_acdb_cal.acdb
+vendor/etc/acdbdata/user/swa/bengal_idp/IDP_user_swa_workspaceFileXml.qwsp
+vendor/etc/acdbdata/user/swaffourteen/bengal_idp/IDP_user_swaffourteen_acdb_cal.acdb
+vendor/etc/acdbdata/user/swaffourteen/bengal_idp/IDP_user_swaffourteen_workspaceFileXml.qwsp
+vendor/etc/acdbdata/user/swamfourteen/bengal_idp/IDP_user_swamfourteen_acdb_cal.acdb
+vendor/etc/acdbdata/user/swamfourteen/bengal_idp/IDP_user_swamfourteen_workspaceFileXml.qwsp
+
+# ADSP
+vendor/bin/adsprpcd
+vendor/etc/init/vendor.qti.adsprpc-guestos-service.rc
+vendor/lib/libadsp_default_listener.so
+vendor/lib/libadsprpc.so
+vendor/lib/libvmmem.so
+vendor/lib64/libadsp_default_listener.so
+vendor/lib64/libadsprpc.so
+vendor/lib64/libvmmem.so
+
+# ADSP modules
+vendor/lib/rfsa/adsp/libadsp_jpege_skel.so
+vendor/lib/rfsa/adsp/libbitml_nsp_skel.so
+vendor/lib/rfsa/adsp/libcamera_nn_skel.so
+vendor/lib/rfsa/adsp/libdspCV_skel.so
+vendor/lib/rfsa/adsp/libdsp_streamer_binning.so
+vendor/lib/rfsa/adsp/libfastcvadsp.so
+vendor/lib/rfsa/adsp/libfastcvdsp_skel.so
+vendor/lib/rfsa/adsp/libmctfengine_skel.so
+vendor/lib/rfsa/adsp/libsns_device_mode_skel.so
+vendor/lib/rfsa/adsp/libsns_low_lat_stream_skel.so
+
+# Alarm
+
+# ANT
+system_ext/lib/com.qualcomm.qti.ant@1.0.so
+system_ext/lib64/com.qualcomm.qti.ant@1.0.so
+
+# Atrace
+# DROP-DUP-MANIFEST (source provides same path): vendor/bin/hw/android.hardware.atrace@1.0-service
+# DROP-DUP-MANIFEST (source provides same path): vendor/etc/init/android.hardware.atrace@1.0-service.rc
+# DROP-DUP-MANIFEST (source provides same path): vendor/etc/vintf/manifest/android.hardware.atrace@1.0-service.xml
+
+# Audio
+# DROP-SHADOW-BIN (source builds it, prebuilt causes fsgen path conflict): vendor/bin/hw/android.hardware.audio.service
+# DROP-SHADOW-BIN (source builds it, prebuilt causes fsgen path conflict): vendor/bin/hw/android.hardware.audio.service_64
+# DROP-DUP-RC (source audio service owns it): vendor/etc/init/android.hardware.audio.service.rc
+# DROP-DUP-RC (source audio service owns it): vendor/etc/init/android.hardware.audio.service_64.rc
+vendor/lib/hw/android.hardware.audio.effect@2.0-impl.so
+vendor/lib/hw/android.hardware.audio.effect@4.0-impl.so
+vendor/lib/hw/android.hardware.audio.effect@5.0-impl.so
+vendor/lib/hw/android.hardware.audio.effect@6.0-impl.so
+vendor/lib/hw/android.hardware.audio.effect@7.0-impl.so
+vendor/lib/hw/android.hardware.audio@2.0-impl.so
+vendor/lib/hw/android.hardware.audio@4.0-impl.so
+vendor/lib/hw/android.hardware.audio@5.0-impl.so
+vendor/lib/hw/android.hardware.audio@6.0-impl.so
+vendor/lib/hw/android.hardware.audio@7.0-impl.so
+vendor/lib/hw/audio.primary.bengal.so
+vendor/lib/hw/audio.primary.default.so
+vendor/lib/hw/audio.r_submix.default.so
+vendor/lib/hw/audio.usb.bengal.so
+vendor/lib/hw/audio.usb.default.so
+vendor/lib/libagm.so
+vendor/lib/libagmclient.so
+vendor/lib/libalsautils.so
+vendor/lib/libar-acdb.so
+vendor/lib/libar-gpr.so
+vendor/lib/libar-gsl.so
+vendor/lib/libar-pal.so
+vendor/lib/libats.so
+vendor/lib/libaudio_log_utils.so
+vendor/lib/libdiag.so
+vendor/lib/libfloatingfeature.so
+vendor/lib/libjson.so
+vendor/lib/liblx-ar_util.so
+vendor/lib/liblx-osal.so
+vendor/lib/libmediautils_vendor.so
+vendor/lib/libpdmapper.so
+vendor/lib/libpdnotifier.so
+vendor/lib/libqmi_cci.so
+vendor/lib/libqmi_common_so.so
+vendor/lib/libqmi_encdec.so
+vendor/lib/libsecaudioinfo.so
+vendor/lib/libsecnativefeature.so
+vendor/lib/vendor.qti.hardware.AGMIPC@1.0-impl.so
+vendor/lib/vendor.qti.hardware.AGMIPC@1.0.so
+vendor/lib/vendor.qti.hardware.pal@1.0-impl.so
+vendor/lib/vendor.qti.hardware.pal@1.0.so
+vendor/lib64/hw/android.hardware.audio.effect@2.0-impl.so
+vendor/lib64/hw/android.hardware.audio.effect@4.0-impl.so
+vendor/lib64/hw/android.hardware.audio.effect@5.0-impl.so
+vendor/lib64/hw/android.hardware.audio.effect@6.0-impl.so
+vendor/lib64/hw/android.hardware.audio.effect@7.0-impl.so
+vendor/lib64/hw/android.hardware.audio@2.0-impl.so
+vendor/lib64/hw/android.hardware.audio@4.0-impl.so
+vendor/lib64/hw/android.hardware.audio@5.0-impl.so
+vendor/lib64/hw/android.hardware.audio@6.0-impl.so
+vendor/lib64/hw/android.hardware.audio@7.0-impl.so
+vendor/lib64/hw/audio.primary.bengal.so
+vendor/lib64/hw/audio.primary.default.so
+vendor/lib64/hw/audio.r_submix.default.so
+vendor/lib64/hw/audio.usb.bengal.so
+vendor/lib64/hw/audio.usb.default.so
+vendor/lib64/libagm.so
+vendor/lib64/libagmclient.so
+vendor/lib64/libalsautils.so
+vendor/lib64/libar-acdb.so
+vendor/lib64/libar-gpr.so
+vendor/lib64/libar-gsl.so
+vendor/lib64/libar-pal.so
+vendor/lib64/libats.so
+vendor/lib64/libaudio_log_utils.so
+vendor/lib64/libdiag.so
+vendor/lib64/libfloatingfeature.so
+vendor/lib64/libjson.so
+vendor/lib64/liblx-ar_util.so
+vendor/lib64/liblx-osal.so
+vendor/lib64/libmediautils_vendor.so
+vendor/lib64/libpdmapper.so
+vendor/lib64/libpdnotifier.so
+vendor/lib64/libqmi_cci.so
+vendor/lib64/libqmi_common_so.so
+vendor/lib64/libqmi_encdec.so
+vendor/lib64/libsecaudioinfo.so
+vendor/lib64/libsecnativefeature.so
+vendor/lib64/vendor.qti.hardware.AGMIPC@1.0-impl.so
+vendor/lib64/vendor.qti.hardware.AGMIPC@1.0.so
+vendor/lib64/vendor.qti.hardware.pal@1.0-impl.so
+vendor/lib64/vendor.qti.hardware.pal@1.0.so
+
+# Audio (FX modules)
+vendor/lib/soundfx/libasphere.so
+vendor/lib/soundfx/libaudioeffectoffload.so
+vendor/lib/soundfx/libdynproc.so
+vendor/lib/soundfx/libhapticgenerator.so
+vendor/lib/soundfx/libmyspace.so
+vendor/lib/soundfx/libqcompostprocbundle.so
+vendor/lib/soundfx/libqcomvisualizer.so
+vendor/lib/soundfx/libqcomvoiceprocessing.so
+vendor/lib/soundfx/libshoebox.so
+vendor/lib/soundfx/libswdap.so
+vendor/lib/soundfx/libswspatializer.so
+vendor/lib/soundfx/libvolumelistener.so
+# DROP-AIDL-SHADOW (blobs pulls V1+V2 aidl, source builds clean): vendor/lib/audioclient-types-aidl-cpp.so
+# DROP-AIDL-SHADOW (blob pulls multi-version aidl, source builds clean): vendor/lib/audiopolicy-types-aidl-cpp.so
+# DROP-AIDL-SHADOW (blob pulls multi-version aidl, source builds clean): vendor/lib/framework-permission-aidl-cpp.so
+vendor/lib/lib_SoundAlive_3DPosition_ver202.so
+vendor/lib/libprofileparamstorage.so
+vendor/lib/libsecaudiocoreutils.so
+vendor/lib/libspatializerparamstorage.so
+# DROP-SHADOW-BIN (source builds it, prebuilt causes fsgen path conflict): vendor/lib/libvibrator.so
+# DROP-AIDL-SHADOW (blob pulls multi-version aidl, source builds clean): vendor/lib/spatializer-aidl-cpp.so
+vendor/lib64/soundfx/libasphere.so
+vendor/lib64/soundfx/libaudioeffectoffload.so
+vendor/lib64/soundfx/libdynproc.so
+vendor/lib64/soundfx/libhapticgenerator.so
+vendor/lib64/soundfx/libmyspace.so
+vendor/lib64/soundfx/libqcompostprocbundle.so
+vendor/lib64/soundfx/libqcomvisualizer.so
+vendor/lib64/soundfx/libqcomvoiceprocessing.so
+vendor/lib64/soundfx/libshoebox.so
+vendor/lib64/soundfx/libswdap.so
+vendor/lib64/soundfx/libswspatializer.so
+vendor/lib64/soundfx/libvolumelistener.so
+# DROP-AIDL-SHADOW (blobs pulls V1+V2 aidl, source builds clean): vendor/lib64/audioclient-types-aidl-cpp.so
+# DROP-AIDL-SHADOW (blob pulls multi-version aidl, source builds clean): vendor/lib64/audiopolicy-types-aidl-cpp.so
+# DROP-AIDL-SHADOW (blob pulls multi-version aidl, source builds clean): vendor/lib64/framework-permission-aidl-cpp.so
+vendor/lib64/lib_SoundAlive_3DPosition_ver202.so
+vendor/lib64/libprofileparamstorage.so
+vendor/lib64/libsecaudiocoreutils.so
+vendor/lib64/libspatializerparamstorage.so
+# DROP-SHADOW-BIN (source builds it, prebuilt causes fsgen path conflict): vendor/lib64/libvibrator.so
+# DROP-AIDL-SHADOW (blob pulls multi-version aidl, source builds clean): vendor/lib64/spatializer-aidl-cpp.so
+
+# Audio configs
+# DROP-SYSTEM-DUP (source or other partition provides it): system/etc/audio_effects.xml
+# DROP-SYSTEM-DUP (source or other partition provides it): system/etc/audio_effects_common.conf
+# DROP-SYSTEM-DUP (source or other partition provides it): system/etc/audio_effects_model.xml
+vendor/etc/a2dpsink_audio_policy_configuration.xml
+vendor/etc/audio_effects.xml
+vendor/etc/audio_effects_sec.xml
+vendor/etc/audio_effects_spatializer.xml
+vendor/etc/audio_policy_configuration.xml
+vendor/etc/audio_policy_configuration_sec.xml
+vendor/etc/audio_policy_volumes.xml
+vendor/etc/bluetooth_audio_policy_configuration.xml
+vendor/etc/default_volume_tables.xml
+vendor/etc/hearing_aid_audio_policy_configuration.xml
+vendor/etc/mixer_paths_bengal_qrd.xml
+vendor/etc/mixer_paths_scubaidp.xml
+vendor/etc/mixer_paths_scubaqrd.xml
+vendor/etc/r_submix_audio_policy_configuration.xml
+vendor/etc/situation_audio_policy_volumes_sec.xml
+vendor/etc/usb_audio_policy_configuration.xml
+
+# Automotive
+vendor/lib/vendor.qti.hardware.automotive.vehicle@1.0.so
+vendor/lib64/vendor.qti.hardware.automotive.vehicle@1.0.so
+
+# Bluetooth
+vendor/bin/hw/android.hardware.bluetooth@1.0-service-qti
+vendor/etc/init/android.hardware.bluetooth@1.0-service-qti.rc
+vendor/lib/libqti_vndfwk_detect_vendor.so
+vendor/lib64/libqti_vndfwk_detect_vendor.so
+
+# Bluetooth (A2DP)
+# DEDUP-SO(system_ext): system_ext/lib/com.qualcomm.qti.bluetooth_audio@1.0.so
+vendor/lib/vendor.qti.hardware.bluetooth_audio@2.0.so
+vendor/lib/vendor.qti.hardware.btconfigstore@1.0.so
+vendor/lib/vendor.qti.hardware.btconfigstore@2.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/com.qualcomm.qti.bluetooth_audio@1.0.so
+vendor/lib64/vendor.qti.hardware.bluetooth_audio@2.0.so
+vendor/lib64/vendor.qti.hardware.btconfigstore@1.0.so
+vendor/lib64/vendor.qti.hardware.btconfigstore@2.0.so
+vendor/lib/hw/android.hardware.bluetooth.audio@2.0-impl.so
+# DROP-SHADOW-HAL (prebuilt drags V2+V4 aidl, AOSP BT HAL builds clean; seh BT stays): vendor/lib/hw/audio.bluetooth.default.so
+vendor/lib/hw/audio.bluetooth_qti.default.so
+vendor/lib/hw/vendor.qti.hardware.bluetooth_audio@2.0-impl.so
+vendor/lib/hw/vendor.qti.hardware.bluetooth_audio@2.1-impl.so
+vendor/lib/hw/vendor.qti.hardware.bluetooth_sar@1.1-impl.so
+vendor/lib/hw/vendor.qti.hardware.btconfigstore@1.0-impl.so
+vendor/lib/hw/vendor.qti.hardware.btconfigstore@2.0-impl.so
+vendor/lib/com.qualcomm.qti.bluetooth_audio@1.0.so
+vendor/lib/libbluetooth_audio_session.so
+# DROP-SHADOW-SVC (prebuilt drags dual AIDL vers, source builds clean): vendor/lib/libbluetooth_audio_session_aidl.so
+vendor/lib/libbluetooth_audio_session_qti.so
+vendor/lib/libbluetooth_audio_session_qti_2_1.so
+vendor/lib/libsehbluetooth_audio_session_aidl.so
+vendor/lib/vendor.qti.hardware.bluetooth_audio@2.1.so
+vendor/lib/vendor.qti.hardware.bluetooth_sar@1.0.so
+vendor/lib/vendor.qti.hardware.bluetooth_sar@1.1.so
+vendor/lib/vendor.samsung.hardware.bluetooth.audio-V1-ndk.so
+vendor/lib64/hw/android.hardware.bluetooth.audio@2.0-impl.so
+# DROP-SHADOW-HAL (prebuilt drags V2+V4 aidl, AOSP BT HAL builds clean; seh BT stays): vendor/lib64/hw/audio.bluetooth.default.so
+vendor/lib64/hw/audio.bluetooth_qti.default.so
+vendor/lib64/hw/vendor.qti.hardware.bluetooth_audio@2.0-impl.so
+vendor/lib64/hw/vendor.qti.hardware.bluetooth_audio@2.1-impl.so
+vendor/lib64/hw/vendor.qti.hardware.bluetooth_sar@1.1-impl.so
+vendor/lib64/hw/vendor.qti.hardware.btconfigstore@1.0-impl.so
+vendor/lib64/hw/vendor.qti.hardware.btconfigstore@2.0-impl.so
+vendor/lib64/com.qualcomm.qti.bluetooth_audio@1.0.so
+vendor/lib64/libbluetooth_audio_session.so
+# DROP-SHADOW-SVC (prebuilt drags dual AIDL vers, source builds clean): vendor/lib64/libbluetooth_audio_session_aidl.so
+vendor/lib64/libbluetooth_audio_session_qti.so
+vendor/lib64/libbluetooth_audio_session_qti_2_1.so
+vendor/lib64/libsehbluetooth_audio_session_aidl.so
+vendor/lib64/vendor.qti.hardware.bluetooth_audio@2.1.so
+vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.0.so
+vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.1.so
+vendor/lib64/vendor.samsung.hardware.bluetooth.audio-V1-ndk.so
+
+# Camera
+system_ext/lib/vendor.qti.hardware.seccam@1.0.so
+system_ext/lib64/vendor.qti.hardware.seccam@1.0.so
+vendor/bin/hw/android.hardware.camera.provider@2.4-service_64
+# DROP-DUP-RC (source provides same init path, service blob stays): vendor/etc/init/android.hardware.camera.provider@2.4-service_64.rc
+vendor/lib/camera/components/com.qti.camx.chiiqutils.so
+vendor/lib/camera/components/com.qti.eisv2.so
+vendor/lib/camera/components/com.qti.eisv3.so
+vendor/lib/camera/components/com.qti.hvx.addconstant.so
+vendor/lib/camera/components/com.qti.hvx.binning.so
+vendor/lib/camera/components/com.qti.node.customhwnode.so
+vendor/lib/camera/components/com.qti.node.depth.so
+vendor/lib/camera/components/com.qti.node.dewarp.so
+vendor/lib/camera/components/com.qti.node.dummyrtb.so
+vendor/lib/camera/components/com.qti.node.dummysat.so
+vendor/lib/camera/components/com.qti.node.eisv2.so
+vendor/lib/camera/components/com.qti.node.eisv3.so
+vendor/lib/camera/components/com.qti.node.fcv.so
+vendor/lib/camera/components/com.qti.node.gpu.so
+vendor/lib/camera/components/com.qti.node.memcpy.so
+vendor/lib/camera/components/com.qti.node.stich.so
+vendor/lib/camera/components/com.qti.node.swaidenoiser.so
+vendor/lib/camera/components/com.qti.node.swcac.so
+vendor/lib/camera/components/com.qti.node.swlsc.so
+vendor/lib/camera/components/com.qti.node.swmctf.so
+vendor/lib/camera/components/com.qti.node.swmfnr.so
+vendor/lib/camera/components/com.qti.node.swregistration.so
+vendor/lib/camera/components/com.qti.stats.aec.so
+vendor/lib/camera/components/com.qti.stats.aecwrapper.so
+vendor/lib/camera/components/com.qti.stats.af.so
+vendor/lib/camera/components/com.qti.stats.afd.so
+vendor/lib/camera/components/com.qti.stats.afwrapper.so
+vendor/lib/camera/components/com.qti.stats.asd.so
+vendor/lib/camera/components/com.qti.stats.awb.so
+vendor/lib/camera/components/com.qti.stats.awbwrapper.so
+vendor/lib/camera/components/com.qti.stats.haf.so
+vendor/lib/camera/components/com.qti.stats.hafoverride.so
+vendor/lib/camera/components/com.qti.stats.pdlib.so
+vendor/lib/camera/components/com.qti.stats.pdlibsony.so
+vendor/lib/camera/components/com.qti.stats.pdlibwrapper.so
+vendor/lib/camera/components/com.qtistatic.stats.aec.so
+vendor/lib/camera/components/com.qtistatic.stats.af.so
+vendor/lib/camera/components/com.qtistatic.stats.awb.so
+vendor/lib/camera/components/com.qtistatic.stats.pdlib.so
+vendor/lib/camera/com.qti.eeprom.front_txd_hi1336_2nd.so
+vendor/lib/camera/com.qti.eeprom.irs2381c_polar.so
+vendor/lib/camera/com.qti.eeprom.truly_cmb433.so
+vendor/lib/camera/com.qti.flash.lm3644.so
+vendor/lib/camera/com.qti.sensor.depth_cxt_c2519_3rd.so
+vendor/lib/camera/com.qti.sensor.depth_cxt_sp2507_1st.so
+vendor/lib/camera/com.qti.sensor.depth_cxt_sp2507_mono_1st.so
+vendor/lib/camera/com.qti.sensor.depth_union_sc201acs_2nd.so
+vendor/lib/camera/com.qti.sensor.front_truly_gc13a0_1st.so
+vendor/lib/camera/com.qti.sensor.front_truly_sc1320cs_3rd.so
+vendor/lib/camera/com.qti.sensor.front_txd_hi1336_2nd.so
+vendor/lib/camera/com.qti.sensor.imx318.so
+vendor/lib/camera/com.qti.sensor.imx334.so
+vendor/lib/camera/com.qti.sensor.imx362.so
+vendor/lib/camera/com.qti.sensor.imx386.so
+vendor/lib/camera/com.qti.sensor.imx519.so
+vendor/lib/camera/com.qti.sensor.imx577.so
+vendor/lib/camera/com.qti.sensor.macro_cxt_sc201acs_2nd.so
+vendor/lib/camera/com.qti.sensor.macro_ly_c2595_3rd.so
+vendor/lib/camera/com.qti.sensor.macro_union_gc2375h_1st.so
+vendor/lib/camera/com.qti.sensor.max7366_6dof.so
+vendor/lib/camera/com.qti.sensor.max7366_eyetrack.so
+vendor/lib/camera/com.qti.sensor.max7366_ov6211.so
+vendor/lib/camera/com.qti.sensor.max7366_ov9282.so
+vendor/lib/camera/com.qti.sensor.ov12a10.so
+vendor/lib/camera/com.qti.sensor.ov13855.so
+vendor/lib/camera/com.qti.sensor.ov13880.so
+vendor/lib/camera/com.qti.sensor.ov7251.so
+vendor/lib/camera/com.qti.sensor.ov8856.so
+vendor/lib/camera/com.qti.sensor.s5k2l7.so
+vendor/lib/camera/com.qti.sensor.wide_lce_hi5022_2nd.so
+vendor/lib/camera/com.qti.sensor.wide_truly_hi5022_1st.so
+vendor/lib/camera/com.qti.sensor.wide_truly_hi5022_4th.so
+vendor/lib/camera/com.qti.sensor.wide_truly_s5kjn1_4th.so
+vendor/lib/camera/com.qti.sensor.wide_txd_s5kjn1_3rd.so
+vendor/lib/camera/com.qti.sensormodule.depth_cxt_c2519_3rd.bin
+vendor/lib/camera/com.qti.sensormodule.depth_cxt_sp2507_1st.bin
+vendor/lib/camera/com.qti.sensormodule.depth_cxt_sp2507_mono_1st.bin
+vendor/lib/camera/com.qti.sensormodule.depth_union_sc201acs_2nd.bin
+vendor/lib/camera/com.qti.sensormodule.front_truly_gc13a0_1st.bin
+vendor/lib/camera/com.qti.sensormodule.front_truly_sc1320cs_3rd.bin
+vendor/lib/camera/com.qti.sensormodule.front_txd_hi1336_2nd.bin
+vendor/lib/camera/com.qti.sensormodule.macro_cxt_sc201acs_2nd.bin
+vendor/lib/camera/com.qti.sensormodule.macro_ly_c2595_3rd.bin
+vendor/lib/camera/com.qti.sensormodule.macro_union_gc2375h_1st.bin
+vendor/lib/camera/com.qti.sensormodule.wide_lce_hi5022_2nd.bin
+vendor/lib/camera/com.qti.sensormodule.wide_truly_hi5022_1st.bin
+vendor/lib/camera/com.qti.sensormodule.wide_truly_hi5022_4th.bin
+vendor/lib/camera/com.qti.sensormodule.wide_truly_s5kjn1_4th.bin
+vendor/lib/camera/com.qti.sensormodule.wide_txd_s5kjn1_3rd.bin
+vendor/lib/camera/com.qti.tuned.default.bin
+vendor/lib/camera/com.qti.tuned.depth_cxt_c2519_3rd.bin
+vendor/lib/camera/com.qti.tuned.depth_cxt_sp2507_1st.bin
+vendor/lib/camera/com.qti.tuned.depth_cxt_sp2507_mono_1st.bin
+vendor/lib/camera/com.qti.tuned.depth_union_sc201acs_2nd.bin
+vendor/lib/camera/com.qti.tuned.front_truly_gc13a0_1st.bin
+vendor/lib/camera/com.qti.tuned.front_truly_sc1320cs_3rd.bin
+vendor/lib/camera/com.qti.tuned.front_txd_hi1336_2nd.bin
+vendor/lib/camera/com.qti.tuned.macro_cxt_sc201acs_2nd.bin
+vendor/lib/camera/com.qti.tuned.macro_ly_c2595_3rd.bin
+vendor/lib/camera/com.qti.tuned.macro_union_gc2375h_1st.bin
+vendor/lib/camera/com.qti.tuned.wide_lce_hi5022_2nd.bin
+vendor/lib/camera/com.qti.tuned.wide_truly_hi5022_1st.bin
+vendor/lib/camera/com.qti.tuned.wide_truly_hi5022_4th.bin
+vendor/lib/camera/com.qti.tuned.wide_truly_s5kjn1_4th.bin
+vendor/lib/camera/com.qti.tuned.wide_txd_s5kjn1_3rd.bin
+vendor/lib/camera/fdconfigpreview.bin
+vendor/lib/camera/fdconfigpreviewlite.bin
+vendor/lib/camera/fdconfigvideo.bin
+vendor/lib/camera/fdconfigvideolite.bin
+vendor/lib/hw/android.hardware.camera.provider@2.4-impl.so
+vendor/lib/hw/camera.qcom.so
+vendor/lib/hw/com.qti.chi.override.so
+vendor/lib/camera.device@1.0-impl.so
+vendor/lib/camera.device@3.2-impl.so
+vendor/lib/camera.device@3.3-impl.so
+vendor/lib/camera.device@3.4-external-impl.so
+vendor/lib/camera.device@3.4-impl.so
+vendor/lib/camera.device@3.5-external-impl.so
+vendor/lib/camera.device@3.5-impl.so
+vendor/lib/camera.device@3.6-external-impl.so
+vendor/lib/com.qti.feature2.anchorsync.so
+vendor/lib/com.qti.feature2.demux.so
+vendor/lib/com.qti.feature2.frameselect.so
+vendor/lib/com.qti.feature2.fusion.so
+vendor/lib/com.qti.feature2.generic.so
+vendor/lib/com.qti.feature2.gs.so
+vendor/lib/com.qti.feature2.hdr.so
+vendor/lib/com.qti.feature2.memcpy.so
+vendor/lib/com.qti.feature2.mfsr.so
+vendor/lib/com.qti.feature2.qcfa.so
+vendor/lib/com.qti.feature2.rawhdr.so
+vendor/lib/com.qti.feature2.rt.so
+vendor/lib/com.qti.feature2.serializer.so
+vendor/lib/com.qti.feature2.stub.so
+vendor/lib/com.qti.feature2.supernight.so
+vendor/lib/com.qti.feature2.swmf.so
+vendor/lib/libOpenCL.so
+vendor/lib/libbitmlengine.so
+vendor/lib/libcamera_nn_stub.so
+vendor/lib/libcamxexternalformatutils.so
+vendor/lib/libcamxfacialfeatures.so
+vendor/lib/libcamxfdalgo.so
+vendor/lib/libcamxfdengine.so
+vendor/lib/libcamxifestriping.so
+vendor/lib/libcamximageformatutils.so
+vendor/lib/libcamxncs.so
+vendor/lib/libcamxstatscore.so
+vendor/lib/libcamxswispiqmodule.so
+vendor/lib/libcamxswprocessalgo.so
+vendor/lib/libcamxtintlessalgo.so
+vendor/lib/libchilog.so
+vendor/lib/libcom.qti.chinodeutils.so
+vendor/lib/libdisplayconfig.qti.so
+vendor/lib/libgralloc.qti.so
+vendor/lib/libmmcamera_cac3.so
+vendor/lib/libmmcamera_lscv35.so
+vendor/lib/libmmcamera_mfnr.so
+vendor/lib/libmmcamera_mfnr_t4.so
+vendor/lib/libofflinelog.so
+vendor/lib/libopencv.so
+vendor/lib/libqdMetaData.so
+vendor/lib/libqti_vndfwk_detect.so
+vendor/lib/libsensorslog.so
+vendor/lib/libsnsapi.so
+vendor/lib/vendor.qti.hardware.camera.device@1.0.so
+vendor/lib/vendor.qti.hardware.camera.postproc@1.0-service-impl.so
+vendor/lib/vendor.qti.hardware.camera.postproc@1.0.so
+vendor/lib64/camera/components/com.bst.node.hdrdetect.so
+vendor/lib64/camera/components/com.bst.node.night.so
+vendor/lib64/camera/components/com.bst.node.realtimebokeh.so
+vendor/lib64/camera/components/com.qti.camx.chiiqutils.so
+vendor/lib64/camera/components/com.qti.eisv2.so
+vendor/lib64/camera/components/com.qti.eisv3.so
+vendor/lib64/camera/components/com.qti.hvx.addconstant.so
+vendor/lib64/camera/components/com.qti.hvx.binning.so
+vendor/lib64/camera/components/com.qti.node.customhwnode.so
+vendor/lib64/camera/components/com.qti.node.depth.so
+vendor/lib64/camera/components/com.qti.node.dewarp.so
+vendor/lib64/camera/components/com.qti.node.dummyrtb.so
+vendor/lib64/camera/components/com.qti.node.dummysat.so
+vendor/lib64/camera/components/com.qti.node.eisv2.so
+vendor/lib64/camera/components/com.qti.node.eisv3.so
+vendor/lib64/camera/components/com.qti.node.fcv.so
+vendor/lib64/camera/components/com.qti.node.gpu.so
+vendor/lib64/camera/components/com.qti.node.memcpy.so
+vendor/lib64/camera/components/com.qti.node.remosaic.so
+vendor/lib64/camera/components/com.qti.node.stich.so
+vendor/lib64/camera/components/com.qti.node.swaidenoiser.so
+vendor/lib64/camera/components/com.qti.node.swcac.so
+vendor/lib64/camera/components/com.qti.node.swlsc.so
+vendor/lib64/camera/components/com.qti.node.swmctf.so
+vendor/lib64/camera/components/com.qti.node.swmfnr.so
+vendor/lib64/camera/components/com.qti.node.swregistration.so
+vendor/lib64/camera/components/com.qti.stats.aec.so
+vendor/lib64/camera/components/com.qti.stats.aecwrapper.so
+vendor/lib64/camera/components/com.qti.stats.af.so
+vendor/lib64/camera/components/com.qti.stats.afd.so
+vendor/lib64/camera/components/com.qti.stats.afwrapper.so
+vendor/lib64/camera/components/com.qti.stats.asd.so
+vendor/lib64/camera/components/com.qti.stats.awb.so
+vendor/lib64/camera/components/com.qti.stats.awbwrapper.so
+vendor/lib64/camera/components/com.qti.stats.haf.so
+vendor/lib64/camera/components/com.qti.stats.hafoverride.so
+vendor/lib64/camera/components/com.qti.stats.pdlib.so
+vendor/lib64/camera/components/com.qti.stats.pdlibsony.so
+vendor/lib64/camera/components/com.qti.stats.pdlibwrapper.so
+vendor/lib64/camera/components/com.qtistatic.stats.aec.so
+vendor/lib64/camera/components/com.qtistatic.stats.af.so
+vendor/lib64/camera/components/com.qtistatic.stats.awb.so
+vendor/lib64/camera/components/com.qtistatic.stats.pdlib.so
+vendor/lib64/camera/com.qti.eeprom.front_txd_hi1336_2nd.so
+vendor/lib64/camera/com.qti.eeprom.irs2381c_polar.so
+vendor/lib64/camera/com.qti.eeprom.truly_cmb433.so
+vendor/lib64/camera/com.qti.flash.lm3644.so
+vendor/lib64/camera/com.qti.sensor.depth_cxt_c2519_3rd.so
+vendor/lib64/camera/com.qti.sensor.depth_cxt_sp2507_1st.so
+vendor/lib64/camera/com.qti.sensor.depth_cxt_sp2507_mono_1st.so
+vendor/lib64/camera/com.qti.sensor.depth_union_sc201acs_2nd.so
+vendor/lib64/camera/com.qti.sensor.front_truly_gc13a0_1st.so
+vendor/lib64/camera/com.qti.sensor.front_truly_sc1320cs_3rd.so
+vendor/lib64/camera/com.qti.sensor.front_txd_hi1336_2nd.so
+vendor/lib64/camera/com.qti.sensor.imx318.so
+vendor/lib64/camera/com.qti.sensor.imx334.so
+vendor/lib64/camera/com.qti.sensor.imx362.so
+vendor/lib64/camera/com.qti.sensor.imx386.so
+vendor/lib64/camera/com.qti.sensor.imx519.so
+vendor/lib64/camera/com.qti.sensor.imx577.so
+vendor/lib64/camera/com.qti.sensor.macro_cxt_sc201acs_2nd.so
+vendor/lib64/camera/com.qti.sensor.macro_ly_c2595_3rd.so
+vendor/lib64/camera/com.qti.sensor.macro_union_gc2375h_1st.so
+vendor/lib64/camera/com.qti.sensor.max7366_6dof.so
+vendor/lib64/camera/com.qti.sensor.max7366_eyetrack.so
+vendor/lib64/camera/com.qti.sensor.max7366_ov6211.so
+vendor/lib64/camera/com.qti.sensor.max7366_ov9282.so
+vendor/lib64/camera/com.qti.sensor.ov12a10.so
+vendor/lib64/camera/com.qti.sensor.ov13855.so
+vendor/lib64/camera/com.qti.sensor.ov13880.so
+vendor/lib64/camera/com.qti.sensor.ov7251.so
+vendor/lib64/camera/com.qti.sensor.ov8856.so
+vendor/lib64/camera/com.qti.sensor.s5k2l7.so
+vendor/lib64/camera/com.qti.sensor.wide_lce_hi5022_2nd.so
+vendor/lib64/camera/com.qti.sensor.wide_truly_hi5022_1st.so
+vendor/lib64/camera/com.qti.sensor.wide_truly_hi5022_4th.so
+vendor/lib64/camera/com.qti.sensor.wide_truly_s5kjn1_4th.so
+vendor/lib64/camera/com.qti.sensor.wide_txd_s5kjn1_3rd.so
+vendor/lib64/camera/com.qti.sensormodule.depth_cxt_c2519_3rd.bin
+vendor/lib64/camera/com.qti.sensormodule.depth_cxt_sp2507_1st.bin
+vendor/lib64/camera/com.qti.sensormodule.depth_cxt_sp2507_mono_1st.bin
+vendor/lib64/camera/com.qti.sensormodule.depth_union_sc201acs_2nd.bin
+vendor/lib64/camera/com.qti.sensormodule.front_truly_gc13a0_1st.bin
+vendor/lib64/camera/com.qti.sensormodule.front_truly_sc1320cs_3rd.bin
+vendor/lib64/camera/com.qti.sensormodule.front_txd_hi1336_2nd.bin
+vendor/lib64/camera/com.qti.sensormodule.macro_cxt_sc201acs_2nd.bin
+vendor/lib64/camera/com.qti.sensormodule.macro_ly_c2595_3rd.bin
+vendor/lib64/camera/com.qti.sensormodule.macro_union_gc2375h_1st.bin
+vendor/lib64/camera/com.qti.sensormodule.wide_lce_hi5022_2nd.bin
+vendor/lib64/camera/com.qti.sensormodule.wide_truly_hi5022_1st.bin
+vendor/lib64/camera/com.qti.sensormodule.wide_truly_hi5022_4th.bin
+vendor/lib64/camera/com.qti.sensormodule.wide_truly_s5kjn1_4th.bin
+vendor/lib64/camera/com.qti.sensormodule.wide_txd_s5kjn1_3rd.bin
+vendor/lib64/camera/com.qti.tuned.default.bin
+vendor/lib64/camera/com.qti.tuned.depth_cxt_c2519_3rd.bin
+vendor/lib64/camera/com.qti.tuned.depth_cxt_sp2507_1st.bin
+vendor/lib64/camera/com.qti.tuned.depth_cxt_sp2507_mono_1st.bin
+vendor/lib64/camera/com.qti.tuned.depth_union_sc201acs_2nd.bin
+vendor/lib64/camera/com.qti.tuned.front_truly_gc13a0_1st.bin
+vendor/lib64/camera/com.qti.tuned.front_truly_sc1320cs_3rd.bin
+vendor/lib64/camera/com.qti.tuned.front_txd_hi1336_2nd.bin
+vendor/lib64/camera/com.qti.tuned.macro_cxt_sc201acs_2nd.bin
+vendor/lib64/camera/com.qti.tuned.macro_ly_c2595_3rd.bin
+vendor/lib64/camera/com.qti.tuned.macro_union_gc2375h_1st.bin
+vendor/lib64/camera/com.qti.tuned.wide_lce_hi5022_2nd.bin
+vendor/lib64/camera/com.qti.tuned.wide_truly_hi5022_1st.bin
+vendor/lib64/camera/com.qti.tuned.wide_truly_hi5022_4th.bin
+vendor/lib64/camera/com.qti.tuned.wide_truly_s5kjn1_4th.bin
+vendor/lib64/camera/com.qti.tuned.wide_txd_s5kjn1_3rd.bin
+vendor/lib64/camera/fdconfigpreview.bin
+vendor/lib64/camera/fdconfigpreviewlite.bin
+vendor/lib64/camera/fdconfigvideo.bin
+vendor/lib64/camera/fdconfigvideolite.bin
+vendor/lib64/hw/android.hardware.camera.provider@2.4-impl.so
+vendor/lib64/hw/camera.qcom.so
+vendor/lib64/hw/com.qti.chi.override.so
+vendor/lib64/camera.device@1.0-impl.so
+vendor/lib64/camera.device@3.2-impl.so
+vendor/lib64/camera.device@3.3-impl.so
+vendor/lib64/camera.device@3.4-external-impl.so
+vendor/lib64/camera.device@3.4-impl.so
+vendor/lib64/camera.device@3.5-external-impl.so
+vendor/lib64/camera.device@3.5-impl.so
+vendor/lib64/camera.device@3.6-external-impl.so
+vendor/lib64/com.qti.feature2.anchorsync.so
+vendor/lib64/com.qti.feature2.demux.so
+vendor/lib64/com.qti.feature2.frameselect.so
+vendor/lib64/com.qti.feature2.fusion.so
+vendor/lib64/com.qti.feature2.generic.so
+vendor/lib64/com.qti.feature2.gs.so
+vendor/lib64/com.qti.feature2.hdr.so
+vendor/lib64/com.qti.feature2.memcpy.so
+vendor/lib64/com.qti.feature2.mfsr.so
+vendor/lib64/com.qti.feature2.qcfa.so
+vendor/lib64/com.qti.feature2.rawhdr.so
+vendor/lib64/com.qti.feature2.rt.so
+vendor/lib64/com.qti.feature2.serializer.so
+vendor/lib64/com.qti.feature2.stub.so
+vendor/lib64/com.qti.feature2.supernight.so
+vendor/lib64/com.qti.feature2.swmf.so
+vendor/lib64/libBSTDualCamPrevBokeh.so
+vendor/lib64/libBSTHDRDETECT.so
+vendor/lib64/libOpenCL.so
+vendor/lib64/libbitmlengine.so
+vendor/lib64/libbokeh_impl.so
+vendor/lib64/libcamera_nn_stub.so
+vendor/lib64/libcamxexternalformatutils.so
+vendor/lib64/libcamxfacialfeatures.so
+vendor/lib64/libcamxfdalgo.so
+vendor/lib64/libcamxfdengine.so
+vendor/lib64/libcamxifestriping.so
+vendor/lib64/libcamximageformatutils.so
+vendor/lib64/libcamxncs.so
+vendor/lib64/libcamxstatscore.so
+vendor/lib64/libcamxswispiqmodule.so
+vendor/lib64/libcamxswprocessalgo.so
+vendor/lib64/libcamxtintlessalgo.so
+vendor/lib64/libchilog.so
+vendor/lib64/libcom.qti.chinodeutils.so
+vendor/lib64/libdisplayconfig.qti.so
+vendor/lib64/libdlrmsc.so
+vendor/lib64/libgralloc.qti.so
+vendor/lib64/libmmcamera_cac3.so
+vendor/lib64/libmmcamera_lscv35.so
+vendor/lib64/libmmcamera_mfnr.so
+vendor/lib64/libmmcamera_mfnr_t4.so
+vendor/lib64/libofflinelog.so
+vendor/lib64/libopencv.so
+vendor/lib64/libqdMetaData.so
+vendor/lib64/libqti_vndfwk_detect.so
+vendor/lib64/libremosaic_wrapper.so
+vendor/lib64/libremosaiclib.so
+vendor/lib64/libsensorslog.so
+vendor/lib64/libskhynix_q2b_5022Q_shared.so
+vendor/lib64/libsnsapi.so
+vendor/lib64/vendor.qti.hardware.camera.device@1.0.so
+vendor/lib64/vendor.qti.hardware.camera.postproc@1.0-service-impl.so
+vendor/lib64/vendor.qti.hardware.camera.postproc@1.0.so
+
+# CAS
+# DROP-CAS (32-bit-only stock service, breaks fsgen arm64 variant; clearkey/widevine cover DRM): vendor/bin/hw/android.hardware.cas@1.2-service-lazy
+# DROP-CAS (32-bit-only stock service, breaks fsgen arm64 variant; clearkey/widevine cover DRM): vendor/etc/init/android.hardware.cas@1.2-service-lazy.rc
+# DROP-CAS (32-bit-only stock service, breaks fsgen arm64 variant; clearkey/widevine cover DRM): vendor/etc/vintf/manifest/android.hardware.cas@1.2-service-lazy.xml
+
+# CDSP
+vendor/bin/cdsprpcd
+vendor/etc/init/vendor.qti.cdsprpc-service.rc
+vendor/lib/libcdsp_default_listener.so
+vendor/lib/libcdsprpc.so
+vendor/lib/libfastcvdsp_stub.so
+vendor/lib/libfastcvopt.so
+vendor/lib64/libcdsp_default_listener.so
+vendor/lib64/libcdsprpc.so
+vendor/lib64/libfastcvdsp_stub.so
+vendor/lib64/libfastcvopt.so
+
+# CNE
+system/lib/vendor.qti.hardware.data.connectionaidl-V1-ndk.so
+system/lib64/vendor.qti.hardware.data.connectionaidl-V1-ndk.so
+system_ext/lib/com.quicinc.cne.api@1.0.so
+system_ext/lib/com.quicinc.cne.api@1.1.so
+system_ext/lib/com.quicinc.cne.constants@1.0.so
+system_ext/lib/com.quicinc.cne.constants@2.0.so
+system_ext/lib/com.quicinc.cne.constants@2.1.so
+system_ext/lib/com.quicinc.cne.server@1.0.so
+system_ext/lib/com.quicinc.cne.server@2.0.so
+system_ext/lib/com.quicinc.cne.server@2.1.so
+system_ext/lib/com.quicinc.cne.server@2.2.so
+system_ext/lib/vendor.qti.data.factory@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.data.factory@2.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.data.factory@2.1.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.data.factory@2.2.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.data.factory@2.3.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.data.factory@2.4.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.data.factory@2.5.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.data.factory@2.6.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.data.factory@2.7.so
+system_ext/lib/vendor.qti.data.factory@2.8.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.data.mwqem@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.data.slm@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.data.cne.internal.api@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.data.cne.internal.constants@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.data.cne.internal.server@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.data.cne.internal.server@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.data.cne.internal.server@1.2.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.data.cne.internal.server@1.3.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.data.connection@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.data.connection@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.data.connectionfactory-V1-ndk.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.data.dataactivity-V1-ndk.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.data.dynamicdds@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.data.dynamicdds@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.data.flow@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.data.flow@1.1.so
+system_ext/lib/vendor.qti.hardware.data.iwlan@1.0.so
+system_ext/lib/vendor.qti.hardware.data.iwlan@1.1.so
+system_ext/lib/vendor.qti.hardware.data.iwlandata-V1-ndk.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.data.ka-V1-ndk.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.data.latency@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.data.lce@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.data.qmi@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.mwqemadapter@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.slmadapter@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.latency@2.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.latency@2.1.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.latency@2.2.so
+system_ext/lib/vendor.qti.latency@2.3.so
+system_ext/lib64/com.quicinc.cne.api@1.0.so
+system_ext/lib64/com.quicinc.cne.api@1.1.so
+system_ext/lib64/com.quicinc.cne.constants@1.0.so
+system_ext/lib64/com.quicinc.cne.constants@2.0.so
+system_ext/lib64/com.quicinc.cne.constants@2.1.so
+system_ext/lib64/com.quicinc.cne.server@1.0.so
+system_ext/lib64/com.quicinc.cne.server@2.0.so
+system_ext/lib64/com.quicinc.cne.server@2.1.so
+system_ext/lib64/com.quicinc.cne.server@2.2.so
+system_ext/lib64/vendor.qti.data.factory@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.data.factory@2.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.data.factory@2.1.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.data.factory@2.2.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.data.factory@2.3.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.data.factory@2.4.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.data.factory@2.5.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.data.factory@2.6.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.data.factory@2.7.so
+system_ext/lib64/vendor.qti.data.factory@2.8.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.data.mwqem@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.data.slm@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.data.cne.internal.api@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.data.cne.internal.constants@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.data.cne.internal.server@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.data.cne.internal.server@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.data.cne.internal.server@1.2.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.data.cne.internal.server@1.3.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.data.connection@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.data.connection@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.data.connectionfactory-V1-ndk.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.data.dataactivity-V1-ndk.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.data.dynamicdds@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.data.dynamicdds@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.data.flow@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.data.flow@1.1.so
+system_ext/lib64/vendor.qti.hardware.data.iwlan@1.0.so
+system_ext/lib64/vendor.qti.hardware.data.iwlan@1.1.so
+system_ext/lib64/vendor.qti.hardware.data.iwlandata-V1-ndk.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.data.ka-V1-ndk.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.data.latency@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.data.lce@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.data.qmi@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.mwqemadapter@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.slmadapter@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.latency@2.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.latency@2.1.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.latency@2.2.so
+system_ext/lib64/vendor.qti.latency@2.3.so
+vendor/app/CneApp/CneApp.apk
+vendor/bin/cnd
+vendor/etc/cne/mwqem.conf
+vendor/etc/cne/profileMwqem.xml
+vendor/etc/init/cnd.rc
+vendor/lib/libcne.so
+vendor/lib/libcneapiclient.so
+vendor/lib/libdsutils.so
+vendor/lib/libidl.so
+vendor/lib/libmdmdetect.so
+vendor/lib/libqmiservices.so
+vendor/lib/libshsc.so
+vendor/lib/libwpa_client.so
+vendor/lib/vendor.qti.data.factory@2.0.so
+vendor/lib/vendor.qti.data.factory@2.1.so
+vendor/lib/vendor.qti.data.factory@2.2.so
+vendor/lib/vendor.qti.data.factory@2.3.so
+vendor/lib/vendor.qti.data.factory@2.4.so
+vendor/lib/vendor.qti.data.factory@2.5.so
+vendor/lib/vendor.qti.data.factory@2.6.so
+vendor/lib/vendor.qti.data.factory@2.7.so
+vendor/lib/vendor.qti.data.mwqem@1.0.so
+vendor/lib/vendor.qti.data.slm@1.0.so
+vendor/lib/vendor.qti.hardware.cacert@1.0.so
+vendor/lib/vendor.qti.hardware.data.cne.internal.api@1.0.so
+vendor/lib/vendor.qti.hardware.data.cne.internal.constants@1.0.so
+vendor/lib/vendor.qti.hardware.data.cne.internal.server@1.0.so
+vendor/lib/vendor.qti.hardware.data.cne.internal.server@1.1.so
+vendor/lib/vendor.qti.hardware.data.cne.internal.server@1.2.so
+vendor/lib/vendor.qti.hardware.data.cne.internal.server@1.3.so
+vendor/lib/vendor.qti.hardware.data.connection@1.0.so
+vendor/lib/vendor.qti.hardware.data.connection@1.1.so
+vendor/lib/vendor.qti.hardware.data.connectionfactory-V1-ndk.so
+vendor/lib/vendor.qti.hardware.data.dataactivity-V1-ndk.so
+vendor/lib/vendor.qti.hardware.data.dynamicdds@1.0.so
+vendor/lib/vendor.qti.hardware.data.dynamicdds@1.1.so
+vendor/lib/vendor.qti.hardware.data.flow@1.0.so
+vendor/lib/vendor.qti.hardware.data.flow@1.1.so
+vendor/lib/vendor.qti.hardware.data.ka-V1-ndk.so
+vendor/lib/vendor.qti.hardware.data.latency@1.0.so
+vendor/lib/vendor.qti.hardware.data.lce@1.0.so
+vendor/lib/vendor.qti.hardware.data.qmi@1.0.so
+vendor/lib/vendor.qti.hardware.mwqemadapter@1.0.so
+vendor/lib/vendor.qti.hardware.slmadapter@1.0.so
+vendor/lib/vendor.qti.latency@2.0.so
+vendor/lib/vendor.qti.latency@2.1.so
+vendor/lib/vendor.qti.latency@2.2.so
+vendor/lib64/libcne.so
+vendor/lib64/libcneapiclient.so
+vendor/lib64/libdsutils.so
+vendor/lib64/libidl.so
+vendor/lib64/libmdmdetect.so
+vendor/lib64/libqmiservices.so
+vendor/lib64/libshsc.so
+vendor/lib64/libwpa_client.so
+vendor/lib64/vendor.qti.data.factory@2.0.so
+vendor/lib64/vendor.qti.data.factory@2.1.so
+vendor/lib64/vendor.qti.data.factory@2.2.so
+vendor/lib64/vendor.qti.data.factory@2.3.so
+vendor/lib64/vendor.qti.data.factory@2.4.so
+vendor/lib64/vendor.qti.data.factory@2.5.so
+vendor/lib64/vendor.qti.data.factory@2.6.so
+vendor/lib64/vendor.qti.data.factory@2.7.so
+vendor/lib64/vendor.qti.data.mwqem@1.0.so
+vendor/lib64/vendor.qti.data.slm@1.0.so
+vendor/lib64/vendor.qti.hardware.cacert@1.0.so
+vendor/lib64/vendor.qti.hardware.data.cne.internal.api@1.0.so
+vendor/lib64/vendor.qti.hardware.data.cne.internal.constants@1.0.so
+vendor/lib64/vendor.qti.hardware.data.cne.internal.server@1.0.so
+vendor/lib64/vendor.qti.hardware.data.cne.internal.server@1.1.so
+vendor/lib64/vendor.qti.hardware.data.cne.internal.server@1.2.so
+vendor/lib64/vendor.qti.hardware.data.cne.internal.server@1.3.so
+vendor/lib64/vendor.qti.hardware.data.connection@1.0.so
+vendor/lib64/vendor.qti.hardware.data.connection@1.1.so
+vendor/lib64/vendor.qti.hardware.data.connectionfactory-V1-ndk.so
+vendor/lib64/vendor.qti.hardware.data.dataactivity-V1-ndk.so
+vendor/lib64/vendor.qti.hardware.data.dynamicdds@1.0.so
+vendor/lib64/vendor.qti.hardware.data.dynamicdds@1.1.so
+vendor/lib64/vendor.qti.hardware.data.flow@1.0.so
+vendor/lib64/vendor.qti.hardware.data.flow@1.1.so
+vendor/lib64/vendor.qti.hardware.data.ka-V1-ndk.so
+vendor/lib64/vendor.qti.hardware.data.latency@1.0.so
+vendor/lib64/vendor.qti.hardware.data.lce@1.0.so
+vendor/lib64/vendor.qti.hardware.data.qmi@1.0.so
+vendor/lib64/vendor.qti.hardware.mwqemadapter@1.0.so
+vendor/lib64/vendor.qti.hardware.slmadapter@1.0.so
+vendor/lib64/vendor.qti.latency@2.0.so
+vendor/lib64/vendor.qti.latency@2.1.so
+vendor/lib64/vendor.qti.latency@2.2.so
+
+# Configstore
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.capabilityconfigstore@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.capabilityconfigstore@1.0.so
+vendor/bin/hw/vendor.qti.hardware.capabilityconfigstore@1.0-service
+vendor/etc/init/vendor.qti.hardware.capabilityconfigstore@1.0-service.rc
+vendor/lib/hw/vendor.qti.hardware.capabilityconfigstore@1.0-impl.so
+vendor/lib/vendor.qti.hardware.capabilityconfigstore@1.0.so
+vendor/lib64/hw/vendor.qti.hardware.capabilityconfigstore@1.0-impl.so
+vendor/lib64/vendor.qti.hardware.capabilityconfigstore@1.0.so
+
+# CVP
+system_ext/lib/vendor.qti.hardware.cvp@1.0.so
+system_ext/lib64/vendor.qti.hardware.cvp@1.0.so
+
+# Display
+# DEDUP-SO(system): system/lib/vendor.qti.hardware.display.config-V1-ndk.so
+system/lib/vendor.qti.hardware.display.config-V10-ndk.so
+# DEDUP-SO(system): system/lib/vendor.qti.hardware.display.config-V2-ndk.so
+# DEDUP-SO(system): system/lib/vendor.qti.hardware.display.config-V3-ndk.so
+# DEDUP-SO(system): system/lib/vendor.qti.hardware.display.config-V4-ndk.so
+# DEDUP-SO(system): system/lib/vendor.qti.hardware.display.config-V5-ndk.so
+# DEDUP-SO(system): system/lib/vendor.qti.hardware.display.config-V6-ndk.so
+system/lib/vendor.qti.hardware.display.config-V7-ndk.so
+system/lib/vendor.qti.hardware.display.config-V8-ndk.so
+system/lib/vendor.qti.hardware.display.config-V9-ndk.so
+# DEDUP-SO(system): system/lib64/vendor.qti.hardware.display.config-V1-ndk.so
+system/lib64/vendor.qti.hardware.display.config-V10-ndk.so
+# DEDUP-SO(system): system/lib64/vendor.qti.hardware.display.config-V2-ndk.so
+# DEDUP-SO(system): system/lib64/vendor.qti.hardware.display.config-V3-ndk.so
+# DEDUP-SO(system): system/lib64/vendor.qti.hardware.display.config-V4-ndk.so
+# DEDUP-SO(system): system/lib64/vendor.qti.hardware.display.config-V5-ndk.so
+# DEDUP-SO(system): system/lib64/vendor.qti.hardware.display.config-V6-ndk.so
+system/lib64/vendor.qti.hardware.display.config-V7-ndk.so
+system/lib64/vendor.qti.hardware.display.config-V8-ndk.so
+system/lib64/vendor.qti.hardware.display.config-V9-ndk.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.display.color@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.display.color@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.display.color@1.2.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.display.color@1.3.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.display.config@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.display.config@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.display.config@1.2.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.display.config@1.3.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.display.config@1.4.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.display.config@1.5.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.display.config@2.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.display.postproc@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.qdutils_disp@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.display.color@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.display.color@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.display.color@1.2.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.display.color@1.3.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.display.config@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.display.config@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.display.config@1.2.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.display.config@1.3.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.display.config@1.4.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.display.config@1.5.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.display.config@2.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.display.postproc@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.display.composer@3.0.so
+system_ext/lib64/vendor.qti.hardware.display.composer@3.1.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.qdutils_disp@1.0.so
+vendor/bin/hw/vendor.display.color@1.0-service
+vendor/bin/hw/vendor.qti.hardware.display.allocator-service
+vendor/bin/hw/vendor.qti.hardware.display.composer-service
+vendor/etc/init/vendor.display.color@1.0-service.rc
+vendor/etc/init/vendor.qti.hardware.display.allocator-service.rc
+vendor/etc/init/vendor.qti.hardware.display.composer-service.rc
+vendor/etc/vintf/manifest/android.hardware.graphics.mapper-impl-qti-display.xml
+vendor/etc/vintf/manifest/vendor.qti.hardware.display.allocator-service.xml
+vendor/etc/vintf/manifest/vendor.qti.hardware.display.composer-service.xml
+vendor/lib/egl/eglSubDriverAndroid.so
+vendor/lib/egl/libEGL_adreno.so
+vendor/lib/egl/libGLESv1_CM_adreno.so
+vendor/lib/egl/libGLESv2_adreno.so
+vendor/lib/egl/libVkLayer_ADRENO_qprofiler.so
+vendor/lib/egl/libq3dtools_adreno.so
+vendor/lib/egl/libq3dtools_esx.so
+vendor/lib/hw/gralloc.default.so
+vendor/lib/hw/vulkan.adreno.so
+# DEDUP-SO(egl-stub-kept): vendor/lib/libEGL_adreno.so
+vendor/lib/libadreno_utils.so
+vendor/lib/libdisplaydebug.so
+vendor/lib/libdisplayqos.so
+vendor/lib/libdisplayskuutils.so
+vendor/lib/libdrmutils.so
+vendor/lib/libgpu_tonemapper.so
+vendor/lib/libgralloccore.so
+vendor/lib/libgrallocutils.so
+vendor/lib/libgsl.so
+vendor/lib/libllvm-glnext.so
+vendor/lib/libqdutils.so
+vendor/lib/libqservice.so
+vendor/lib/libsdedrm.so
+vendor/lib/libsdm-color.so
+vendor/lib/libsdm-disp-vndapis.so
+vendor/lib/libsdmcore.so
+vendor/lib/libsdmextension.so
+vendor/lib/libsdmutils.so
+vendor/lib/libtinyxml2_1.so
+vendor/lib/vendor.display.color@1.0.so
+vendor/lib/vendor.display.color@1.1.so
+vendor/lib/vendor.display.color@1.2.so
+vendor/lib/vendor.display.color@1.3.so
+vendor/lib/vendor.display.color@1.4.so
+vendor/lib/vendor.display.color@1.5.so
+vendor/lib/vendor.display.config@1.0.so
+vendor/lib/vendor.display.config@1.1.so
+vendor/lib/vendor.display.config@1.10.so
+vendor/lib/vendor.display.config@1.11.so
+vendor/lib/vendor.display.config@1.2.so
+vendor/lib/vendor.display.config@1.3.so
+vendor/lib/vendor.display.config@1.4.so
+vendor/lib/vendor.display.config@1.5.so
+vendor/lib/vendor.display.config@1.6.so
+vendor/lib/vendor.display.config@1.7.so
+vendor/lib/vendor.display.config@1.8.so
+vendor/lib/vendor.display.config@1.9.so
+vendor/lib/vendor.display.config@2.0.so
+vendor/lib/vendor.display.postproc@1.0.so
+vendor/lib/vendor.qti.hardware.display.allocator@1.0.so
+vendor/lib/vendor.qti.hardware.display.allocator@3.0.so
+vendor/lib/vendor.qti.hardware.display.allocator@4.0.so
+vendor/lib/vendor.qti.hardware.display.composer@1.0.so
+vendor/lib/vendor.qti.hardware.display.composer@2.0.so
+vendor/lib/vendor.qti.hardware.display.config-V1-ndk.so
+vendor/lib/vendor.qti.hardware.display.config-V2-ndk.so
+vendor/lib/vendor.qti.hardware.display.config-V3-ndk.so
+vendor/lib/vendor.qti.hardware.display.config-V4-ndk.so
+vendor/lib/vendor.qti.hardware.display.config-V5-ndk.so
+vendor/lib/vendor.qti.hardware.display.config-V6-ndk.so
+vendor/lib/vendor.qti.hardware.display.mapper@1.0.so
+vendor/lib/vendor.qti.hardware.display.mapper@1.1.so
+vendor/lib/vendor.qti.hardware.display.mapper@2.0.so
+vendor/lib/vendor.qti.hardware.display.mapper@3.0.so
+vendor/lib/vendor.qti.hardware.display.mapper@4.0.so
+vendor/lib/vendor.qti.hardware.display.mapperextensions@1.0.so
+vendor/lib/vendor.qti.hardware.display.mapperextensions@1.1.so
+vendor/lib/vendor.qti.hardware.qdutils_disp@1.0.so
+vendor/lib64/egl/eglSubDriverAndroid.so
+vendor/lib64/egl/libEGL_adreno.so
+vendor/lib64/egl/libGLESv1_CM_adreno.so
+vendor/lib64/egl/libGLESv2_adreno.so
+vendor/lib64/egl/libVkLayer_ADRENO_qprofiler.so
+vendor/lib64/egl/libq3dtools_adreno.so
+vendor/lib64/egl/libq3dtools_esx.so
+vendor/lib64/hw/gralloc.default.so
+vendor/lib64/hw/vulkan.adreno.so
+# DEDUP-SO(egl-stub-kept): vendor/lib64/libEGL_adreno.so
+vendor/lib64/libadreno_utils.so
+vendor/lib64/libdisplaydebug.so
+vendor/lib64/libdisplayqos.so
+vendor/lib64/libdisplayskuutils.so
+vendor/lib64/libdrmutils.so
+vendor/lib64/libgpu_tonemapper.so
+vendor/lib64/libgralloccore.so
+vendor/lib64/libgrallocutils.so
+vendor/lib64/libgsl.so
+vendor/lib64/libhistogram.so
+vendor/lib64/libllvm-glnext.so
+vendor/lib64/libqdutils.so
+vendor/lib64/libqservice.so
+vendor/lib64/libsdedrm.so
+vendor/lib64/libsdm-color.so
+vendor/lib64/libsdm-disp-vndapis.so
+vendor/lib64/libsdmcore.so
+vendor/lib64/libsdmextension.so
+vendor/lib64/libsdmutils.so
+vendor/lib64/libtinyxml2_1.so
+vendor/lib64/vendor.display.color@1.0.so
+vendor/lib64/vendor.display.color@1.1.so
+vendor/lib64/vendor.display.color@1.2.so
+vendor/lib64/vendor.display.color@1.3.so
+vendor/lib64/vendor.display.color@1.4.so
+vendor/lib64/vendor.display.color@1.5.so
+vendor/lib64/vendor.display.config@1.0.so
+vendor/lib64/vendor.display.config@1.1.so
+vendor/lib64/vendor.display.config@1.10.so
+vendor/lib64/vendor.display.config@1.11.so
+vendor/lib64/vendor.display.config@1.2.so
+vendor/lib64/vendor.display.config@1.3.so
+vendor/lib64/vendor.display.config@1.4.so
+vendor/lib64/vendor.display.config@1.5.so
+vendor/lib64/vendor.display.config@1.6.so
+vendor/lib64/vendor.display.config@1.7.so
+vendor/lib64/vendor.display.config@1.8.so
+vendor/lib64/vendor.display.config@1.9.so
+vendor/lib64/vendor.display.config@2.0.so
+vendor/lib64/vendor.display.postproc@1.0.so
+vendor/lib64/vendor.qti.hardware.display.allocator@1.0.so
+vendor/lib64/vendor.qti.hardware.display.allocator@3.0.so
+vendor/lib64/vendor.qti.hardware.display.allocator@4.0.so
+vendor/lib64/vendor.qti.hardware.display.composer@1.0.so
+vendor/lib64/vendor.qti.hardware.display.composer@2.0.so
+vendor/lib64/vendor.qti.hardware.display.composer@3.0.so
+vendor/lib64/vendor.qti.hardware.display.config-V1-ndk.so
+vendor/lib64/vendor.qti.hardware.display.config-V2-ndk.so
+vendor/lib64/vendor.qti.hardware.display.config-V3-ndk.so
+vendor/lib64/vendor.qti.hardware.display.config-V4-ndk.so
+vendor/lib64/vendor.qti.hardware.display.config-V5-ndk.so
+vendor/lib64/vendor.qti.hardware.display.config-V6-ndk.so
+vendor/lib64/vendor.qti.hardware.display.mapper@1.0.so
+vendor/lib64/vendor.qti.hardware.display.mapper@1.1.so
+vendor/lib64/vendor.qti.hardware.display.mapper@2.0.so
+vendor/lib64/vendor.qti.hardware.display.mapper@3.0.so
+vendor/lib64/vendor.qti.hardware.display.mapper@4.0.so
+vendor/lib64/vendor.qti.hardware.display.mapperextensions@1.0.so
+vendor/lib64/vendor.qti.hardware.display.mapperextensions@1.1.so
+vendor/lib64/vendor.qti.hardware.qdutils_disp@1.0.so
+
+# Display configs
+vendor/etc/display/advanced_sf_offsets.xml
+vendor/etc/qdcm_calib_data_Sharp_2k_cmd_mode_qsync_dsi_panel.xml
+vendor/etc/qdcm_calib_data_Sharp_2k_video_mode_qsync_dsi_panel.xml
+vendor/etc/qdcm_calib_data_Sharp_4k_cmd_mode_dsc_dsi_panel.xml
+vendor/etc/qdcm_calib_data_Sharp_4k_video_mode_dsc_dsi_panel.xml
+vendor/etc/qdcm_calib_data_Sharp_fhd_cmd_mode_qsync_dsi_panel.xml
+vendor/etc/qdcm_calib_data_Sharp_fhd_video_mode_qsync_dsi_panel.xml
+vendor/etc/qdcm_calib_data_nt35597_cmd_mode_dsi_truly_panel_with_DSC.xml
+vendor/etc/qdcm_calib_data_nt35597_video_mode_dsi_truly_panel_with_DSC.xml
+vendor/etc/qdcm_calib_data_nt35695b_truly_fhd_command_mode_dsi_panel.xml
+vendor/etc/qdcm_calib_data_nt36525_video_mode_dsi_truly_panel.xml
+vendor/etc/qdcm_calib_data_nt36672e_90Hz_fhd_plus_video_mode_panel_with_DSC.xml
+vendor/etc/qdcm_calib_data_r66451_amoled_cmd_mode_dsi_visionox_120HZ_panel_with_DSC.xml
+vendor/etc/qdcm_calib_data_r66451_amoled_cmd_mode_dsi_visionox_60HZ_panel_with_DSC.xml
+vendor/etc/qdcm_calib_data_r66451_amoled_cmd_mode_dsi_visionox_90HZ_panel_with_DSC.xml
+vendor/etc/qdcm_calib_data_r66451_amoled_cmd_mode_dsi_visionox_panel_with_DSC.xml
+vendor/etc/qdcm_calib_data_r66451_amoled_video_mode_dsi_visionox_120HZ_panel_with_DSC.xml
+vendor/etc/qdcm_calib_data_r66451_amoled_video_mode_dsi_visionox_60HZ_panel_with_DSC.xml
+vendor/etc/qdcm_calib_data_r66451_amoled_video_mode_dsi_visionox_90HZ_panel_with_DSC.xml
+vendor/etc/qdcm_calib_data_rm69299_amoled_fhd+_cmd_mode_dsi_visionox_panel.xml
+vendor/etc/qdcm_calib_data_rm69299_amoled_fhd+_video_mode_dsi_visionox_panel.xml
+vendor/etc/qdcm_calib_data_sharp_1080p_cmd_mode_dsi_panel.xml
+vendor/etc/qdcm_calib_data_sw43404_amoled_boe_fhd+_panel_with_DSC.xml
+vendor/etc/qdcm_calib_data_sw43404_amoled_cmd_mode_dsi_boe_panel_with_DSC.xml
+vendor/etc/qdcm_calib_data_sw43404_amoled_video_mode_dsi_boe_panel_with_DSC.xml
+vendor/etc/qdcm_calib_data_td4330_v2_cmd_mode_dsi_truly_panel.xml
+vendor/etc/qdcm_calib_data_td4330_v2_video_mode_dsi_truly_panel.xml
+
+# Display firmware
+vendor/firmware/a630_sqe.fw
+vendor/firmware/a660_sqe.fw
+vendor/firmware/a662_gmu.bin
+vendor/firmware/a662_zap.b00
+vendor/firmware/a662_zap.b01
+vendor/firmware/a662_zap.b02
+vendor/firmware/a662_zap.elf
+vendor/firmware/a662_zap.mbn
+vendor/firmware/a662_zap.mdt
+vendor/firmware/a710_sqe.fw
+vendor/firmware/a710_zap.b00
+vendor/firmware/a710_zap.b01
+vendor/firmware/a710_zap.b02
+vendor/firmware/a710_zap.elf
+vendor/firmware/a710_zap.mbn
+vendor/firmware/a710_zap.mdt
+vendor/firmware/a730_sqe.fw
+vendor/firmware/a730_zap.b00
+vendor/firmware/a730_zap.b01
+vendor/firmware/a730_zap.b02
+vendor/firmware/a730_zap.elf
+vendor/firmware/a730_zap.mbn
+vendor/firmware/a730_zap.mdt
+vendor/gpu/kbc/sequence_manifest.bin
+vendor/gpu/kbc/unified_kbcs_32.bin
+vendor/gpu/kbc/unified_kbcs_64.bin
+vendor/gpu/kbc/unified_ksqs.bin
+
+# DPM
+system_ext/bin/dpmd
+system_ext/etc/dpm/dpm.conf
+system_ext/etc/init/dpmd.rc
+# DEDUP-SO(system_ext): system_ext/lib/com.qualcomm.qti.dpm.api@1.0.so
+system_ext/lib/libdiag_system.so
+system_ext/lib/libdpmframework.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.diaghal@1.0.so
+system_ext/lib/vendor.qti.hardware.dpmaidlservice-V1-ndk.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.dpmservice@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.dpmservice@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib64/com.qualcomm.qti.dpm.api@1.0.so
+system_ext/lib64/libdiag_system.so
+system_ext/lib64/libdpmframework.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.diaghal@1.0.so
+system_ext/lib64/vendor.qti.hardware.dpmaidlservice-V1-ndk.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.dpmservice@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.dpmservice@1.1.so
+vendor/lib/com.qualcomm.qti.dpm.api@1.0.so
+vendor/lib/vendor.qti.diaghal@1.0.so
+vendor/lib/vendor.qti.hardware.dpmservice@1.0.so
+vendor/lib/vendor.qti.hardware.dpmservice@1.1.so
+vendor/lib64/com.qualcomm.qti.dpm.api@1.0.so
+vendor/lib64/vendor.qti.diaghal@1.0.so
+vendor/lib64/vendor.qti.hardware.dpmservice@1.0.so
+vendor/lib64/vendor.qti.hardware.dpmservice@1.1.so
+
+# DRM
+# DROP-CLEARKEY-SVC (prebuilt shadows source clearkey, V1+V2 NDK conflict; keep plugins): vendor/bin/hw/android.hardware.drm-service.clearkey
+vendor/bin/hw/android.hardware.drm-service.widevine
+# DROP-CLEARKEY-SVC (prebuilt shadows source clearkey, V1+V2 NDK conflict; keep plugins): vendor/etc/init/android.hardware.drm-service.clearkey.rc
+vendor/etc/init/android.hardware.drm-service.widevine.rc
+# DROP-CLEARKEY-SVC (prebuilt shadows source clearkey, V1+V2 NDK conflict; keep plugins): vendor/etc/vintf/manifest/android.hardware.drm-service.clearkey.xml
+vendor/etc/vintf/manifest/manifest_android.hardware.drm-service.widevine.xml
+vendor/lib/mediacas/libclearkeycasplugin.so
+vendor/lib/mediadrm/libdrmclearkeyplugin.so
+vendor/lib/libcpion.so
+vendor/lib/libminkdescriptor.so
+vendor/lib/libminksocket_vendor.so
+vendor/lib/liboemcrypto.so
+vendor/lib/libqcbor.so
+vendor/lib/libqrtr.so
+vendor/lib/libtrustedapploader.so
+vendor/lib64/mediacas/libclearkeycasplugin.so
+vendor/lib64/mediadrm/libdrmclearkeyplugin.so
+vendor/lib64/libcpion.so
+vendor/lib64/libminkdescriptor.so
+vendor/lib64/libminksocket_vendor.so
+vendor/lib64/liboemcrypto.so
+vendor/lib64/libqcbor.so
+vendor/lib64/libqrtr.so
+vendor/lib64/libtrustedapploader.so
+vendor/lib64/libwvaidl.so
+
+# DRM (Qualcomm Secure Execution Environment)
+system_ext/lib/vendor.qti.hardware.qseecom-V1-ndk.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.qseecom@1.0.so
+system_ext/lib64/vendor.qti.hardware.qseecom-V1-ndk.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.qseecom@1.0.so
+vendor/bin/hw/vendor.qti.hardware.qseecom@1.0-service
+vendor/bin/qseecomd
+vendor/etc/init/qseecomd.rc
+vendor/etc/init/vendor.qti.hardware.qseecom@1.0-service.rc
+vendor/lib/hw/vendor.qti.hardware.qseecom@1.0-impl.so
+vendor/lib/libQSEEComAPI.so
+vendor/lib/libdrmfs.so
+vendor/lib/vendor.qti.hardware.qseecom@1.0.so
+vendor/lib64/hw/vendor.qti.hardware.qseecom@1.0-impl.so
+vendor/lib64/libQSEEComAPI.so
+vendor/lib64/libdrmfs.so
+vendor/lib64/vendor.qti.hardware.qseecom@1.0.so
+
+# DRM (Qualcomm Trusted Execution Environment)
+system_ext/lib/vendor.qti.hardware.qteeconnector-V1-ndk.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.qteeconnector@1.0.so
+system_ext/lib64/vendor.qti.hardware.qteeconnector-V1-ndk.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.qteeconnector@1.0.so
+vendor/bin/hw/vendor.qti.hardware.qteeconnector@1.0-service
+vendor/etc/init/vendor.qti.hardware.qteeconnector@1.0-service.rc
+vendor/lib/hw/vendor.qti.hardware.qteeconnector@1.0-impl.so
+vendor/lib/libGPQTEEC_vendor.so
+vendor/lib/libGPTEE_vendor.so
+vendor/lib/libGPreqcancel_svc.so
+vendor/lib/libQTEEConnector_vendor.so
+vendor/lib/vendor.qti.hardware.qteeconnector@1.0.so
+vendor/lib64/hw/vendor.qti.hardware.qteeconnector@1.0-impl.so
+vendor/lib64/libGPQTEEC_vendor.so
+vendor/lib64/libGPTEE_vendor.so
+vendor/lib64/libGPreqcancel_svc.so
+vendor/lib64/libQTEEConnector_vendor.so
+vendor/lib64/vendor.qti.hardware.qteeconnector@1.0.so
+
+# DSP
+vendor/bin/dspservice
+vendor/etc/init/vendor.qti.hardware.dsp@1.0-service.rc
+vendor/etc/seccomp_policy/vendor.qti.hardware.dsp.policy
+vendor/lib/vendor.qti.hardware.dsp@1.0.so
+vendor/lib64/vendor.qti.hardware.dsp@1.0.so
+
+# Dumpstate
+# DROP-SHADOW-BIN (source builds it, prebuilt causes fsgen path conflict): vendor/bin/hw/android.hardware.dumpstate-service
+
+# Face
+vendor/bin/hw/android.hardware.biometrics.face@2.0-service
+vendor/etc/init/android.hardware.biometrics.face@2.0-service.rc
+vendor/lib/hw/android.hardware.biometrics.face@2.0-impl.so
+vendor/lib/libanc.face.ca.so
+vendor/lib/libcamera2ndk_vendor.so
+vendor/lib/vendor.qti.hardware.secureprocessor.common@1.0-helper.so
+vendor/lib/vendor.qti.hardware.secureprocessor.common@1.0.so
+vendor/lib/vendor.qti.hardware.secureprocessor.config@1.0.so
+vendor/lib/vendor.qti.hardware.secureprocessor.device@1.0.so
+vendor/lib64/hw/android.hardware.biometrics.face@2.0-impl.so
+vendor/lib64/libanc.face.ca.so
+vendor/lib64/libcamera2ndk_vendor.so
+vendor/lib64/vendor.qti.hardware.secureprocessor.common@1.0-helper.so
+vendor/lib64/vendor.qti.hardware.secureprocessor.common@1.0.so
+vendor/lib64/vendor.qti.hardware.secureprocessor.config@1.0.so
+vendor/lib64/vendor.qti.hardware.secureprocessor.device@1.0.so
+
+# Fingerprint
+vendor/lib/vendor.qti.hardware.fingerprint@1.0.so
+vendor/lib64/vendor.qti.hardware.fingerprint@1.0.so
+vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service
+# DROP-DUP-RC (source provides same init path): vendor/etc/init/android.hardware.biometrics.fingerprint@2.1-service.rc
+# DROP-DUP-MANIFEST (source provides same vintf path, service blob stays): vendor/etc/vintf/manifest/android.hardware.biometrics.fingerprint@2.1-service.xml
+vendor/lib64/hw/fingerprint.default.so
+vendor/lib64/hw/fingerprint.fpc.default.so
+vendor/lib64/libgf_ca.so
+vendor/lib64/libgf_hal.so
+vendor/lib64/libgoodixhwfingerprint.so
+vendor/lib64/libvendor.goodix.hardware.biometrics.fingerprint@2.1.so
+
+# FM
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.fm@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.fm@1.0.so
+vendor/lib/hw/vendor.qti.hardware.fm@1.0-impl.so
+vendor/lib/libqmi.so
+vendor/lib/libqmi_client_qmux.so
+vendor/lib/vendor.qti.hardware.fm@1.0.so
+vendor/lib64/hw/vendor.qti.hardware.fm@1.0-impl.so
+vendor/lib64/libqmi.so
+vendor/lib64/libqmi_client_qmux.so
+vendor/lib64/vendor.qti.hardware.fm@1.0.so
+
+# Gatekeeper
+# DROP-SHADOW-SVC (source builds it, prebuilt causes fsgen path conflict): vendor/bin/hw/android.hardware.gatekeeper@1.0-service
+vendor/bin/hw/vendor.qti.hardware.secureprocessor@1.0
+# DROP-SHADOW-SVC (source builds it, prebuilt causes fsgen path conflict): vendor/etc/init/android.hardware.gatekeeper@1.0-service.rc
+vendor/etc/init/vendor.qti.hardware.secureprocessor@1.0.rc
+vendor/lib/hw/android.hardware.gatekeeper@1.0-impl.so
+vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl.so
+vendor/lib64/hw/gatekeeper.mdfpp.so
+
+# GNSS
+vendor/bin/hw/android.hardware.gnss-aidl-service-qti
+vendor/bin/loc_launcher
+vendor/bin/lowi-server
+vendor/bin/xtra-daemon
+vendor/bin/xtwifi-client
+vendor/etc/init/android.hardware.gnss-aidl-service-qti.rc
+vendor/etc/vintf/manifest/android.hardware.gnss-aidl-service-qti.xml
+vendor/etc/vintf/manifest/vendor.qti.gnss-service.xml
+vendor/lib/libdataitems.so
+vendor/lib/libgdtap.so
+vendor/lib/libgps.utils.so
+vendor/lib/libizat_client_api.so
+vendor/lib/libizat_core.so
+vendor/lib/liblbs_core.so
+vendor/lib/libloc_api_v02.so
+vendor/lib/libloc_base_util.so
+vendor/lib/libloc_core.so
+vendor/lib/libloc_mq_client.so
+vendor/lib/libloc_util.so
+vendor/lib/liblocation_api.so
+vendor/lib/liblocationservice.so
+vendor/lib/liblocationservice_glue.so
+vendor/lib/liblowi_client.so
+vendor/lib/liblowi_common.so
+vendor/lib/libpal_net_if.so
+vendor/lib/libperipheral_client.so
+vendor/lib/libqcc_file_agent.so
+vendor/lib/libqcc_sdk.so
+vendor/lib/libsemnativecarrierfeature.so
+vendor/lib/libsys_info_cache.so
+vendor/lib/libxtadapter.so
+vendor/lib/vendor.qti.gnss-V4-ndk.so
+vendor/lib/vendor.qti.gnss-service.so
+vendor/lib64/libdataitems.so
+vendor/lib64/libgdtap.so
+vendor/lib64/libgps.utils.so
+vendor/lib64/libizat_client_api.so
+vendor/lib64/libizat_core.so
+vendor/lib64/liblbs_core.so
+vendor/lib64/libloc_api_v02.so
+vendor/lib64/libloc_base_util.so
+vendor/lib64/libloc_core.so
+vendor/lib64/libloc_mq_client.so
+vendor/lib64/libloc_util.so
+vendor/lib64/liblocation_api.so
+vendor/lib64/liblocationservice.so
+vendor/lib64/liblocationservice_glue.so
+vendor/lib64/liblowi_client.so
+vendor/lib64/liblowi_common.so
+vendor/lib64/libpal_net_if.so
+vendor/lib64/libperipheral_client.so
+vendor/lib64/libqcc_file_agent.so
+vendor/lib64/libqcc_sdk.so
+vendor/lib64/libsemnativecarrierfeature.so
+vendor/lib64/libsys_info_cache.so
+vendor/lib64/libxtadapter.so
+vendor/lib64/vendor.qti.gnss-V4-ndk.so
+vendor/lib64/vendor.qti.gnss-service.so
+vendor/lib64/vendor.samsung.hardware.gnss-V2-ndk_platform.so
+
+# GNSS configs
+vendor/etc/gps.conf
+vendor/etc/izat.conf
+vendor/etc/lowi.conf
+vendor/etc/sap.conf
+vendor/etc/xtwifi.conf
+
+# Health
+vendor/bin/hvdcp_opti
+vendor/etc/init/vendor.qti.hardware.charger_monitor@1.0-service.rc
+vendor/etc/charger_fstab.qti
+
+# Identity
+vendor/bin/hw/android.hardware.identity-service-qti
+vendor/etc/init/android.hardware.identity-service-qti.rc
+vendor/lib/libqtiidentitycredential.so
+vendor/lib64/libqtiidentitycredential.so
+
+# IPA
+vendor/bin/ipacm
+vendor/bin/ipacm-diag
+vendor/etc/init/ipacm-diag.rc
+vendor/etc/init/ipacm.rc
+# MOVED-TO-DEVICE-TREE (prebuilt_etc in rootdir, avoids dup): vendor/etc/IPACM_cfg.xml
+vendor/lib64/libipanat.so
+vendor/lib64/libnetfilter_conntrack.so
+vendor/lib64/libnfnetlink.so
+vendor/lib64/liboffloadhal.so
+
+# IPA firmware
+vendor/etc/init/ipa_fws.rc
+vendor/firmware/ipa_fws.b00
+vendor/firmware/ipa_fws.b01
+vendor/firmware/ipa_fws.b02
+vendor/firmware/ipa_fws.b03
+vendor/firmware/ipa_fws.b04
+vendor/firmware/ipa_fws.elf
+vendor/firmware/ipa_fws.mdt
+
+# Local time
+vendor/lib/hw/local_time.default.so
+vendor/lib64/hw/local_time.default.so
+
+# Media
+# DROP-SYSTEM-DUP (source or other partition provides it): system/etc/seccomp_policy/mediacodec.policy
+# DROP-SYSTEM-DUP (source or other partition provides it): system/lib/libdatasource.so
+# DROP-SYSTEM-DUP (source or other partition provides it): system/lib/libdatasource_local_cache.so
+# DROP-SYSTEM-DUP (source or other partition provides it): system/lib/libmedia_codeclist.so
+# DROP-SYSTEM-DUP (source or other partition provides it): system/lib/libomafldrm.so
+# DROP-SYSTEM-DUP (source or other partition provides it): system/lib/libstagefright_aidl_bufferpool2.so
+# DEDUP-SO(system): system/lib/libstagefright_bufferpool@2.0.1.so
+# DROP-SYSTEM-DUP (source or other partition provides it): system/lib/libstagefright_codecbase.so
+# DROP-SYSTEM-DUP (source or other partition provides it): system/lib/libstagefright_framecapture_utils.so
+# DROP-SYSTEM-DUP (source or other partition provides it): system/lib/libstagefright_surface_utils.so
+# DROP-SYSTEM-DUP (source or other partition provides it): system/lib64/libdatasource.so
+# DROP-SYSTEM-DUP (source or other partition provides it): system/lib64/libdatasource_local_cache.so
+# DROP-SYSTEM-DUP (source or other partition provides it): system/lib64/libmedia_codeclist.so
+# DROP-SYSTEM-DUP (source or other partition provides it): system/lib64/libomafldrm.so
+# DROP-SYSTEM-DUP (source or other partition provides it): system/lib64/libstagefright_aidl_bufferpool2.so
+# DEDUP-SO(system): system/lib64/libstagefright_bufferpool@2.0.1.so
+# DROP-SYSTEM-DUP (source or other partition provides it): system/lib64/libstagefright_codecbase.so
+# DROP-SYSTEM-DUP (source or other partition provides it): system/lib64/libstagefright_framecapture_utils.so
+# DROP-SYSTEM-DUP (source or other partition provides it): system/lib64/libstagefright_httplive_sec.so
+# DROP-SYSTEM-DUP (source or other partition provides it): system/lib64/libstagefright_surface_utils.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.vpp@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.vpp@1.1.so
+# DROP-SHADOW-SVC (source builds it, prebuilt causes fsgen path conflict): vendor/bin/hw/android.hardware.media.omx@1.0-service
+vendor/bin/hw/vendor.qti.media.c2@1.0-service
+vendor/bin/hw/vendor.qti.media.c2audio@1.0-service
+# DROP-SHADOW-SVC (source builds it, prebuilt causes fsgen path conflict): vendor/etc/init/android.hardware.media.omx@1.0-service.rc
+vendor/etc/init/vendor.qti.media.c2@1.0-service.rc
+vendor/etc/init/vendor.qti.media.c2audio@1.0-service.rc
+vendor/lib/libFrucSSMLib.so
+vendor/lib/libOmxCore.so
+vendor/lib/libcodecsolutionhelper_vendor.so
+vendor/lib/libplatformconfig.so
+vendor/lib/libpredeflicker_native.so
+vendor/lib/libqc2audio_base.so
+vendor/lib/libqc2audio_basecodec.so
+vendor/lib/libqc2audio_core.so
+vendor/lib/libqc2audio_hooks.so
+vendor/lib/libqc2audio_platform.so
+vendor/lib/libqc2audio_utils.so
+vendor/lib/libstagefright_bufferpool@2.0.1.so
+vendor/lib/libstagefright_bufferqueue_helper_vendor.so
+vendor/lib/libstagefright_foundation_vendor.so
+vendor/lib/libstagefright_omx_vendor.so
+vendor/lib/libstagefright_softomx_plugin.so
+vendor/lib/libstagefrighthw.so
+vendor/lib/vendor.qti.hardware.vpp@1.1.so
+vendor/lib/vendor.qti.hardware.vpp@1.2.so
+vendor/lib/vintf-codecsolution-V2-ndk.so
+vendor/lib64/libOmxCore.so
+vendor/lib64/libplatformconfig.so
+vendor/lib64/libqc2audio_base.so
+vendor/lib64/libqc2audio_basecodec.so
+vendor/lib64/libqc2audio_core.so
+vendor/lib64/libqc2audio_hooks.so
+vendor/lib64/libqc2audio_platform.so
+vendor/lib64/libqc2audio_utils.so
+vendor/lib64/libstagefright_bufferpool@2.0.1.so
+vendor/lib64/libstagefright_foundation_vendor.so
+vendor/lib64/libstagefrighthw.so
+vendor/lib64/vendor.qti.hardware.vpp@1.1.so
+vendor/lib64/vendor.qti.hardware.vpp@1.2.so
+
+# Media (Dolby)
+vendor/etc/dolby/dax-default.xml
+vendor/lib64/libdeccfg.so
+
+# Media configs
+vendor/etc/media_codecs.xml
+vendor/etc/media_codecs_c2_audio.xml
+vendor/etc/media_codecs_c2_sec.xml
+vendor/etc/media_codecs_c2_sec_ape.xml
+vendor/etc/media_codecs_c2_sec_qcp.xml
+vendor/etc/media_codecs_dolby_audio.xml
+vendor/etc/media_codecs_google_audio.xml
+vendor/etc/media_codecs_google_c2.xml
+vendor/etc/media_codecs_google_c2_audio.xml
+vendor/etc/media_codecs_google_c2_video.xml
+vendor/etc/media_codecs_google_telephony.xml
+vendor/etc/media_codecs_google_video.xml
+vendor/etc/media_codecs_google_video_le.xml
+vendor/etc/media_codecs_khaje_v0.xml
+vendor/etc/media_codecs_performance_khaje_v0.xml
+vendor/etc/media_codecs_vendor_audio.xml
+vendor/etc/media_profiles.xml
+vendor/etc/media_profiles_V1_0.xml
+vendor/etc/media_profiles_khaje_v0.xml
+
+# NFC
+vendor/bin/hw/android.hardware.nfc@1.2-service.sec
+vendor/etc/init/android.hardware.nfc@1.2-service.sec.rc
+vendor/etc/vintf/manifest/android.hardware.nfc@1.2-service.sec.xml
+vendor/lib64/nfc_nci_sec-jdm.so
+vendor/lib64/vendor.samsung.hardware.nfc@2.0.so
+
+# NFC configs
+vendor/etc/libnfc-nci.conf
+vendor/etc/nfc/sec_s3nrn4v_hwreg.bin
+vendor/etc/nfc/sec_s3nrn4v_swreg.bin
+vendor/etc/libnfc-sec-vendor.conf
+
+# PASR
+vendor/bin/hw/vendor.qti.memory.pasrmanager@1.0-service
+vendor/etc/init/vendor.qti.memory.pasrmanager@1.0-service.rc
+vendor/etc/vintf/manifest/vendor.qti.memory.pasrmanager@1.0-service.xml
+vendor/lib/hw/vendor.qti.memory.pasrmanager@1.0-impl.so
+vendor/lib/libpasrutils.so
+vendor/lib/vendor.qti.memory.pasrmanager@1.0.so
+vendor/lib/vendor.qti.memory.pasrmanager@1.1.so
+vendor/lib/vendor.qti.power.pasrmanager@1.0.so
+vendor/lib64/hw/vendor.qti.memory.pasrmanager@1.0-impl.so
+vendor/lib64/libpasrutils.so
+vendor/lib64/vendor.qti.memory.pasrmanager@1.0.so
+vendor/lib64/vendor.qti.memory.pasrmanager@1.1.so
+vendor/lib64/vendor.qti.power.pasrmanager@1.0.so
+
+# Perf
+system_ext/etc/perf/wlc_model.tflite
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.perf@2.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.perf@2.1.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.perf@2.2.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.perf@2.3.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.perf@2.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.perf@2.1.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.perf@2.2.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.perf@2.3.so
+vendor/bin/hw/vendor.qti.hardware.perf-hal-service
+vendor/etc/init/vendor.qti.hardware.perf-hal-service.rc
+vendor/etc/perf/avcsysnodesconfigs.xml
+vendor/etc/perf/commonresourceconfigs.xml
+vendor/etc/perf/commonsysnodesconfigs.xml
+vendor/etc/perf/perfboostsconfig.xml
+vendor/etc/perf/perfconfigstore.xml
+vendor/etc/perf/targetavcsysnodesconfigs.xml
+vendor/etc/perf/targetconfig.xml
+vendor/etc/perf/targetresourceconfigs.xml
+vendor/etc/perf/targetsysnodesconfigs.xml
+vendor/etc/perf/testcommonresourceconfigs.xml
+vendor/etc/perf/testtargetresourceconfigs.xml
+vendor/etc/vintf/manifest/vendor.qti.hardware.perf.xml
+vendor/etc/powerhint.xml
+vendor/lib/libperfconfig.so
+vendor/lib/libperfgluelayer.so
+vendor/lib/libqti-perfd-client.so
+vendor/lib/libqti-util.so
+vendor/lib/vendor.qti.hardware.perf@2.0.so
+vendor/lib/vendor.qti.hardware.perf@2.1.so
+vendor/lib/vendor.qti.hardware.perf@2.2.so
+vendor/lib/vendor.qti.hardware.perf@2.3.so
+vendor/lib64/libperfconfig.so
+vendor/lib64/libperfgluelayer.so
+vendor/lib64/libqti-perfd-client.so
+vendor/lib64/libqti-util.so
+vendor/lib64/vendor.qti.hardware.perf@2.0.so
+vendor/lib64/vendor.qti.hardware.perf@2.1.so
+vendor/lib64/vendor.qti.hardware.perf@2.2.so
+vendor/lib64/vendor.qti.hardware.perf@2.3.so
+
+# Perf IOP
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.iop@2.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.iop@2.0.so
+vendor/bin/hw/vendor.qti.hardware.iop@2.0-service
+vendor/etc/init/vendor.qti.hardware.iop@2.0-service.rc
+vendor/lib/libqti-iopd-client.so
+vendor/lib/vendor.qti.hardware.iop@1.0.so
+vendor/lib/vendor.qti.hardware.iop@2.0.so
+vendor/lib64/libqti-iopd-client.so
+vendor/lib64/vendor.qti.hardware.iop@1.0.so
+vendor/lib64/vendor.qti.hardware.iop@2.0.so
+
+# Power
+vendor/bin/hw/android.hardware.power.samsung-service
+vendor/lib/hw/power.default.so
+vendor/lib64/hw/power.default.so
+vendor/lib64/libhypervintf.so
+vendor/lib64/vendor.samsung.hardware.hyper-V2-ndk.so
+
+# QCC
+system_ext/etc/init/vendor.qti.hardware.qccsyshal@1.2-service.rc
+system_ext/lib/libqcc_file_agent_sys.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.qccsyshal@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.qccsyshal@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.qccsyshal@1.2.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.qccvndhal@1.0.so
+system_ext/lib/vendor.qti.qccvndhal_aidl-V1-ndk.so
+system_ext/lib64/libqcc_file_agent_sys.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.qccsyshal@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.qccsyshal@1.1.so
+system_ext/lib64/vendor.qti.hardware.qccsyshal@1.2-halimpl.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.qccsyshal@1.2.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.qccvndhal@1.0.so
+system_ext/lib64/vendor.qti.qccvndhal_aidl-V1-ndk.so
+vendor/bin/qcc-vendor
+vendor/lib/hw/vendor.qti.hardware.qccvndhal@1.0-impl.so
+vendor/lib/vendor.qti.hardware.qccsyshal@1.0.so
+vendor/lib/vendor.qti.hardware.qccsyshal@1.1.so
+vendor/lib/vendor.qti.hardware.qccsyshal@1.2.so
+vendor/lib/vendor.qti.hardware.qccvndhal@1.0-halimpl.so
+vendor/lib/vendor.qti.hardware.qccvndhal@1.0.so
+vendor/lib64/hw/vendor.qti.hardware.qccvndhal@1.0-impl.so
+vendor/lib64/vendor.qti.hardware.qccsyshal@1.0.so
+vendor/lib64/vendor.qti.hardware.qccsyshal@1.1.so
+vendor/lib64/vendor.qti.hardware.qccsyshal@1.2.so
+vendor/lib64/vendor.qti.hardware.qccvndhal@1.0-halimpl.so
+vendor/lib64/vendor.qti.hardware.qccvndhal@1.0.so
+
+# QESD
+
+# QSPM
+system_ext/lib/vendor.qti.qspmhal-V1-ndk.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.qspmhal@1.0.so
+system_ext/lib64/vendor.qti.qspmhal-V1-ndk.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.qspmhal@1.0.so
+vendor/bin/vendor.qti.qspmhal@1.0-service
+vendor/etc/init/vendor.qti.qspmhal@1.0-service.rc
+vendor/etc/seccomp_policy/qspm.policy
+vendor/lib/vendor.qti.qspmhal@1.0-impl.so
+vendor/lib/vendor.qti.qspmhal@1.0.so
+vendor/lib64/vendor.qti.qspmhal@1.0-impl.so
+vendor/lib64/vendor.qti.qspmhal@1.0.so
+
+# QXR
+
+# Radio
+vendor/lib64/vendor.qti.hardware.embmssl@1.0.so
+vendor/lib64/vendor.qti.hardware.embmssl@1.1.so
+vendor/bin/hw/rild
+vendor/bin/ATFWD-daemon
+vendor/bin/adpl
+vendor/bin/ks
+vendor/bin/netmgrd
+vendor/bin/pd-mapper
+vendor/bin/port-bridge
+vendor/bin/qrtr-cfg
+vendor/bin/qrtr-lookup
+vendor/bin/qrtr-ns
+vendor/bin/qti
+vendor/bin/rmt_storage
+vendor/bin/ssgtzd
+vendor/bin/tftp_server
+vendor/etc/init/dataadpl.rc
+vendor/etc/init/dataqti.rc
+vendor/etc/init/netmgrd.rc
+vendor/etc/init/port-bridge.rc
+vendor/etc/init/ssgtzd.rc
+vendor/etc/init/vendor.qti.rmt_storage_qmaa.rc
+vendor/etc/init/vendor.qti.tftp_qmaa.rc
+vendor/etc/seccomp_policy/atfwd@2.0.policy
+vendor/lib/libconfigdb.so
+vendor/lib/libdsi_netctrl.so
+vendor/lib/libnetmgr.so
+vendor/lib/libnetmgr_common.so
+vendor/lib/libnetmgr_datapath_proxy.so
+vendor/lib/libnetmgr_sscm3.so
+vendor/lib/libnetmgr_utils.so
+vendor/lib/libnetmgrmodemproxy.so
+vendor/lib/libnetmgrportutils.so
+vendor/lib/libnetmgrxfrmutils.so
+vendor/lib/libnlnetmgr.so
+vendor/lib/libqcmaputils.so
+vendor/lib/libqdi.so
+vendor/lib/libqmi_client_helper.so
+vendor/lib/libqmi_csi.so
+vendor/lib/libqsocket.so
+vendor/lib/librmnetctl.so
+vendor/lib/libxml.so
+vendor/lib64/libconfigdb.so
+vendor/lib64/libdsi_netctrl.so
+vendor/lib64/libnetmgr.so
+vendor/lib64/libnetmgr_common.so
+vendor/lib64/libnetmgr_datapath_proxy.so
+vendor/lib64/libnetmgr_sscm3.so
+vendor/lib64/libnetmgr_utils.so
+vendor/lib64/libnetmgrmodemproxy.so
+vendor/lib64/libnetmgrportutils.so
+vendor/lib64/libnetmgrxfrmutils.so
+vendor/lib64/libnlnetmgr.so
+vendor/lib64/libqcmaputils.so
+vendor/lib64/libqdi.so
+vendor/lib64/libqmi_client_helper.so
+vendor/lib64/libqmi_csi.so
+vendor/lib64/libqsocket.so
+vendor/lib64/libril_sem.so
+vendor/lib64/librmnetctl.so
+vendor/lib64/libxml.so
+vendor/lib64/vendor.qti.hardware.radio.atcmdfwd-V1-ndk.so
+vendor/lib64/vendor.qti.hardware.radio.atcmdfwd@1.0.so
+vendor/lib64/vendor.samsung.hardware.radio-V1-ndk.so
+vendor/lib64/vendor.samsung.hardware.radio.bridge-V1-ndk.so
+vendor/lib64/vendor.samsung.hardware.radio.data-V1-ndk.so
+vendor/lib64/vendor.samsung.hardware.radio.messaging-V1-ndk.so
+vendor/lib64/vendor.samsung.hardware.radio.network-V1-ndk.so
+vendor/lib64/vendor.samsung.hardware.radio.sim-V1-ndk.so
+
+# Radio (IMS)
+# DEDUP-SO(system_ext): system_ext/lib/com.qualcomm.qti.imscmservice@2.0.so
+# DEDUP-SO(system_ext): system_ext/lib/com.qualcomm.qti.imscmservice@2.1.so
+# DEDUP-SO(system_ext): system_ext/lib/com.qualcomm.qti.imscmservice@2.2.so
+# DEDUP-SO(system_ext): system_ext/lib/com.qualcomm.qti.uceservice@2.0.so
+# DEDUP-SO(system_ext): system_ext/lib/com.qualcomm.qti.uceservice@2.1.so
+# DEDUP-SO(system_ext): system_ext/lib/com.qualcomm.qti.uceservice@2.2.so
+# DEDUP-SO(system_ext): system_ext/lib/com.qualcomm.qti.uceservice@2.3.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.ims.callcapability@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.ims.callinfo@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.ims.configservice@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.ims.configservice@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.ims.connection@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.ims.factory@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.ims.factory@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.ims.factory@2.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.ims.factory@2.1.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.ims.factory@2.2.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.ims.rcsconfig@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.ims.rcsconfig@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.ims.rcsconfig@2.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.ims.rcsconfig@2.1.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.ims.rcssip@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.ims.rcssip@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.ims.rcssip@1.2.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.ims.rcsuce@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.ims.rcsuce@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.ims.rcsuce@1.2.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.imsrtpservice@3.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.imsrtpservice@3.1.so
+# DEDUP-SO(system_ext): system_ext/lib64/com.qualcomm.qti.imscmservice@2.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/com.qualcomm.qti.imscmservice@2.1.so
+# DEDUP-SO(system_ext): system_ext/lib64/com.qualcomm.qti.imscmservice@2.2.so
+# DEDUP-SO(system_ext): system_ext/lib64/com.qualcomm.qti.uceservice@2.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/com.qualcomm.qti.uceservice@2.1.so
+# DEDUP-SO(system_ext): system_ext/lib64/com.qualcomm.qti.uceservice@2.2.so
+# DEDUP-SO(system_ext): system_ext/lib64/com.qualcomm.qti.uceservice@2.3.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.ims.callcapability@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.ims.callinfo@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.ims.configservice@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.ims.configservice@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.ims.connection@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.ims.factory@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.ims.factory@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.ims.factory@2.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.ims.factory@2.1.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.ims.factory@2.2.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.ims.rcsconfig@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.ims.rcsconfig@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.ims.rcsconfig@2.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.ims.rcsconfig@2.1.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.ims.rcssip@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.ims.rcssip@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.ims.rcssip@1.2.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.ims.rcsuce@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.ims.rcsuce@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.ims.rcsuce@1.2.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.imsrtpservice@3.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.imsrtpservice@3.1.so
+vendor/bin/ims_rtp_daemon
+vendor/etc/init/ims_rtp_daemon.rc
+vendor/etc/seccomp_policy/imsrtp.policy
+vendor/lib/com.qualcomm.qti.imscmservice@1.0.so
+vendor/lib/com.qualcomm.qti.imscmservice@2.0.so
+vendor/lib/com.qualcomm.qti.imscmservice@2.1.so
+vendor/lib/com.qualcomm.qti.imscmservice@2.2.so
+vendor/lib/com.qualcomm.qti.uceservice@2.0.so
+vendor/lib/com.qualcomm.qti.uceservice@2.1.so
+vendor/lib/com.qualcomm.qti.uceservice@2.2.so
+vendor/lib/com.qualcomm.qti.uceservice@2.3.so
+vendor/lib/lib-imscommon.so
+vendor/lib/lib-imsdpl.so
+vendor/lib/lib-imsqimf.so
+vendor/lib/lib-imsrcsservice.so
+vendor/lib/lib-imsservice.so
+vendor/lib/lib-imsvtcore.so
+vendor/lib/lib-imsxml.so
+vendor/lib/lib-rtpcommon.so
+vendor/lib/lib-rtpcore.so
+vendor/lib/lib-rtpsl.so
+vendor/lib/librcc.so
+vendor/lib/vendor.qti.ims.callcapability@1.0.so
+vendor/lib/vendor.qti.ims.callinfo@1.0.so
+vendor/lib/vendor.qti.ims.configservice@1.0.so
+vendor/lib/vendor.qti.ims.configservice@1.1.so
+vendor/lib/vendor.qti.ims.connection@1.0.so
+vendor/lib/vendor.qti.ims.factory@1.0.so
+vendor/lib/vendor.qti.ims.factory@1.1.so
+vendor/lib/vendor.qti.ims.factory@2.0.so
+vendor/lib/vendor.qti.ims.factory@2.1.so
+vendor/lib/vendor.qti.ims.factory@2.2.so
+vendor/lib/vendor.qti.ims.rcsconfig@1.0.so
+vendor/lib/vendor.qti.ims.rcsconfig@1.1.so
+vendor/lib/vendor.qti.ims.rcsconfig@2.0.so
+vendor/lib/vendor.qti.ims.rcsconfig@2.1.so
+vendor/lib/vendor.qti.ims.rcssip@1.0.so
+vendor/lib/vendor.qti.ims.rcssip@1.1.so
+vendor/lib/vendor.qti.ims.rcssip@1.2.so
+vendor/lib/vendor.qti.ims.rcsuce@1.0.so
+vendor/lib/vendor.qti.ims.rcsuce@1.1.so
+vendor/lib/vendor.qti.ims.rcsuce@1.2.so
+vendor/lib/vendor.qti.imsrtpservice@3.0.so
+vendor/lib/vendor.qti.imsrtpservice@3.1-service-Impl.so
+vendor/lib/vendor.qti.imsrtpservice@3.1.so
+vendor/lib64/com.qualcomm.qti.imscmservice@1.0.so
+vendor/lib64/com.qualcomm.qti.imscmservice@2.0.so
+vendor/lib64/com.qualcomm.qti.imscmservice@2.1.so
+vendor/lib64/com.qualcomm.qti.imscmservice@2.2.so
+vendor/lib64/com.qualcomm.qti.uceservice@2.0.so
+vendor/lib64/com.qualcomm.qti.uceservice@2.1.so
+vendor/lib64/com.qualcomm.qti.uceservice@2.2.so
+vendor/lib64/com.qualcomm.qti.uceservice@2.3.so
+vendor/lib64/lib-imscommon.so
+vendor/lib64/lib-imsdpl.so
+vendor/lib64/lib-imsqimf.so
+vendor/lib64/lib-imsrcsservice.so
+vendor/lib64/lib-imsservice.so
+vendor/lib64/lib-imsvtcore.so
+vendor/lib64/lib-imsxml.so
+vendor/lib64/lib-rtpcommon.so
+vendor/lib64/lib-rtpcore.so
+vendor/lib64/lib-rtpsl.so
+vendor/lib64/librcc.so
+vendor/lib64/vendor.qti.ims.callcapability@1.0.so
+vendor/lib64/vendor.qti.ims.callinfo@1.0.so
+vendor/lib64/vendor.qti.ims.configservice@1.0.so
+vendor/lib64/vendor.qti.ims.configservice@1.1.so
+vendor/lib64/vendor.qti.ims.connection@1.0.so
+vendor/lib64/vendor.qti.ims.factory@1.0.so
+vendor/lib64/vendor.qti.ims.factory@1.1.so
+vendor/lib64/vendor.qti.ims.factory@2.0.so
+vendor/lib64/vendor.qti.ims.factory@2.1.so
+vendor/lib64/vendor.qti.ims.factory@2.2.so
+vendor/lib64/vendor.qti.ims.rcsconfig@1.0.so
+vendor/lib64/vendor.qti.ims.rcsconfig@1.1.so
+vendor/lib64/vendor.qti.ims.rcsconfig@2.0.so
+vendor/lib64/vendor.qti.ims.rcsconfig@2.1.so
+vendor/lib64/vendor.qti.ims.rcssip@1.0.so
+vendor/lib64/vendor.qti.ims.rcssip@1.1.so
+vendor/lib64/vendor.qti.ims.rcssip@1.2.so
+vendor/lib64/vendor.qti.ims.rcsuce@1.0.so
+vendor/lib64/vendor.qti.ims.rcsuce@1.1.so
+vendor/lib64/vendor.qti.ims.rcsuce@1.2.so
+vendor/lib64/vendor.qti.imsrtpservice@3.0.so
+vendor/lib64/vendor.qti.imsrtpservice@3.1-service-Impl.so
+vendor/lib64/vendor.qti.imsrtpservice@3.1.so
+
+# RenderScript
+vendor/lib/hw/android.hardware.renderscript@1.0-impl.so
+vendor/lib64/hw/android.hardware.renderscript@1.0-impl.so
+
+# Secure element (power manager)
+vendor/bin/hw/vendor.qti.esepowermanager@1.1-service
+vendor/etc/init/vendor.qti.esepowermanager@1.1-service.rc
+vendor/lib/hw/vendor.qti.esepowermanager@1.1-impl.so
+vendor/lib/libesepmconfig.so
+vendor/lib/vendor.qti.esepowermanager@1.0.so
+vendor/lib/vendor.qti.esepowermanager@1.1.so
+vendor/lib64/hw/vendor.qti.esepowermanager@1.1-impl.so
+vendor/lib64/libesepmconfig.so
+vendor/lib64/vendor.qti.esepowermanager@1.0.so
+vendor/lib64/vendor.qti.esepowermanager@1.1.so
+
+# Security
+# DROP-SHADOW-SVC (prebuilt drags dual AIDL vers, source builds clean): vendor/bin/hw/android.hardware.security.keymint-service
+# DROP-SHADOW-SVC (prebuilt drags dual AIDL vers, source builds clean): vendor/etc/init/android.hardware.security.keymint-service.rc
+vendor/lib64/libcppbor_external.so
+vendor/lib64/libkeymaster4_1support.so
+vendor/lib64/libskeymint10device.so
+vendor/lib64/libskeymint_cli.so
+vendor/lib64/vendor.samsung.hardware.keymint-V2-ndk.so
+
+# Sensors
+# DROP-SHADOW-BIN (bengal.mk wants source multihal, prebuilt conflicts): vendor/bin/hw/android.hardware.sensors@2.1-service.multihal
+vendor/bin/hw/vendor.qti.hardware.sensorscalibrate@1.0-service
+vendor/bin/sensors.qti
+vendor/bin/sscrpcd
+# DROP-SHADOW-BIN (bengal.mk wants source multihal, prebuilt conflicts): vendor/etc/init/android.hardware.sensors@2.1-service-multihal.rc
+vendor/etc/init/vendor.qti.hardware.sensorscalibrate@1.0-service.rc
+# DROP-DUP-MANIFEST (source multihal service provides same vintf path): vendor/etc/vintf/manifest/android.hardware.sensors@2.1-multihal.xml
+vendor/lib/hw/vendor.qti.hardware.sensorscalibrate@1.0-impl.so
+vendor/lib/libsensorcal.so
+vendor/lib/libsns_fastRPC_util.so
+vendor/lib/libsnsdiaglog.so
+vendor/lib/libssc.so
+vendor/lib/sensors.grip.so
+vendor/lib/sensors.ssc.so
+vendor/lib/vendor.qti.hardware.sensorscalibrate@1.0.so
+vendor/lib64/hw/vendor.qti.hardware.sensorscalibrate@1.0-impl.so
+vendor/lib64/libsensorcal.so
+vendor/lib64/libsns_fastRPC_util.so
+vendor/lib64/libsnsdiaglog.so
+vendor/lib64/libssc.so
+vendor/lib64/sensors.grip.so
+vendor/lib64/sensors.ssc.so
+vendor/lib64/vendor.qti.hardware.sensorscalibrate@1.0.so
+
+# Sensors configs
+vendor/etc/sensors/config/agatti_ak991x_0.json
+vendor/etc/sensors/config/agatti_bmp285_0.json
+vendor/etc/sensors/config/agatti_bu52053nvx_0.json
+vendor/etc/sensors/config/agatti_default_sensors.json
+vendor/etc/sensors/config/agatti_lsm6dso_0.json
+vendor/etc/sensors/config/agatti_power_0.json
+vendor/etc/sensors/config/agatti_qrd_ak991x_0.json
+vendor/etc/sensors/config/agatti_qrd_lsm6dso_0.json
+vendor/etc/sensors/config/agatti_qrd_tmd2725.json
+vendor/etc/sensors/config/agatti_tmd2725.json
+vendor/etc/sensors/config/bengal_ak991x_0.json
+vendor/etc/sensors/config/bengal_bma2x2_0.json
+vendor/etc/sensors/config/bengal_bma2x2_1.json
+vendor/etc/sensors/config/bengal_bmp285_0.json
+vendor/etc/sensors/config/bengal_bu52053nvx_0.json
+vendor/etc/sensors/config/bengal_default_sensors.json
+vendor/etc/sensors/config/bengal_dynamic_sensors.json
+vendor/etc/sensors/config/bengal_hx32062se.json
+vendor/etc/sensors/config/bengal_lsm6dso_0.json
+vendor/etc/sensors/config/bengal_ltr569_0.json
+vendor/etc/sensors/config/bengal_mir3da_0.json
+vendor/etc/sensors/config/bengal_power_0.json
+vendor/etc/sensors/config/bengal_qrd_ak991x_0.json
+vendor/etc/sensors/config/bengal_qrd_lsm6dso_0.json
+vendor/etc/sensors/config/bengal_qrd_tmd2725.json
+vendor/etc/sensors/config/bengal_sc7a20_0.json
+vendor/etc/sensors/config/bengal_sip3510.json
+vendor/etc/sensors/config/bengal_sip3515.json
+vendor/etc/sensors/config/bengal_tmd2725.json
+vendor/etc/sensors/config/dynamic_sensors.json
+vendor/etc/sensors/config/sc7a20_0.json
+vendor/etc/sensors/config/sns_amd.json
+vendor/etc/sensors/config/sns_amd_sw_disabled.json
+vendor/etc/sensors/config/sns_amd_sw_enabled.json
+vendor/etc/sensors/config/sns_aont.json
+vendor/etc/sensors/config/sns_basic_gestures.json
+vendor/etc/sensors/config/sns_bring_to_ear.json
+vendor/etc/sensors/config/sns_ccd.json
+vendor/etc/sensors/config/sns_ccd_v2_walk.json
+vendor/etc/sensors/config/sns_ccd_v3_1_walk.json
+vendor/etc/sensors/config/sns_ccd_v3_walk.json
+vendor/etc/sensors/config/sns_cm.json
+vendor/etc/sensors/config/sns_dae.json
+vendor/etc/sensors/config/sns_device_orient.json
+vendor/etc/sensors/config/sns_diag_filter.json
+vendor/etc/sensors/config/sns_direct_channel.json
+vendor/etc/sensors/config/sns_distance_bound.json
+vendor/etc/sensors/config/sns_dpc.json
+vendor/etc/sensors/config/sns_facing.json
+vendor/etc/sensors/config/sns_fmv.json
+vendor/etc/sensors/config/sns_fmv_legacy.json
+vendor/etc/sensors/config/sns_geomag_rv.json
+vendor/etc/sensors/config/sns_gyro_cal.json
+vendor/etc/sensors/config/sns_heart_rate.json
+vendor/etc/sensors/config/sns_mag_cal.json
+vendor/etc/sensors/config/sns_mag_cal_legacy.json
+vendor/etc/sensors/config/sns_multishake.json
+vendor/etc/sensors/config/sns_pedometer.json
+vendor/etc/sensors/config/sns_rmd.json
+vendor/etc/sensors/config/sns_rotv.json
+vendor/etc/sensors/config/sns_smd.json
+vendor/etc/sensors/config/sns_tilt.json
+vendor/etc/sensors/config/sns_tilt_sw_disabled.json
+vendor/etc/sensors/config/sns_tilt_sw_enabled.json
+vendor/etc/sensors/config/sns_tilt_to_wake.json
+vendor/etc/sensors/config/sns_wrist_pedo.json
+vendor/etc/sensors/hals.conf
+vendor/etc/sensors/sns_reg_config
+
+# Service tracker
+vendor/bin/hw/vendor.qti.hardware.servicetracker@1.2-service
+vendor/etc/init/vendor.qti.hardware.servicetracker@1.2-service.rc
+vendor/etc/vintf/manifest/vendor.qti.hardware.servicetracker@1.2-service.xml
+vendor/lib/hw/vendor.qti.hardware.servicetracker@1.2-impl.so
+vendor/lib/vendor.qti.hardware.servicetracker@1.0.so
+vendor/lib/vendor.qti.hardware.servicetracker@1.1.so
+vendor/lib/vendor.qti.hardware.servicetracker@1.2.so
+vendor/lib64/hw/vendor.qti.hardware.servicetracker@1.2-impl.so
+vendor/lib64/vendor.qti.hardware.servicetracker@1.0.so
+vendor/lib64/vendor.qti.hardware.servicetracker@1.1.so
+vendor/lib64/vendor.qti.hardware.servicetracker@1.2.so
+
+# Soter
+vendor/bin/hw/vendor.qti.hardware.soter@1.0-service
+vendor/bin/vendor.qti.hardware.soter@1.0-provision
+vendor/etc/init/vendor.qti.hardware.soter@1.0-service.rc
+vendor/lib/hw/vendor.qti.hardware.soter@1.0-impl.so
+vendor/lib/vendor.qti.hardware.soter@1.0.so
+vendor/lib64/hw/vendor.qti.hardware.soter@1.0-impl.so
+vendor/lib64/vendor.qti.hardware.soter@1.0.so
+
+# Soundtrigger
+vendor/lib/vendor.qti.voiceprint@1.0.so
+vendor/lib64/vendor.qti.voiceprint@1.0.so
+vendor/lib/hw/android.hardware.soundtrigger@2.0-impl.so
+vendor/lib/hw/android.hardware.soundtrigger@2.1-impl.so
+vendor/lib/hw/android.hardware.soundtrigger@2.2-impl.so
+vendor/lib/hw/android.hardware.soundtrigger@2.3-impl.so
+vendor/lib64/hw/android.hardware.soundtrigger@2.2-impl.so
+vendor/lib64/hw/android.hardware.soundtrigger@2.3-impl.so
+
+# Thermal
+vendor/bin/hw/android.hardware.thermal@2.0-service.qti-v2
+vendor/etc/init/android.hardware.thermal@2.0-service.qti-v2.rc
+vendor/etc/vintf/manifest/android.hardware.thermal@2.0-service.qti.xml
+
+# Thermal (Qualcomm)
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.limits@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.limits@1.1.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.limits@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.limits@1.1.so
+vendor/bin/hw/vendor.qti.hardware.limits@1.2-service
+vendor/etc/init/vendor.qti.hardware.limits-service.rc
+vendor/etc/vintf/manifest/vendor.qti.hardware.limits-service.xml
+vendor/lib/libthermalclient.so
+vendor/lib64/libthermalclient.so
+vendor/lib64/vendor.qti.hardware.limits@1.0.so
+vendor/lib64/vendor.qti.hardware.limits@1.1.so
+vendor/lib64/vendor.qti.hardware.limits@1.2.so
+
+# Thermal configs
+vendor/etc/thermal-engine.conf
+
+# Time services
+vendor/app/TimeService/TimeService.apk
+vendor/bin/time_daemon
+vendor/etc/init/init.time_daemon.rc
+vendor/lib/libtime_genoff.so
+vendor/lib64/libtime_genoff.so
+
+# Trusted UI
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.trustedui@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.trustedui@1.0.so
+vendor/bin/hw/vendor.qti.hardware.trustedui@1.0-service-qti
+vendor/bin/hw/vendor.qti.hardware.tui_comm@1.0-service-qti
+vendor/bin/TrustedUISampleTest
+vendor/etc/init/vendor.qti.hardware.trustedui@1.0-service-qti.rc
+vendor/etc/init/vendor.qti.hardware.tui_comm@1.0-service-qti.rc
+vendor/lib/libTouchInputVM.so
+vendor/lib/libTrustedInput.so
+vendor/lib/libTrustedInputTZ.so
+vendor/lib/libTrustedUI.so
+vendor/lib/libTrustedUITZ.so
+vendor/lib/libsi.so
+vendor/lib/vendor.qti.hardware.systemhelper@1.0.so
+vendor/lib/vendor.qti.hardware.trustedui@1.0.so
+vendor/lib/vendor.qti.hardware.trustedui@1.1.so
+vendor/lib/vendor.qti.hardware.trustedui@1.2.so
+vendor/lib/vendor.qti.hardware.tui_comm@1.0.so
+vendor/lib64/libTouchInputVM.so
+vendor/lib64/libTrustedInput.so
+vendor/lib64/libTrustedInputTZ.so
+vendor/lib64/libTrustedUI.so
+vendor/lib64/libTrustedUITZ.so
+vendor/lib64/libsi.so
+vendor/lib64/vendor.qti.hardware.systemhelper@1.0.so
+vendor/lib64/vendor.qti.hardware.trustedui@1.0.so
+vendor/lib64/vendor.qti.hardware.trustedui@1.1.so
+vendor/lib64/vendor.qti.hardware.trustedui@1.2.so
+vendor/lib64/vendor.qti.hardware.tui_comm@1.0.so
+
+# USB
+vendor/bin/hw/android.hardware.usb@1.3-service.coral
+vendor/etc/init/android.hardware.usb@1.3-service.coral.rc
+vendor/etc/vintf/manifest/android.hardware.usb@1.3-service.coral.xml
+
+# Vibrator
+vendor/lib/hw/vibrator.default.so
+vendor/lib64/hw/vibrator.default.so
+
+# Wi-Fi
+# DEDUP-SO(system_ext): system_ext/lib/vendor.qti.hardware.wigig.netperftuner@1.0.so
+system_ext/lib/vendor.qti.hardware.wigig.supptunnel@1.0.so
+# DEDUP-SO(system_ext): system_ext/lib64/vendor.qti.hardware.wigig.netperftuner@1.0.so
+system_ext/lib64/vendor.qti.hardware.wigig.supptunnel@1.0.so
+vendor/bin/hw/android.hardware.wifi@1.0-service
+# DROP-SHADOW-BIN (source builds it, prebuilt causes fsgen path conflict): vendor/bin/hw/hostapd
+# DROP-SHADOW-SVC (prebuilt drags dual AIDL vers, source builds clean): vendor/bin/hw/wpa_supplicant
+vendor/bin/cnss-daemon
+# DROP-SHADOW-BIN (source builds it, prebuilt causes fsgen path conflict): vendor/bin/hostapd_cli
+# DROP-SHADOW-BIN (source builds it, prebuilt causes fsgen path conflict): vendor/bin/wpa_cli
+vendor/etc/init/android.hardware.wifi.supplicant-service.rc
+vendor/etc/init/android.hardware.wifi@1.0-service.rc
+vendor/etc/init/vendor.qti.hardware.wifi.wifilearner@1.0-service.rc
+# DROP-SHADOW-BIN (source builds it, prebuilt causes fsgen path conflict): vendor/etc/vintf/manifest/android.hardware.wifi.hostapd.xml
+# DROP-SHADOW-BIN (source builds it, prebuilt causes fsgen path conflict): vendor/etc/vintf/manifest/android.hardware.wifi.supplicant.xml
+vendor/etc/vintf/manifest/android.hardware.wifi@1.0-service.xml
+vendor/lib/libwifi-hal-ctrl.so
+vendor/lib/libwifi-hal-qcom.so
+vendor/lib/vendor.qti.hardware.wigig.netperftuner@1.0.so
+vendor/lib64/libkeystore-engine-wifi-hidl.so
+vendor/lib64/libkeystore-wifi-hidl.so
+vendor/lib64/libwifi-hal-ctrl.so
+vendor/lib64/libwifi-hal-qcom.so
+vendor/lib64/libwifi-hal.so
+vendor/lib64/vendor.qti.hardware.wifi.wifilearner@1.0.so
+vendor/lib64/vendor.qti.hardware.wigig.netperftuner@1.0.so
+vendor/lib64/vendor.samsung.hardware.wifi.hostapd-V1-ndk.so
+vendor/lib64/vendor.samsung.hardware.wifi.supplicant-V1-ndk.so
+
+# Wi-Fi configs
+vendor/etc/wifi/WCNSS_qcom_cfg.ini
+vendor/etc/wifi/icm.conf
+vendor/etc/wifi/indoorchannel.info
+vendor/etc/wifi/p2p_supplicant_overlay.conf
+vendor/etc/wifi/wpa_supplicant.conf
+vendor/etc/wifi/wpa_supplicant_overlay.conf
+
+# Wi-Fi firmware
+vendor/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini
+vendor/firmware/wlan/qca_cld/bdwlan.bin
+vendor/firmware/wlan/qca_cld/bdwlaneu.bin
+
+# Miscellaneous
+vendor/apex/com.samsung.android.camera.unihal.signed.apex
+vendor/app/CACertService/CACertService.apk
+vendor/app/ConnectionSecurityService/ConnectionSecurityService.apk
+vendor/app/TrustZoneAccessService/TrustZoneAccessService.apk
+vendor/bin/hw/capabilityconfigstoretest
+vendor/bin/hw/macloader
+vendor/bin/hw/mfgloader
+vendor/bin/hw/samsung.software.media.c2@1.0-service
+vendor/bin/hw/vendor.qti.hardware.memtrack-service
+vendor/bin/hw/vendor.qti.psiclient@1.0-service
+vendor/bin/hw/vendor.samsung.hardware.health-service
+vendor/bin/hw/vendor.samsung.hardware.hyper-service
+vendor/bin/hw/vendor.samsung.hardware.light-service
+vendor/bin/hw/vendor.samsung.hardware.media.converter@1.0-service
+vendor/bin/hw/vendor.samsung.hardware.security.drk@2.0-service
+vendor/bin/hw/vendor.samsung.hardware.security.widevine.keyprov-service
+vendor/bin/hw/vendor.samsung.hardware.sysinput@1.3-service
+vendor/bin/hw/vendor.samsung.hardware.tlc.iccc@1.0-service
+vendor/bin/hw/vendor.samsung.hardware.vibrator-service
+vendor/bin/hw/vendor.samsung.hardware.wifi@2.0-service
+vendor/bin/qmi-framework-tests/qmi_test_mt_client_init_instance
+vendor/bin/CheckKeybox
+vendor/bin/GPTEE_Sample_client
+vendor/bin/LctReadWriteNV
+vendor/bin/PalTest
+vendor/bin/PktRspTest
+vendor/bin/StoreKeybox
+vendor/bin/agmcap
+vendor/bin/agmcompressplay
+vendor/bin/agmhostless
+vendor/bin/agmplay
+vendor/bin/agmvoiceui
+vendor/bin/anculk_model_tee
+# DROP-APPLYPATCH (generic AOSP tool, source-built; prebuilt breaks visibility): vendor/bin/applypatch
+vendor/bin/athdiag
+vendor/bin/audioadsprpcd
+vendor/bin/audioflacapp
+# DROP-SHADOW-BIN (source builds it, prebuilt causes fsgen path conflict): vendor/bin/battery_stats
+# DROP-SHADOW-BIN (source builds it, prebuilt causes fsgen path conflict): vendor/bin/boringssl_self_test32
+# DROP-SHADOW-BIN (source builds it, prebuilt causes fsgen path conflict): vendor/bin/boringssl_self_test64
+vendor/bin/btcoex_cont_config
+# DROP-SHADOW-BIN (source builds it, prebuilt causes fsgen path conflict): vendor/bin/checkpoint_gc
+vendor/bin/cnss_diag
+vendor/bin/cplay
+vendor/bin/debug-diag
+vendor/bin/diag-router
+vendor/bin/diag_callback_sample
+vendor/bin/diag_dci_sample
+vendor/bin/diag_klog
+vendor/bin/diag_mdlog
+vendor/bin/diag_socket_log
+vendor/bin/diag_uart_log
+vendor/bin/dppdaemon
+# DROP-SHADOW-BIN (source builds it, prebuilt causes fsgen path conflict): vendor/bin/dumpsys
+vendor/bin/e_loop
+vendor/bin/edgnss-daemon
+vendor/bin/embmsslServer
+vendor/bin/emservice
+vendor/bin/engine-service
+vendor/bin/fm_qsoc_patches
+vendor/bin/fmconfig
+vendor/bin/fmfactorytest
+vendor/bin/fmfactorytestserver
+vendor/bin/fsdbg_vendor
+vendor/bin/hal_proxy_daemon
+vendor/bin/hdcp1prov
+vendor/bin/hdcp2p2prov
+vendor/bin/imsdaemon
+vendor/bin/iod
+vendor/bin/irsc_util
+vendor/bin/loadalgo
+vendor/bin/loopbacktest
+vendor/bin/mlid
+vendor/bin/msm_irqbalance
+vendor/bin/myftm
+vendor/bin/pktlogconf
+vendor/bin/pm-proxy
+vendor/bin/pm-service
+vendor/bin/pmic_key_reset
+vendor/bin/ppd
+vendor/bin/qcc-trd
+vendor/bin/qcom-system-daemon
+vendor/bin/qdcmss
+vendor/bin/qmipriod
+vendor/bin/qms
+vendor/bin/qsap_qapeservice
+vendor/bin/qseecom_sample_client
+vendor/bin/rpmbClient
+vendor/bin/sarsetter
+vendor/bin/secril_config_svc
+vendor/bin/shsusrd
+vendor/bin/sigma_dut
+vendor/bin/spectraltool
+vendor/lib/libcld80211.so
+vendor/lib64/libcld80211.so
+vendor/bin/ssgqmigd
+vendor/bin/ssgqmigd64
+vendor/bin/ssr_diag
+vendor/bin/ssr_setup
+vendor/bin/subsystem_ramdump
+vendor/bin/test_diag
+vendor/bin/thermal-engine-v2
+vendor/bin/tloc_daemon
+vendor/bin/vaultkeeperd
+vendor/bin/vendor.dpmd
+vendor/bin/vendor.samsung.hardware.security.engmode@1.0-service
+vendor/bin/vendor.samsung.hardware.security.vaultkeeper@2.0-service
+vendor/bin/vendor_cmd_tool
+vendor/bin/wifilearner
+vendor/bin/wvkprov
+vendor/etc/bstconfig/BSTAI_DualBokeh
+vendor/etc/bstconfig/bst_dualbokeh.cfg
+vendor/etc/bstconfig/bst_hdr_1.cfg
+vendor/etc/bstconfig/bst_hdr_2.cfg
+vendor/etc/bstconfig/bst_hdr_3.cfg
+vendor/etc/bstconfig/bst_hdr_4.cfg
+vendor/etc/bstconfig/bst_yuvnight_1.cfg
+vendor/etc/bstconfig/bst_yuvnight_2.cfg
+vendor/etc/bstconfig/bst_yuvnight_3.cfg
+vendor/etc/bstconfig/bst_yuvnight_4.cfg
+vendor/etc/bstconfig/distortion_param_1.cfg
+vendor/etc/bstconfig/distortion_param_2.cfg
+vendor/etc/bstconfig/distortion_param_3.cfg
+vendor/etc/bstconfig/distortion_param_4.cfg
+vendor/etc/bstconfig/golden_M269_1_1.bin
+vendor/etc/bstconfig/golden_M269_1_2.bin
+vendor/etc/bstconfig/golden_M269_1_3.bin
+vendor/etc/bstconfig/golden_M269_2_1.bin
+vendor/etc/bstconfig/golden_M269_2_2.bin
+vendor/etc/bstconfig/golden_M269_2_3.bin
+vendor/etc/bstconfig/golden_M269_3_1.bin
+vendor/etc/bstconfig/golden_M269_3_2.bin
+vendor/etc/bstconfig/golden_M269_3_3.bin
+vendor/etc/bstconfig/golden_M269_4_1.bin
+vendor/etc/bstconfig/golden_M269_4_2.bin
+vendor/etc/bstconfig/golden_M269_4_3.bin
+vendor/etc/data/dsi_config.xml
+vendor/etc/data/netmgr_config.xml
+vendor/etc/default-permissions/com.qualcomm.qti.cne.xml
+vendor/etc/dpm_vndr/vendor.dpm.conf
+vendor/etc/factory/factoryusecaseKvManager.xml
+vendor/etc/factory/mixer_paths_factory_bengal_idp.xml
+vendor/etc/factory/resourcemanager_factory_bengal_idp.xml
+vendor/etc/hyper/config_chipset.json
+vendor/etc/hyper/config_hyper_permission.json
+vendor/etc/hyper/config_model.json
+vendor/etc/hyper/config_vendor.json
+# DROP-SHADOW-BIN (source builds it, prebuilt causes fsgen path conflict): vendor/etc/init/boringssl_self_test.rc
+vendor/etc/init/btcoex_cont_config.rc
+# DROP-SHADOW-BIN (source builds it, prebuilt causes fsgen path conflict): vendor/etc/init/dumpstate-default.rc
+vendor/etc/init/emservice.rc
+# DROP-SHADOW-BIN (source builds it, prebuilt causes fsgen path conflict): vendor/etc/init/hostapd.android.rc
+vendor/etc/init/hyper-default-sec.rc
+vendor/etc/init/imsdaemon.rc
+vendor/etc/init/init.embmssl_server.rc
+vendor/etc/init/init.longcheer.sep.rc
+vendor/etc/init/init.nfc.samsung.rc
+vendor/etc/init/init.qccvendor.rc
+vendor/etc/init/init.qdmastats.rc
+vendor/etc/init/init.qti.display_boot.rc
+vendor/etc/init/init.qti.fm.rc
+vendor/etc/init/init.qti.media.rc
+vendor/etc/init/init.qti.qcv.rc
+vendor/etc/init/init.ramplus.rc
+vendor/etc/init/init.vendor.onebinary.rc
+vendor/etc/init/init.vendor.rilcommon.rc
+vendor/etc/init/init.vendor.sensors.rc
+vendor/etc/init/init.vendor.sysfw.rc
+vendor/etc/init/init_thermal-engine-v2.rc
+vendor/etc/init/lights-default-sec.rc
+vendor/etc/init/loc-launcher.rc
+# DROP-DUP-RC (source provides same init path): vendor/etc/init/memtrack_qti.rc
+vendor/etc/init/power-default-sec.rc
+vendor/etc/init/qdcmss.rc
+vendor/etc/init/qmipriod.debug.rc
+vendor/etc/init/qmipriod.rc
+vendor/etc/init/qms.rc
+vendor/etc/init/samsung.software.media.c2@1.0-service.rc
+vendor/etc/init/shsusrd.rc
+vendor/etc/init/tloc_daemon.rc
+vendor/etc/init/vaultkeeper_common.rc
+vendor/etc/init/vendor.dpmd.rc
+vendor/etc/init/vendor.qsap.qapeservice.rc
+vendor/etc/init/vendor.qti.audio-adsprpc-service.rc
+vendor/etc/init/vendor.qti.battery_stats.rc
+vendor/etc/init/vendor.qti.diag.rc
+vendor/etc/init/vendor.qti.psiclient@1.0-service.rc
+vendor/etc/init/vendor.samsung.hardware.health-service.rc
+vendor/etc/init/vendor.samsung.hardware.media.converter@1.0-service.rc
+vendor/etc/init/vendor.samsung.hardware.security.drk@2.0-service.rc
+vendor/etc/init/vendor.samsung.hardware.security.engmode@1.0-service.rc
+vendor/etc/init/vendor.samsung.hardware.security.widevine.keyprov-service.rc
+vendor/etc/init/vendor.samsung.hardware.sysinput@1.3-service.rc
+vendor/etc/init/vendor.samsung.hardware.tlc.iccc@1.0-service.rc
+vendor/etc/init/vendor.samsung.hardware.vibrator-default.rc
+vendor/etc/init/vendor.samsung.hardware.wifi@2.0-service.rc
+vendor/etc/init/vendor.samsung.rilchip.qcom.rc
+vendor/etc/init/vendor.sensors.qti.rc
+vendor/etc/init/vendor.sensors.sscrpcd.rc
+# DROP-DUP-RC (source provides same init path): vendor/etc/init/vendor_flash_recovery.rc
+# DROP-DUP-RC (source provides same init path): vendor/etc/init/vndservicemanager.rc
+vendor/etc/init/wifi.rc
+vendor/etc/init/wifi_qcom.rc
+vendor/etc/lm/prekill/prekill_2GB.data
+vendor/etc/lm/prekill/prekill_4GB.data
+vendor/etc/lm/prekill/prekill_6GB.data
+vendor/etc/lm/AdaptLaunchFeature.xml
+vendor/etc/lm/AppClassifierFeature.xml
+vendor/etc/lm/LightningLaunchesFeature.xml
+vendor/etc/lm/PreKillFeature.xml
+vendor/etc/lm/PrefAppsFeature.xml
+vendor/etc/lm/ProCompFeature.xml
+vendor/etc/lm/QAPE.xml
+vendor/etc/lm/QGPE.xml
+vendor/etc/lm/QGPEActionMap.xml
+vendor/etc/lm/SilkyScrollsFeature.xml
+vendor/etc/locale/plmn_delta_eng.bin
+vendor/etc/locale/plmn_delta_zh-rCN.bin
+vendor/etc/locale/plmn_delta_zh-rHK.bin
+vendor/etc/locale/plmn_delta_zh-rTW.bin
+vendor/etc/media_khaje_v0/video_system_specs.json
+# DROP-DUP-RES (source provides same path): vendor/etc/res/images/default/charger/battery_fail.png
+# DROP-DUP-RES (source provides same path): vendor/etc/res/images/default/charger/battery_scale.png
+vendor/etc/saiv/gae/MeanFea.bin
+vendor/etc/saiv/gae/ParaFea.bin
+vendor/etc/saiv/gae/PmAgeFeatSelIdx.bin
+vendor/etc/saiv/gae/PmAgeModel.bin
+vendor/etc/saiv/gae/PmExpFeatSelIdx.bin
+vendor/etc/saiv/gae/PmExpModel.bin
+vendor/etc/saiv/gae/PmGenModel.bin
+vendor/etc/saiv/gae/PmGenderFeatSelIdx.bin
+vendor/etc/seccomp_policy/c2audio.vendor.base-arm.policy
+vendor/etc/seccomp_policy/c2audio.vendor.base-arm64.policy
+vendor/etc/seccomp_policy/c2audio.vendor.ext-arm.policy
+vendor/etc/seccomp_policy/c2audio.vendor.ext-arm64.policy
+vendor/etc/seccomp_policy/codec2.vendor.base-arm64.policy
+vendor/etc/seccomp_policy/codec2.vendor.ext-arm64.policy
+vendor/etc/seccomp_policy/gnss@2.0-base.policy
+vendor/etc/seccomp_policy/gnss@2.0-edgnss-daemon.policy
+vendor/etc/seccomp_policy/gnss@2.0-qsap-location.policy
+vendor/etc/seccomp_policy/gnss@2.0-xtra-daemon.policy
+vendor/etc/seccomp_policy/gnss@2.0-xtwifi-client.policy
+vendor/etc/seccomp_policy/mediaextractor_sec.policy
+vendor/etc/seccomp_policy/qms.policy
+vendor/etc/seccomp_policy/qsap_qapeservice.policy
+vendor/etc/seccomp_policy/qti-systemd.policy
+vendor/etc/seccomp_policy/samsung.software.media.c2-base-policy
+vendor/etc/seccomp_policy/samsung.software.media.c2-ext-policy
+vendor/etc/ssg/ta_config.json
+vendor/etc/ssg/tz_whitelist.json
+vendor/etc/sysconfig/vendor-apex-allowlist.xml
+vendor/etc/user/mixer_paths_user_bengal_idp.xml
+vendor/etc/user/resourcemanager_user_bengal_idp.xml
+vendor/etc/user/userusecaseKvManager.xml
+# DROP-DUP-MANIFEST (source provides same vintf path): vendor/etc/vintf/manifest/bluetooth_audio.xml
+vendor/etc/vintf/manifest/c2_manifest_vendor_audio.xml
+# DROP-SHADOW-BIN (source builds it, prebuilt causes fsgen path conflict): vendor/etc/vintf/manifest/dumpstate-default.xml
+vendor/etc/vintf/manifest/engmode_manifest.xml
+# DROP-DUP-MANIFEST (source provides same vintf path): vendor/etc/vintf/manifest/face-default.xml
+vendor/etc/vintf/manifest/hyper-default-sec.xml
+vendor/etc/vintf/manifest/lights-default-sec.xml
+vendor/etc/vintf/manifest/manifest_identity_credential.xml
+vendor/etc/vintf/manifest/manifest_non_qmaa.xml
+vendor/etc/vintf/manifest/manifest_non_qmaa_extn.xml
+# DROP-DUP-MANIFEST (source provides same vintf path): vendor/etc/vintf/manifest/memtrack_qti.xml
+vendor/etc/vintf/manifest/power-samsung.xml
+vendor/etc/vintf/manifest/qms-saidl.xml
+vendor/etc/vintf/manifest/sec_c2_manifest_default0_1_0.xml
+vendor/etc/vintf/manifest/vaultkeeper_manifest.xml
+vendor/etc/vintf/manifest/vendor.qti.diag.hal.service.xml
+vendor/etc/vintf/manifest/vendor.samsung.hardware.health-service.xml
+vendor/etc/vintf/manifest/vendor.samsung.hardware.radio.exclude.qcom_jdm.xml
+vendor/etc/vintf/manifest/vendor.samsung.hardware.radio_manifest_2_33.xml
+vendor/etc/vintf/manifest/vendor.samsung.hardware.security.widevine.keyprov-service.xml
+vendor/etc/vintf/manifest/vendor.samsung.hardware.sehradio_manifest_2_33.xml
+vendor/etc/vintf/manifest/vendor.samsung.hardware.tlc.iccc@1.0-manifest.xml
+vendor/etc/vintf/manifest/vendor.samsung.hardware.vibrator-default.xml
+vendor/etc/vintf/manifest/vendor.samsung.hardware.wifi@2.0-service.xml
+vendor/etc/1K-ST-1.wav
+vendor/etc/200-ST-1.wav
+vendor/etc/2K-ST-1.wav
+vendor/etc/3K-ST-1.wav
+vendor/etc/500-ST-1.wav
+vendor/etc/Diag.cfg
+vendor/etc/IPACM_Filter_cfg.xml
+vendor/etc/MP3_1KHZ_L.wav
+vendor/etc/SW-ST-19.wav
+vendor/etc/SW-ST-20.wav
+vendor/etc/SW-ST-7.wav
+vendor/etc/audio_diag.cfg
+vendor/etc/backend_conf.xml
+vendor/etc/batching.conf
+vendor/etc/bt_diag.cfg
+vendor/etc/card-defs.xml
+vendor/etc/dax3_media_codecs_dolby_audio.xml
+vendor/etc/dpolicy
+vendor/etc/file112.wav
+vendor/etc/floating_feature.xml
+vendor/etc/fstab.default
+vendor/etc/fstab.emmc
+# DROP-DUP-FSTAB (device tree prebuilt_etc owns it): vendor/etc/fstab.ramplus
+vendor/etc/ftm_loopback
+vendor/etc/ftm_test_config
+vendor/etc/ftm_test_config_bengal-idp-snd-card
+vendor/etc/ftm_test_config_bengal-qrd-snd-card
+vendor/etc/gnss_antenna_info.conf
+vendor/etc/gpfspath_oem_config.xml
+vendor/etc/gps_diag.cfg
+vendor/etc/headphone.wav
+vendor/etc/hqm_device.xml
+vendor/etc/init.qti.fm.sh
+vendor/etc/linker.config.pb
+vendor/etc/microphone_characteristics.xml
+# DROP-DUP-ETC (source provides same path): vendor/etc/mkshrc
+vendor/etc/msm_irqbalance.conf
+vendor/etc/mtu-conf.xml
+vendor/etc/pdpcnt-conf.xml
+vendor/etc/plmn_delta.bin
+vendor/etc/plmn_delta_attaio.bin
+vendor/etc/plmn_delta_hktw.bin
+vendor/etc/plmn_delta_usagsm.bin
+vendor/etc/public.libraries.txt
+vendor/etc/qms_log_config
+vendor/etc/qvirtmgr-vndr.json
+vendor/etc/rcv_pb.wav
+vendor/etc/rcv_pb_sweep_sound.wav
+vendor/etc/resourcemanager_bengal_qrd.xml
+vendor/etc/resourcemanager_scubaidp.xml
+vendor/etc/resourcemanager_scubaqrd.xml
+vendor/etc/sar-vendor-cmd.xml
+vendor/etc/sec_audio_volume_curve.xml
+vendor/etc/sec_config
+vendor/etc/sec_config_oem
+vendor/etc/sensor_diag.cfg
+vendor/etc/somxreg.conf
+vendor/etc/spk_pb.wav
+vendor/etc/spk_pb_sweep_sound.wav
+vendor/etc/traceconfig.txt
+vendor/etc/ueventd.rc
+vendor/etc/usecaseKvManager.xml
+vendor/etc/vramdiskd.xml
+vendor/etc/wlan_common_rc
+vendor/etc/wlan_vendor_rc
+vendor/firmware/nfc/sec_s3nrn4v_firmware.bin
+vendor/firmware/Data.msc
+vendor/firmware/ILI77600A_INX_mp.ini
+vendor/firmware/ILI77600A_XL_mp.ini
+vendor/firmware/ILI77600A_mp.ini
+vendor/firmware/ILI7807S_TMB_mp.ini
+vendor/firmware/ILI7807S_XL_mp.ini
+vendor/firmware/ILITEK_FW
+vendor/firmware/ILITEK_ILI77600A_FW
+vendor/firmware/ILITEK_ILI77600A_INX_FW
+vendor/firmware/ILITEK_ILI77600A_XL_FW
+vendor/firmware/ILITEK_ILI7807S_TMB_FW
+vendor/firmware/ILITEK_ILI7807S_XL_FW
+vendor/firmware/chipone_firmware.bin
+vendor/firmware/chipone_limit.bin
+vendor/firmware/gmu_gen70000.bin
+vendor/firmware/hx83112f_BOE_FW.bin
+vendor/firmware/hx83112f_BOE_mp.bin
+vendor/firmware/hx83112f_BOE_mp.csv
+vendor/firmware/hx83112f_TXD_FW.bin
+vendor/firmware/hx83112f_TXD_mp.bin
+vendor/firmware/hx83112f_TXD_mp.csv
+vendor/firmware/mp.ini
+vendor/firmware/regdb.bin
+vendor/firmware/venus_unsigned.mbn
+vendor/firmware/venus_v6.mbn
+vendor/firmware/venus_v7.mbn
+vendor/firmware/vpu20_1v.mbn
+vendor/firmware/vpu20_1v_unsigned.mbn
+vendor/firmware/vpu20_4v.mbn
+vendor/firmware/vpu20_4v_unsigned.mbn
+vendor/firmware/wlanmdsp.mbn
+vendor/lib/btaudio_offload_if.so
+vendor/lib/com.qti.chiusecaseselector.so
+vendor/lib/ftm_fm_lib.so
+vendor/lib/libAlacSwDec.so
+vendor/lib/libApeSwDec.so
+vendor/lib/libCB.so
+vendor/lib/libEvrcSwCodec.so
+vendor/lib/libFlacSwDec.so
+# DEDUP-SO(egl-stub-kept): vendor/lib/libGLESv2_adreno.so
+vendor/lib/libGPMTEEC_vendor.so
+vendor/lib/libGPreqcancel.so
+vendor/lib/libOpenCv.camera.samsung.so
+vendor/lib/libQcelp13SwCodec.so
+vendor/lib/libSecureUILib.so
+vendor/lib/libStDrvInt.so
+vendor/lib/libTxPwrJni.so
+vendor/lib/lib_bt_aptx.so
+vendor/lib/lib_bt_ble.so
+vendor/lib/lib_bt_bundle.so
+vendor/lib/libadm.so
+vendor/lib/libadreno_app_profiles.so
+vendor/lib/libagm_compress_plugin.so
+vendor/lib/libagm_mixer_plugin.so
+vendor/lib/libagm_pcm_plugin.so
+vendor/lib/libagmmixer.so
+vendor/lib/libaidenoiser.so
+vendor/lib/libbase64.so
+vendor/lib/libbatching.so
+vendor/lib/libbatterylistener.so
+vendor/lib/libbt-hidlclient.so
+vendor/lib/libbtnv.so
+vendor/lib/libcacertclient.so
+vendor/lib/libcamerapostproc.so
+vendor/lib/libcapiv2svacnnvendor.so
+vendor/lib/libcapiv2svarnnvendor.so
+vendor/lib/libcapiv2uvvendor.so
+vendor/lib/libcdfw.so
+vendor/lib/libcdfw_remote_api.so
+vendor/lib/libcneoplookup.so
+vendor/lib/libcneqmiutils.so
+vendor/lib/libcodec2_hidl@1.1.so
+vendor/lib/libcodec2_hidl_plugin.so
+vendor/lib/libcodec2_simple_component.so
+vendor/lib/libcodec2_soft_common.so
+vendor/lib/libdiagjni.so
+vendor/lib/libdisp-aba.so
+vendor/lib/libdpmqmihal.so
+vendor/lib/libdpps.so
+vendor/lib/libdrmtime.so
+vendor/lib/libdsd2pcm.so
+vendor/lib/libeai_fixed_32.so
+vendor/lib/libengineplugin.so
+vendor/lib/libesesbprovision.so
+vendor/lib/libfmpal.so
+vendor/lib/libgeofencing.so
+vendor/lib/libgnss.so
+vendor/lib/libgnsspps.so
+vendor/lib/libgpt.so
+vendor/lib/libgpudataproducer.so
+vendor/lib/libhdcp1prov.so
+vendor/lib/libhdcp2p2prov.so
+vendor/lib/libhdcpsrm.so
+vendor/lib/libhdr_tm.so
+vendor/lib/libhfp_pal.so
+vendor/lib/libipebpsstriping.so
+vendor/lib/libjnihelper.so
+vendor/lib/libjpege.so
+vendor/lib/libkcl.so
+vendor/lib/libkernelmanager.so
+vendor/lib/liblistensoundmodel2vendor.so
+vendor/lib/libllvm-qcom.so
+vendor/lib/libllvm-qgl.so
+vendor/lib/libloadtrusteduiapp.so
+vendor/lib/libloc_api_wds.so
+vendor/lib/libloc_eng_hub.so
+vendor/lib/libloc_qwes_iface.so
+vendor/lib/libloc_socket.so
+vendor/lib/liblocation_api_msg.so
+vendor/lib/liblocation_client_api.so
+vendor/lib/liblocation_integration_api.so
+vendor/lib/liblocdiagiface.so
+vendor/lib/liblowi_wifihal.so
+vendor/lib/libmapdata_api.so
+vendor/lib/libmasc.so
+vendor/lib/libmcs.so
+vendor/lib/libmctfengine_stub.so
+vendor/lib/libmdsprpc.so
+vendor/lib/libmm-hdcpmgr.so
+vendor/lib/libmm-omxcore.so
+vendor/lib/libnative-api.so
+vendor/lib/libnetmgr_nr_fusion.so
+vendor/lib/libnetmgr_rmnet_ext.so
+vendor/lib/libnetmgrext_interface_client.so
+vendor/lib/libnetmgrext_interface_server.so
+vendor/lib/liboemaids_vendor.so
+vendor/lib/libopestriping.so
+vendor/lib/libops.so
+vendor/lib/libos.so
+vendor/lib/libpadm.so
+vendor/lib/libpalclient.so
+vendor/lib/libperfioctl.so
+vendor/lib/libpsi.so
+# DEDUP-SO(egl-stub-kept): vendor/lib/libq3dtools_adreno.so
+vendor/lib/libqc2audio_hwaudiocodec.so
+vendor/lib/libqc2audio_swaudiocodec.so
+vendor/lib/libqc2colorconvertfilter.so
+vendor/lib/libqc2filter.so
+vendor/lib/libqcci_legacy.so
+vendor/lib/libqcodec2_base.so
+vendor/lib/libqcodec2_basecodec.so
+vendor/lib/libqcodec2_core.so
+vendor/lib/libqcodec2_filterbase.so
+vendor/lib/libqcodec2_hooks.so
+vendor/lib/libqcodec2_mockfilter.so
+vendor/lib/libqcodec2_mockqc2filter.so
+vendor/lib/libqcodec2_platform.so
+vendor/lib/libqcodec2_utils.so
+vendor/lib/libqcodec2_v4l2codec.so
+vendor/lib/libqcrildatactl.so
+vendor/lib/libqdp.so
+vendor/lib/libqdpr.so
+vendor/lib/libqisl.so
+vendor/lib/libqmi_csvt_srvc.so
+vendor/lib/libqmi_legacy.so
+vendor/lib/libqseed3.so
+vendor/lib/libqti-iopd.so
+vendor/lib/libqti-perfd.so
+vendor/lib/libqti-qesdk-secure.so
+vendor/lib/libqti-utils.so
+vendor/lib/libqtigefar.so
+vendor/lib/librcmask.so
+vendor/lib/librecovery_updater_msm.so
+vendor/lib/librpmb.so
+vendor/lib/libsavsac.so
+vendor/lib/libsavscmn.so
+vendor/lib/libsavsvc.so
+vendor/lib/libsdm-colormgr-algo.so
+vendor/lib/libsdsprpc.so
+vendor/lib/libsecureui.so
+vendor/lib/libsecureui_svcsock.so
+vendor/lib/libsfplugin_ccodec_utils.so
+vendor/lib/libskewknob.so
+vendor/lib/libsmemlog.so
+vendor/lib/libsnaace.so
+vendor/lib/libsnamrnb.so
+vendor/lib/libsnamrwb.so
+vendor/lib/libsndcardparser.so
+vendor/lib/libsns_device_mode_stub.so
+vendor/lib/libsns_low_lat_stream_stub.so
+vendor/lib/libsns_registry_skel.so
+vendor/lib/libsoc_helper.so
+vendor/lib/libsoc_helper_jni.so
+vendor/lib/libspcom.so
+vendor/lib/libspl.so
+vendor/lib/libssc_default_listener.so
+vendor/lib/libssd.so
+vendor/lib/libstreamparser.so
+vendor/lib/libsubsystem_control.so
+vendor/lib/libswregistrationalgo.so
+vendor/lib/libsynergy_loc_api.so
+vendor/lib/libsysmon_cdsp_skel.so
+vendor/lib/libsystem_health_mon.so
+vendor/lib/libtfestriping.so
+vendor/lib/libthreadutils.so
+vendor/lib/libtzdrmgenprov.so
+vendor/lib/libvideotxr.so
+vendor/lib/libvideoutils.so
+vendor/lib/libvndfwk_detect_jni.qti.so
+vendor/lib/libvndfwk_detect_jni.qti_vendor.so
+vendor/lib/libvpx.so
+vendor/lib/libwms.so
+vendor/lib/libwpa_drv_oem.so
+vendor/lib/libwqe.so
+vendor/lib/qti.video.utils.videobufferlayout.so
+vendor/lib/vendor.libdpmctmgr.so
+vendor/lib/vendor.libdpmfdmgr.so
+vendor/lib/vendor.libdpmframework.so
+vendor/lib/vendor.libdpmtcm.so
+vendor/lib/vendor.libmwqemiptablemgr.so
+vendor/lib/vendor.qti.hardware.ListenSoundModel@1.0-impl.so
+vendor/lib/vendor.qti.hardware.ListenSoundModel@1.0.so
+vendor/lib/vendor.samsung.hardware.bluetooth.audio-impl.so
+vendor/lib64/hw/fpsensor_fingerprint.default.so
+vendor/lib64/btaudio_offload_if.so
+vendor/lib64/com.fingerprints.extension@1.0.so
+vendor/lib64/com.qti.chiusecaseselector.so
+vendor/lib64/ftm_fm_lib.so
+vendor/lib64/libAlacSwDec.so
+vendor/lib64/libApeSwDec.so
+vendor/lib64/libBSTYuvNight.so
+vendor/lib64/libCB.so
+vendor/lib64/libEvrcSwCodec.so
+vendor/lib64/libFileMux_proprietary.so
+vendor/lib64/libFlacSwDec.so
+# DEDUP-SO(egl-stub-kept): vendor/lib64/libGLESv2_adreno.so
+vendor/lib64/libGPMTEEC_vendor.so
+vendor/lib64/libGPreqcancel.so
+vendor/lib64/libOpenCv.camera.samsung.so
+vendor/lib64/libQcelp13SwCodec.so
+vendor/lib64/libSecC2ComponentStore.so
+vendor/lib64/libSecureUILib.so
+vendor/lib64/libStDrvInt.so
+vendor/lib64/libTxPwrJni.so
+vendor/lib64/lib_bt_aptx.so
+vendor/lib64/lib_bt_ble.so
+vendor/lib64/lib_bt_bundle.so
+vendor/lib64/libadaptlaunch.so
+vendor/lib64/libadm.so
+vendor/lib64/libadreno_app_profiles.so
+vendor/lib64/libagm_compress_plugin.so
+vendor/lib64/libagm_mixer_plugin.so
+vendor/lib64/libagm_pcm_plugin.so
+vendor/lib64/libagmmixer.so
+vendor/lib64/libaidenoiser.so
+vendor/lib64/libapengine.so
+vendor/lib64/libappclassifier.so
+vendor/lib64/libbase64.so
+vendor/lib64/libbatching.so
+vendor/lib64/libbatterylistener.so
+vendor/lib64/libbinderdebug.so
+vendor/lib64/libbt-hidlclient.so
+vendor/lib64/libbtnv.so
+vendor/lib64/libcacertclient.so
+vendor/lib64/libcamerapostproc.so
+vendor/lib64/libcapiv2svacnnvendor.so
+vendor/lib64/libcapiv2svarnnvendor.so
+vendor/lib64/libcapiv2uvvendor.so
+vendor/lib64/libcdfw.so
+vendor/lib64/libcdfw_remote_api.so
+vendor/lib64/libclconverter.so
+vendor/lib64/libcneoplookup.so
+vendor/lib64/libcneqmiutils.so
+vendor/lib64/libcodec2_hidl@1.1.so
+vendor/lib64/libcodec2_hidl@1.2.so
+vendor/lib64/libcodec2_hidl_plugin.so
+vendor/lib64/libcodec2_sec_aacdec.so
+vendor/lib64/libcodec2_sec_aacenc.so
+vendor/lib64/libcodec2_sec_amrnbdec.so
+vendor/lib64/libcodec2_sec_amrwbdec.so
+vendor/lib64/libcodec2_sec_flacdec.so
+vendor/lib64/libcodec2_sec_imadec.so
+vendor/lib64/libcodec2_sec_mp3dec.so
+vendor/lib64/libcodec2_sec_mp4vdec.so
+vendor/lib64/libcodec2_sec_soft_common.so
+vendor/lib64/libcodec2_sec_vc1dec.so
+vendor/lib64/libcodec2_simple_component.so
+vendor/lib64/libcodec2_soft_ac4dec.so
+vendor/lib64/libcodec2_soft_common.so
+vendor/lib64/libcodec2_soft_eac3dec.so
+vendor/lib64/libcppcose_rkp.so
+vendor/lib64/libdiagjni.so
+vendor/lib64/libdisp-aba.so
+vendor/lib64/libdk_vnd_service_core.so
+vendor/lib64/libdpmqmihal.so
+vendor/lib64/libdpp_manager.so
+vendor/lib64/libdpps.so
+vendor/lib64/libdrmtime.so
+vendor/lib64/libdsd2pcm.so
+vendor/lib64/libeai_fixed.so
+vendor/lib64/libeai_float.so
+vendor/lib64/libembmsservice.so
+vendor/lib64/libengineplugin.so
+vendor/lib64/libengmode15.so
+vendor/lib64/libengmode2lite.so
+vendor/lib64/libengmode_client.so
+vendor/lib64/libengmode_server.so
+vendor/lib64/libengmode_tlc.so
+vendor/lib64/libesesbprovision.so
+vendor/lib64/libfmpal.so
+vendor/lib64/libfp_ext_svc2.so
+vendor/lib64/libgeofencing.so
+vendor/lib64/libgnss.so
+vendor/lib64/libgnsspps.so
+vendor/lib64/libgpt.so
+vendor/lib64/libgpudataproducer.so
+vendor/lib64/libhdcp1prov.so
+vendor/lib64/libhdcp2p2prov.so
+vendor/lib64/libhdcpsrm.so
+vendor/lib64/libhdr_tm.so
+vendor/lib64/libhfp_pal.so
+vendor/lib64/libhyper.so
+vendor/lib64/libipebpsstriping.so
+vendor/lib64/libjnihelper.so
+vendor/lib64/libjpege.so
+vendor/lib64/libkcl.so
+vendor/lib64/libkernelmanager.so
+vendor/lib64/liblearningmodule.so
+vendor/lib64/liblightninglaunches.so
+vendor/lib64/liblistensoundmodel2vendor.so
+vendor/lib64/libllvm-qcom.so
+vendor/lib64/libllvm-qgl.so
+vendor/lib64/liblmthermallistner.so
+vendor/lib64/liblmutils-ns.so
+vendor/lib64/libloadalgo_stub.so
+vendor/lib64/libloadtrusteduiapp.so
+vendor/lib64/libloc_api_wds.so
+vendor/lib64/libloc_eng_hub.so
+vendor/lib64/libloc_qwes_iface.so
+vendor/lib64/libloc_socket.so
+vendor/lib64/liblocation_api_msg.so
+vendor/lib64/liblocation_client_api.so
+vendor/lib64/liblocation_integration_api.so
+vendor/lib64/liblocdiagiface.so
+vendor/lib64/liblowi_wifihal.so
+vendor/lib64/libmapdata_api.so
+vendor/lib64/libmasc.so
+vendor/lib64/libmcs.so
+vendor/lib64/libmctfengine_stub.so
+vendor/lib64/libmdsprpc.so
+vendor/lib64/libmediaconverter.so
+vendor/lib64/libmemperfd.so
+vendor/lib64/libmeters-ns.so
+vendor/lib64/libmeters.so
+vendor/lib64/libmm-hdcpmgr.so
+vendor/lib64/libmm-omxcore.so
+vendor/lib64/libmmosal_vendor.so
+vendor/lib64/libmmrtpdecoder_vendor.so
+vendor/lib64/libmmrtpencoder_vendor.so
+vendor/lib64/libnative-api.so
+vendor/lib64/libnetmgr_nr_fusion.so
+vendor/lib64/libnetmgr_rmnet_ext.so
+vendor/lib64/libnetmgrext_interface_client.so
+vendor/lib64/libnetmgrext_interface_server.so
+vendor/lib64/liboemaids_vendor.so
+vendor/lib64/libopestriping.so
+vendor/lib64/libops.so
+vendor/lib64/libos.so
+vendor/lib64/libpadm.so
+vendor/lib64/libpalclient.so
+vendor/lib64/libperfioctl.so
+vendor/lib64/libprefapps.so
+vendor/lib64/libprekill.so
+vendor/lib64/libprocomp.so
+vendor/lib64/libpsi.so
+# DEDUP-SO(egl-stub-kept): vendor/lib64/libq3dtools_adreno.so
+vendor/lib64/libqapesdk.so
+vendor/lib64/libqc2audio_hwaudiocodec.so
+vendor/lib64/libqc2audio_swaudiocodec.so
+vendor/lib64/libqc2colorconvertfilter.so
+vendor/lib64/libqc2filter.so
+vendor/lib64/libqcci_legacy.so
+vendor/lib64/libqcodec2_base.so
+vendor/lib64/libqcodec2_basecodec.so
+vendor/lib64/libqcodec2_core.so
+vendor/lib64/libqcodec2_filterbase.so
+vendor/lib64/libqcodec2_hooks.so
+vendor/lib64/libqcodec2_mockfilter.so
+vendor/lib64/libqcodec2_mockqc2filter.so
+vendor/lib64/libqcodec2_platform.so
+vendor/lib64/libqcodec2_utils.so
+vendor/lib64/libqcodec2_v4l2codec.so
+vendor/lib64/libqcrildatactl.so
+vendor/lib64/libqdp.so
+vendor/lib64/libqdpr.so
+vendor/lib64/libqesdk2_0.so
+vendor/lib64/libqisl.so
+vendor/lib64/libqmi_csvt_srvc.so
+vendor/lib64/libqmi_legacy.so
+vendor/lib64/libqseed3.so
+vendor/lib64/libqti-iopd.so
+vendor/lib64/libqti-perfd.so
+vendor/lib64/libqti-qesdk-secure.so
+vendor/lib64/libqti-utils.so
+vendor/lib64/libqtigefar.so
+vendor/lib64/librcmask.so
+vendor/lib64/librecovery_updater_msm.so
+vendor/lib64/libreffeature.so
+vendor/lib64/librpmb.so
+vendor/lib64/libsavsac.so
+vendor/lib64/libsavscmn.so
+vendor/lib64/libsavsvc.so
+vendor/lib64/libsdm-colormgr-algo.so
+vendor/lib64/libsdsprpc.so
+vendor/lib64/libsec-ril.so
+vendor/lib64/libsecril-client.so
+vendor/lib64/libsecureui.so
+vendor/lib64/libsecureui_svcsock.so
+vendor/lib64/libsfplugin_ccodec_utils.so
+vendor/lib64/libsilkyscrolls.so
+vendor/lib64/libskewknob.so
+vendor/lib64/libsmemlog.so
+vendor/lib64/libsnaace.so
+vendor/lib64/libsnamrnb.so
+vendor/lib64/libsnamrwb.so
+vendor/lib64/libsndcardparser.so
+vendor/lib64/libsns_device_mode_stub.so
+vendor/lib64/libsns_low_lat_stream_stub.so
+vendor/lib64/libsns_registry_skel.so
+vendor/lib64/libsoc_helper.so
+vendor/lib64/libsoc_helper_jni.so
+vendor/lib64/libsoft_attestation_cert.so
+vendor/lib64/libsomxcmn.so
+vendor/lib64/libspcom.so
+vendor/lib64/libspl.so
+vendor/lib64/libssc_default_listener.so
+vendor/lib64/libssd.so
+vendor/lib64/libstork_shared.so
+vendor/lib64/libstreamparser.so
+vendor/lib64/libsubsystem_control.so
+vendor/lib64/libswregistrationalgo.so
+vendor/lib64/libsynergy_loc_api.so
+vendor/lib64/libsysmon_cdsp_skel.so
+vendor/lib64/libsystem_health_mon.so
+vendor/lib64/libtfestriping.so
+vendor/lib64/libthreadutils.so
+vendor/lib64/libtlc_comm_iccc.so
+vendor/lib64/libtlc_direct_comm_iccc.so
+vendor/lib64/libtzdrmgenprov.so
+vendor/lib64/libvideotxr.so
+vendor/lib64/libvideoutils.so
+vendor/lib64/libvkmanager_vendor.so
+vendor/lib64/libvkservice.so
+vendor/lib64/libvndfwk_detect_jni.qti.so
+vendor/lib64/libvndfwk_detect_jni.qti_vendor.so
+vendor/lib64/libwms.so
+vendor/lib64/libwpa_drv_oem.so
+vendor/lib64/libwqe.so
+vendor/lib64/libz_stable.so
+vendor/lib64/qti.video.utils.videobufferlayout.so
+vendor/lib64/vendor.fpsensor.hardware.fpsensorhidlsvc@2.0.so
+vendor/lib64/vendor.libdpmctmgr.so
+vendor/lib64/vendor.libdpmfdmgr.so
+vendor/lib64/vendor.libdpmframework.so
+vendor/lib64/vendor.libdpmtcm.so
+vendor/lib64/vendor.libmwqemiptablemgr.so
+vendor/lib64/vendor.qti.hardware.ListenSoundModel@1.0-impl.so
+vendor/lib64/vendor.qti.hardware.ListenSoundModel@1.0.so
+vendor/lib64/vendor.qti.hardware.bttpi-V2-ndk.so
+vendor/lib64/vendor.samsung.hardware.bluetooth.audio-impl.so
+vendor/lib64/vendor.samsung.hardware.health-V1-ndk.so
+vendor/lib64/vendor.samsung.hardware.light-V1-ndk.so
+vendor/lib64/vendor.samsung.hardware.media.converter-V1-ndk.so
+vendor/lib64/vendor.samsung.hardware.media.converter-V2-ndk.so
+vendor/lib64/vendor.samsung.hardware.radio.channel-V1-ndk.so
+vendor/lib64/vendor.samsung.hardware.security.drk@2.0.so
+vendor/lib64/vendor.samsung.hardware.security.engmode@1.0.so
+vendor/lib64/vendor.samsung.hardware.security.vaultkeeper@2.0.so
+vendor/lib64/vendor.samsung.hardware.security.widevine.keyprov-V1-ndk.so
+vendor/lib64/vendor.samsung.hardware.sysinput@1.0.so
+vendor/lib64/vendor.samsung.hardware.sysinput@1.1.so
+vendor/lib64/vendor.samsung.hardware.sysinput@1.2.so
+vendor/lib64/vendor.samsung.hardware.sysinput@1.3.so
+vendor/lib64/vendor.samsung.hardware.thermal@1.0.so
+vendor/lib64/vendor.samsung.hardware.tlc.iccc@1.0-impl.so
+vendor/lib64/vendor.samsung.hardware.tlc.iccc@1.0.so
+vendor/lib64/vendor.samsung.hardware.vibrator-V5-ndk.so
+vendor/lib64/vendor.samsung.hardware.wifi@2.0.so
+vendor/lib64/vendor.samsung.hardware.wifi@2.1.so
+vendor/lib64/vendor.samsung.hardware.wifi@2.2.so
+vendor/lib64/vendor.samsung.hardware.wifi@2.3.so
+
+# Unified variants
+# per-model ipa_fws/wlanmdsp, bind-mounted by init.a05s.unify.rc via ro.boot.em.model
+# SM-A057F (built from base at extract time) / SM-A057G / SM-A057M / SM-E145F / SM-M145F
+
+# From the F variant tree (missing in the G base, needed for unified)
+# Unified variants base firmware (DYH1, G stock). Per-model dirs are fanned out by extract-files.sh.
+# NOTE: vendor/lib64/rfsa/adsp 64-bit sns skeletons are NOT listed: their 32-bit twins are extracted and the 23.2 makefile generator asserts on lib/lib64 rfsa dir-vs-file collision (see tools/extract-utils file.py common_files). Revisit if sensors misbehave.
+# QTI GNSS impl + diaghal NDK stub (deps of gnss-aidl-service-qti / libdiag_system)
+system/lib/vendor.qti.diaghal-V1-ndk.so
+system/lib64/vendor.qti.diaghal-V1-ndk.so
+vendor/lib/hw/android.hardware.gnss-aidl-impl-qti.so
+vendor/lib64/hw/android.hardware.gnss-aidl-impl-qti.so
+vendor/lib/hw/android.hardware.bluetooth@1.0-impl-qti.so
+vendor/lib64/hw/android.hardware.bluetooth@1.0-impl-qti.so
+vendor/lib64/libVendorSemDataProps.so
+vendor/lib64/libVendorSemTelephonyProps.so
+# MOVED-TO-DEVICE-TREE (prebuilt_etc in rootdir, avoids dup): vendor/etc/IPACM_cfg.xml

@@ -1,0 +1,2 @@
+type fingerprint_vndservice, vndservice_manager_type;
+binder_call(vndservicemanager vendor_cnd)

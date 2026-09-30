@@ -1,0 +1,18 @@
+# Display
+
+# Fingerprint
+persist.vendor.fpc.                      u:object_r:vendor_fp_prop:s0
+persist.vendor.goodix.                   u:object_r:vendor_fp_prop:s0
+persist.vendor.sys.fp.                   u:object_r:vendor_fp_prop:s0
+persist.vendor.sys.fp.info               u:object_r:vendor_fp_info_prop:s0
+persist.vendor.sys.fp.uid                u:object_r:vendor_fp_info_prop:s0
+ro.hardware.fp.                          u:object_r:vendor_fp_prop:s0
+vendor.fps_hal.                          u:object_r:vendor_fp_prop:s0
+vendor.fps_hal_lc                        u:object_r:vendor_fp_prop:s0
+vendor.panel.display.                    u:object_r:vendor_fp_prop:s0
+vendor.sys.fp.                           u:object_r:vendor_fp_prop:s0
+persist.vendor.fingerprint.              u:object_r:vendor_fp_prop:s0
+
+# Radio
+ro.vendor.ril.svlte1x  u:object_r:vendor_radio_prop:s0
+ro.vendor.ril.svdo  u:object_r:vendor_radio_prop:s0

@@ -1,0 +1,14 @@
+# Device ID
+vendor_public_prop(vendor_deviceid_prop)
+vendor_public_prop(vendor_sno_prop)
+vendor_public_prop(vendor_cpuid_prop)
+
+# Display
+vendor_internal_prop(vendor_ctl_vendor_display_prop)
+
+# Fingerprint
+vendor_restricted_prop(vendor_fp_info_prop)
+vendor_public_prop(vendor_fp_prop)
+
+# WiFi
+vendor_public_prop(vendor_wifimac_prop)

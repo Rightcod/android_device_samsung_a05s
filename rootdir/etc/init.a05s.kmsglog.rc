@@ -1,0 +1,11 @@
+# DEBUG: mirror userspace log buffers into kmsg so a failing boot leaves
+# traces retrievable via last_kmsg/pstore even without working adb/logcat.
+# IMPORTANT: never include the 'kernel' buffer here (feedback loop).
+on property:init.svc.logd=running
+    start a05s_kmsglog
+
+service a05s_kmsglog /system/bin/logcat -b main -b system -b crash -b events -v threadtime -f /dev/kmsg -r 1024 -n 1
+    class main
+    user root
+    group root system log
+    disabled
