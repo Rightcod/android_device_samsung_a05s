@@ -6,9 +6,13 @@
 # Ancient bootloaders (AWI7/AWK5 and older) are blocked in installer/check_bl.sh.
 
 
+## Contributors & Credits
+- **Rightcode** ([@Rightcod](https://github.com/Rightcod))
+- **The LineageOS Project**
+
 ```
 #
-# Copyright (C) 2024 The LineageOS Project
+# Copyright (C) 2024-2026 The LineageOS Project
 #
 # SPDX-License-Identifier: Apache-2.0
 #
