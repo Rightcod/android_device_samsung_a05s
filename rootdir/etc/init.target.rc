@@ -1,0 +1,632 @@
+# Copyright (c) 2015-2021, The Linux Foundation. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are
+# met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above
+#       copyright notice, this list of conditions and the following
+#       disclaimer in the documentation and/or other materials provided
+#       with the distribution.
+#     * Neither the name of The Linux Foundation nor the names of its
+#       contributors may be used to endorse or promote products derived
+#       from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+# ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+# BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+# BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+# IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+# Changes from Qualcomm Innovation Center are provided under the following license:
+#
+# Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause-Clear
+#
+#
+
+import /vendor/etc/init/hw/init.qti.kernel.rc
+
+import /vendor/etc/init/hw/init.samsung.rc
+import /vendor/etc/init/hw/init.${ro.product.vendor.device}.rc
+
+on early-init
+    write /proc/sys/kernel/sched_boost 1
+    exec u:r:vendor_qti_init_shell:s0 -- /vendor/bin/init.qti.early_init.sh
+    setprop ro.soc.model ${ro.vendor.qti.soc_model}
+	
+    # Property used by vintf for sku specific manifests
+    setprop ro.boot.product.hardware.sku ${ro.boot.hardware.sku}
+
+on init
+    write /dev/stune/foreground/schedtune.sched_boost_no_override 1
+    write /dev/stune/top-app/schedtune.sched_boost_no_override 1
+    write /dev/stune/schedtune.colocate 0
+    write /dev/stune/background/schedtune.colocate 0
+    write /dev/stune/system-background/schedtune.colocate 0
+    write /dev/stune/foreground/schedtune.colocate 0
+    write /dev/stune/top-app/schedtune.colocate 1
+    #Moving to init as this is needed for qseecomd
+    wait /dev/block/platform/soc/${ro.boot.bootdevice}
+    symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+    start vendor.qseecomd
+
+    # hyper sys node permission
+    chmod 0664 /sys/devices/system/cpu/bus_dcvs/DDR/soc:qcom,memlat:ddr:gold/min_freq
+    chown system system /sys/devices/system/cpu/bus_dcvs/DDR/soc:qcom,memlat:ddr:gold/min_freq
+
+    chown root system /sys/kernel/gpu/gpu_freq_table
+    chown root system /sys/kernel/gpu/gpu_max_clock
+    chown root system /sys/kernel/gpu/gpu_min_clock
+    chmod 664 /sys/kernel/gpu/gpu_max_clock
+    chmod 664 /sys/kernel/gpu/gpu_min_clock
+
+    chown root system /dev/cpuctl/top-app/cpu.uclamp.min
+    chmod 0664 /dev/cpuctl/top-app/cpu.uclamp.min
+
+on early-fs
+    start vold
+
+on fs
+    start hwservicemanager
+    mount_all --early
+    chown root system /mnt/vendor/persist
+    chmod 0771 /mnt/vendor/persist
+    restorecon_recursive /mnt/vendor/persist
+    mkdir /mnt/vendor/persist/data 0700 system system
+
+on post-fs
+    # set RLIMIT_MEMLOCK to 64MB
+    setrlimit 8 67108864 67108864
+
+on late-fs
+    wait_for_prop hwservicemanager.ready true
+    mount_all --late
+
+on post-fs-data
+    mkdir /vendor/data/tombstones 0771 system system
+
+on early-boot
+    start vendor.sensors
+
+on boot
+    write /dev/cpuset/audio-app/cpus 1-2
+#USB controller configuration
+    setprop vendor.usb.rndis.func.name "gsi"
+    setprop vendor.usb.rmnet.func.name "gsi"
+    setprop vendor.usb.rmnet.inst.name "rmnet"
+    setprop vendor.usb.dpl.inst.name "dpl"
+    setprop vendor.usb.qdss.inst.name "qdss_sw"
+    setprop vendor.usb.controller 4e00000.dwc3
+
+on boot && property:persist.vendor.usb.controller.default=*
+    setprop vendor.usb.controller ${persist.vendor.usb.controller.default}
+
+on property:vendor.usb.controller=*
+    setprop sys.usb.controller ${vendor.usb.controller}
+
+on charger
+    start vendor.power_off_alarm
+    setprop vendor.usb.controller 4e00000.dwc3
+    setprop sys.usb.configfs 1
+
+#pd-mapper
+service vendor.pd_mapper /vendor/bin/pd-mapper
+    class core
+    user system
+    group system
+
+#Peripheral manager
+service vendor.per_mgr /vendor/bin/pm-service
+    class core
+    user system
+    group system
+    ioprio rt 4
+
+service vendor.per_proxy /vendor/bin/pm-proxy
+    class core
+    user system
+    group system
+    disabled
+
+service vendor.mdm_helper /vendor/bin/mdm_helper
+    class core
+    group system wakelock
+    disabled
+
+service vendor.mdm_launcher /vendor/bin/sh /vendor/bin/init.mdm.sh
+    class core
+    oneshot
+
+on property:init.svc.vendor.per_mgr=running
+    start vendor.per_proxy
+
+on property:sys.shutdown.requested=*
+    stop vendor.per_proxy
+
+on property:vold.decrypt=trigger_restart_framework
+   start vendor.cnss_diag
+
+service vendor.cnss_diag /system/vendor/bin/cnss_diag -q -f -t HELIUM
+   class main
+   user system
+   group system wifi inet sdcard_rw media_rw diag
+   oneshot
+
+service dcvs-sh /vendor/bin/init.qti.dcvs.sh
+    class late_start
+    user root
+    group root system
+    disabled
+    oneshot
+
+on property:vendor.dcvs.prop=1
+   start dcvs-sh
+
+#zhangsen1 factory test start
+service agmhostless_loop /system/vendor/bin/agmhostless -D 100 -P 103 -C 104 -p 1024 -n 4 -c 1 -r 48000 T 200 -i 1 -o 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+
+#zhangsen1
+service playback_start_spk_open /vendor/bin/playback.sh 1 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service playback_start_spk_close /vendor/bin/playback.sh 1 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service playback_start_rec_open /vendor/bin/playback.sh 2 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service playback_start_rec_close /vendor/bin/playback.sh 2 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service record_start_handsetmic_open /vendor/bin/record.sh 9 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service record_start_handsetmic_close /vendor/bin/record.sh 9 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service record_start_speakermic_open /vendor/bin/record.sh 10 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service record_start_speakermic_close /vendor/bin/record.sh 10 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service record_start_headsetrmic_open /vendor/bin/record.sh 11 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service record_start_headsetmic_close /vendor/bin/record.sh 11 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_handsetmic_headphone_open /vendor/bin/record_playback.sh 3 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_handsetmic_headphone_close /vendor/bin/record_playback.sh 3 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_speakermic_headphone_open /vendor/bin/record_playback.sh 4 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_speakermic_headphone_close /vendor/bin/record_playback.sh 4 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+
+
+service loopback_start_headsetmic_headphone_open /vendor/bin/record_playback.sh 12 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_headsetmic_headphone_close /vendor/bin/record_playback.sh 12 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_headsetmic_speak_open /vendor/bin/record_playback.sh 5 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_headsetmic_speak_close /vendor/bin/record_playback.sh 5 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+
+service loopback_start_handsetmic_speak_open /vendor/bin/record_playback.sh 13 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_handsetmic_speak_close /vendor/bin/record_playback.sh 13 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_speakmic_speak_open /vendor/bin/record_playback.sh 14 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_speakmic_speak_close /vendor/bin/record_playback.sh 14 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+
+service loopback_start_speak_speakmic_open /vendor/bin/loopback.sh 8 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_speak_speakmic_close /vendor/bin/loopback.sh 8 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+
+service loopback_start_headsetmic_receiver_open /vendor/bin/record_playback.sh 6 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_headsetmic_receiver_close /vendor/bin/record_playback.sh 6 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_handsetmic_receiver_open /vendor/bin/record_playback.sh 15 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_handsetmic_receiver_close /vendor/bin/record_playback.sh 15 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_speakmic_receiver_open /vendor/bin/record_playback.sh 16 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_speakmic_receiver_close /vendor/bin/record_playback.sh 16 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+
+service loopback_start_headphone_handsetmic_open /vendor/bin/loopback.sh 18 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_headphone_handsetmic_close /vendor/bin/loopback.sh 18 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_headphone_speakermic_open /vendor/bin/loopback.sh 20 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_headphone_speakermic_close /vendor/bin/loopback.sh 20 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_headphone_headsetmic_open /vendor/bin/loopback.sh 24 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_headphone_headsetmic_close /vendor/bin/loopback.sh 24 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_speak_headsetmic_open /vendor/bin/loopback.sh 22 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_speak_headsetmic_close /vendor/bin/loopback.sh 22 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_speak_handsetmic_open /vendor/bin/loopback.sh 17 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_speak_handsetmic_close /vendor/bin/loopback.sh 17 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+
+service loopback_start_receiver_headsetmic_open /vendor/bin/loopback.sh 23 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_receiver_headsetmic_close /vendor/bin/loopback.sh 23 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_receiver_handsetmic_open /vendor/bin/loopback.sh 7 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_receiver_handsetmic_close /vendor/bin/loopback.sh 7 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_receiver_speakmic_open /vendor/bin/loopback.sh 19 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_start_receiver_speakmic_close /vendor/bin/loopback.sh 19 0
+    user root
+    group root audio
+    disabled
+    oneshot
+
+on property:persist.sys.playback-spk=1
+    start playback_start_spk_open
+
+on property:persist.sys.platback-spk=0
+    start playback_start_spk_close
+
+on property:persist.sys.playback-rec=1
+    start playback_start_rec_open
+
+on property:persist.sys.playback-rec=0
+    start playback_start_rec_close
+
+on property:persist.sys.record-handsetmic=1
+    start record_start_handsetmic_open
+
+on property:persist.sys.record-handsetmic=0
+    start record_start_handsetmic_close
+
+on property:persist.sys.record-speakermic=1
+    start record_start_speakermic_open
+
+on property:persist.sys.record-speakermic=0
+    start record_start_speakermic_close
+
+on property:persist.sys.record-headsetmic=1
+    start record_start_headsetrmic_open
+
+on property:persist.sys.record-headsetmic=0
+    start record_start_headsetmic_close
+	
+on property:persist.sys.loopback-handsetmic-headphone=1
+    start loopback_start_handsetmic_headphone_open
+
+on property:persist.sys.loopback-handsetmic-headphone=0
+    start loopback_start_handsetmic_headphone_close
+	
+on property:persist.sys.loopback-speakermic-headphone=1
+    start loopback_start_speakermic_headphone_open
+
+on property:persist.sys.loopback-speakermic-headphone=0
+    start loopback_start_speakermic_headphone_close
+		
+on property:persist.sys.loopback-headsetmic-headphone=1
+    start loopback_start_headsetmic_headphone_open
+
+on property:persist.sys.loopback-headsetmic-headphone=0
+    start loopback_start_headsetmic_headphone_close
+	
+on property:persist.sys.loopback-headsetmic-speak=1
+    start loopback_start_headsetmic_speak_open
+
+on property:persist.sys.loopback-headsetmic-speak=0
+    start loopback_start_headsetmic_speak_close
+
+on property:persist.sys.loopback-handsetmic-speak=1
+    start loopback_start_handsetmic_speak_open
+
+on property:persist.sys.loopback-handsetmic-speak=0
+    start loopback_start_handsetmic_speak_close
+	
+on property:persist.sys.loopback-speakmic-speak=1
+    start loopback_start_speakmic_speak_open
+
+on property:persist.sys.loopback-speakmic-speak=0
+    start loopback_start_speakmic_speak_close
+	
+on property:persist.sys.loopback-headsetmic-receiver=1
+    start loopback_start_headsetmic_receiver_open
+
+on property:persist.sys.loopback-headsetmic-receiver=0
+    start loopback_start_headsetmic_receiver_close
+
+on property:persist.sys.loopback-handsetmic-receiver=1
+    start loopback_start_handsetmic_receiver_open
+
+on property:persist.sys.loopback-handsetmic-receiver=0
+    start loopback_start_handsetmic_receiver_close
+	
+on property:persist.sys.loopback-speakmic-receiver=1
+    start loopback_start_speakmic_receiver_open
+
+on property:persist.sys.loopback-speakmic-receiver=0
+    start loopback_start_speakmic_receiver_close
+	
+on property:persist.sys.loopback-headphone-handsetmic=1
+    start loopback_start_headphone_handsetmic_open
+
+on property:persist.sys.loopback-headphone-handsetmic=0
+    start loopback_start_headphone_handsetmic_close
+	
+on property:persist.sys.loopback-headphone-speakermic=1
+    start loopback_start_headphone_speakermic_open
+
+on property:persist.sys.loopback-headphone-speakermic=0
+    start loopback_start_headphone_speakermic_close
+		
+on property:persist.sys.loopback-headphone-headsetmic=1
+    start loopback_start_headphone_headsetmic_open
+
+on property:persist.sys.loopback-headphone-headsetmic=0
+    start loopback_start_headphone_headsetmic_close
+	
+on property:persist.sys.loopback-speak-headsetmic=1
+    start loopback_start_speak_headsetmic_open
+
+on property:persist.sys.loopback-speak-headsetmic=0
+    start loopback_start_speak_headsetmic_close
+
+on property:persist.sys.loopback-speak-handsetmic=1
+    start loopback_start_speak_handsetmic_open
+
+on property:persist.sys.loopback-speak-handsetmic=0
+    start loopback_start_speak_handsetmic_close
+	
+on property:persist.sys.loopback-speak-speakmic=1
+    start loopback_start_speak_speakmic_open
+
+on property:persist.sys.loopback-speak-speakmic=0
+    start loopback_start_speak_speakmic_close
+	
+on property:persist.sys.loopback-receiver-headsetmic=1
+    start loopback_start_receiver_headsetmic_open
+
+on property:persist.sys.loopback-receiver-headsetmic=0
+    start loopback_start_receiver_headsetmic_close
+
+on property:persist.sys.loopback-receiver-handsetmic=1
+    start loopback_start_receiver_handsetmic_open
+
+on property:persist.sys.loopback-receiver-handsetmic=0
+    start loopback_start_receiver_handsetmic_close
+	
+on property:persist.sys.loopback-receiver-speakmic=1
+    start loopback_start_receiver_speakmic_open
+
+on property:persist.sys.loopback-receiver-speakmic=0
+    start loopback_start_receiver_speakmic_close
+
+service agmhostless_spk /system/vendor/bin/agmhostless -D 100 -P 103 -C 104 -p 1024 -n 4 -c 1 -r 48000 T 200 -i 1 -o 1
+    user root
+    group root audio
+    disabled
+    oneshot
+
+service loopback_spk_start /vendor/bin/loopback.sh 1 1
+    user root
+    group root audio
+    disabled
+    oneshot
+service loopback_spk_stop /vendor/bin/loopback.sh 1 0
+    user root
+    group root audio
+    disabled
+    oneshot
+on property:odm.loopback-spk=1
+    start loopback_spk_start
+on property:odm.loopback-spk=0
+    start loopback_spk_stop
+
+#zhangsen1 factory test start
+
+#Begin add ssss and dsds property 20230622
+#on property:ro.boot.singlecard=1
+#	setprop persist.radio.multisim.config ssss
+#on property:ro.boot.singlecard=0
+#	setprop persist.radio.multisim.config dsds
+#End add ssss and dsds property 20230622
+

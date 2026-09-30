@@ -1,0 +1,4 @@
+libupdateprof.qti.so
+libthermalclient.qti.so
+libdiag_system.qti.so
+liblistenjni.qti.so

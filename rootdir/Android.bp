@@ -1,0 +1,348 @@
+//
+// Copyright (C) 2024 The LineageOS Project
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+// Init scripts
+sh_binary {
+    name: "1K-ST-1.sh",
+    src: "bin/1K-ST-1.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "200-ST-1.sh",
+    src: "bin/200-ST-1.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "2K-ST-1.sh",
+    src: "bin/2K-ST-1.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "3K-ST-1.sh",
+    src: "bin/3K-ST-1.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "500-ST-1.sh",
+    src: "bin/500-ST-1.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "AT_playback_1K.sh",
+    src: "bin/AT_playback_1K.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "SW-ST-19.sh",
+    src: "bin/SW-ST-19.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "SW-ST-20.sh",
+    src: "bin/SW-ST-20.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "SW-ST-7.sh",
+    src: "bin/SW-ST-7.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.class_main.sh",
+    src: "bin/init.class_main.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.crda.sh",
+    src: "bin/init.crda.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.kernel.post_boot-bengal-iot.sh",
+    src: "bin/init.kernel.post_boot-bengal-iot.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.kernel.post_boot-bengal.sh",
+    src: "bin/init.kernel.post_boot-bengal.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.kernel.post_boot.sh",
+    src: "bin/init.kernel.post_boot.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.mdm.sh",
+    src: "bin/init.mdm.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.qcom.class_core.sh",
+    src: "bin/init.qcom.class_core.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.qcom.coex.sh",
+    src: "bin/init.qcom.coex.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.qcom.early_boot.sh",
+    src: "bin/init.qcom.early_boot.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.qcom.efs.sync.sh",
+    src: "bin/init.qcom.efs.sync.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.qcom.post_boot.sh",
+    src: "bin/init.qcom.post_boot.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.qcom.sdio.sh",
+    src: "bin/init.qcom.sdio.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.qcom.sensors.sh",
+    src: "bin/init.qcom.sensors.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.qcom.sh",
+    src: "bin/init.qcom.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.qti.chg_policy.sh",
+    src: "bin/init.qti.chg_policy.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.qti.dcvs.sh",
+    src: "bin/init.qti.dcvs.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.qti.display_boot.sh",
+    src: "bin/init.qti.display_boot.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.qti.early_init.sh",
+    src: "bin/init.qti.early_init.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.qti.kernel.debug-bengal.sh",
+    src: "bin/init.qti.kernel.debug-bengal.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.qti.kernel.debug.sh",
+    src: "bin/init.qti.kernel.debug.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.qti.kernel.sh",
+    src: "bin/init.qti.kernel.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.qti.media.sh",
+    src: "bin/init.qti.media.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.qti.qcv.sh",
+    src: "bin/init.qti.qcv.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.qti.write.sh",
+    src: "bin/init.qti.write.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "install-recovery.sh",
+    src: "bin/install-recovery.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "libsar.sh",
+    src: "bin/libsar.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "loopback.sh",
+    src: "bin/loopback.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "playback.sh",
+    src: "bin/playback.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "playback_sweep_sound.sh",
+    src: "bin/playback_sweep_sound.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "qca6234-service.sh",
+    src: "bin/qca6234-service.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "record.sh",
+    src: "bin/record.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "record_playback.sh",
+    src: "bin/record_playback.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "system_dlkm_modprobe.sh",
+    src: "bin/system_dlkm_modprobe.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "vendor_modprobe.sh",
+    src: "bin/vendor_modprobe.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "wififtm.sh",
+    src: "bin/wififtm.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "wifisar.sh",
+    src: "bin/wifisar.sh",
+    vendor: true,
+}
+
+// Init configuration files
+prebuilt_etc {
+    name: "init.a05s.rc",
+    src: "etc/init.a05s.rc",
+    sub_dir: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.qcom.factory.rc",
+    src: "etc/init.qcom.factory.rc",
+    sub_dir: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.qcom.rc",
+    src: "etc/init.qcom.rc",
+    sub_dir: "init/hw",
+    vendor: true,
+}
+
+
+prebuilt_etc {
+    name: "init.qti.kernel.rc",
+    src: "etc/init.qti.kernel.rc",
+    sub_dir: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.qti.ufs.rc",
+    src: "etc/init.qti.ufs.rc",
+    sub_dir: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.samsung.bsp.rc",
+    src: "etc/init.samsung.bsp.rc",
+    sub_dir: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.samsung.rc",
+    src: "etc/init.samsung.rc",
+    sub_dir: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.target.rc",
+    src: "etc/init.target.rc",
+    sub_dir: "init/hw",
+    vendor: true,
+}
+
+// fstab
+prebuilt_etc {
+    name: "fstab.ramplus",
+    src: "etc/fstab.ramplus",
+    vendor: true,
+}
+
+// IPACM config (stock DYH1; no bengal source module exists in 23.2)
+prebuilt_etc {
+    name: "IPACM_cfg.xml",
+    src: "etc/IPACM_cfg.xml",
+    vendor: true,
+}

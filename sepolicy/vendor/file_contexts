@@ -33,7 +33,6 @@
 # Sensors
 
 # Unified variants
-/vendor/etc/init/init\.a05s\.unify\.rc u:object_r:vendor_configs_file:s0
 /vendor/firmware/SM-A057F(/.*)? u:object_r:vendor_firmware_file:s0
 /vendor/firmware/SM-A057G(/.*)? u:object_r:vendor_firmware_file:s0
 /vendor/firmware/SM-A057M(/.*)? u:object_r:vendor_firmware_file:s0

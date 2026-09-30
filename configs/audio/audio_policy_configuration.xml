@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='utf-8'?>
+<audioPolicyConfiguration version="7.0" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <globalConfiguration speaker_drc_enabled="true" />
+    <modules>
+        <module halVersion="3.0" name="primary">
+            <attachedDevices>
+                <item>Earpiece</item>
+                <item>Speaker</item>
+                <item>Built-In Mic</item>
+                <item>Built-In Back Mic</item>
+                <item>Voice Call Mic</item>
+            </attachedDevices>
+            <defaultOutputDevice>Speaker</defaultOutputDevice>
+            <mixPorts>
+                <mixPort flags="AUDIO_OUTPUT_FLAG_PRIMARY AUDIO_OUTPUT_FLAG_DEEP_BUFFER" name="primary-out" role="source">
+                    <profile channelMasks="AUDIO_CHANNEL_OUT_STEREO" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="48000" />
+                </mixPort>
+                <mixPort flags="AUDIO_OUTPUT_FLAG_FAST" name="fast" role="source">
+                    <profile channelMasks="AUDIO_CHANNEL_OUT_STEREO" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="48000" />
+                </mixPort>
+                <mixPort name="primary-in" role="sink">
+                    <profile channelMasks="AUDIO_CHANNEL_IN_MONO AUDIO_CHANNEL_IN_STEREO AUDIO_CHANNEL_IN_FRONT_BACK" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="8000 11025 12000 16000 22050 24000 32000 44100 48000" />
+                </mixPort>
+                <mixPort flags="AUDIO_OUTPUT_FLAG_DIRECT AUDIO_OUTPUT_FLAG_MMAP_NOIRQ" name="mmap_no_irq_out" role="source">
+                    <profile channelMasks="AUDIO_CHANNEL_OUT_STEREO" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="48000" />
+                </mixPort>
+            </mixPorts>
+            <devicePorts>
+                <devicePort role="sink" tagName="Earpiece" type="AUDIO_DEVICE_OUT_EARPIECE">
+                    <profile channelMasks="AUDIO_CHANNEL_OUT_MONO" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="48000" />
+                </devicePort>
+                <devicePort role="sink" tagName="Speaker" type="AUDIO_DEVICE_OUT_SPEAKER">
+                    <profile channelMasks="AUDIO_CHANNEL_OUT_STEREO" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="48000" />
+                </devicePort>
+                <devicePort role="sink" tagName="Wired Headset" type="AUDIO_DEVICE_OUT_WIRED_HEADSET">
+                    <profile channelMasks="AUDIO_CHANNEL_OUT_STEREO" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="48000" />
+                </devicePort>
+                <devicePort role="sink" tagName="Wired Headphone" type="AUDIO_DEVICE_OUT_WIRED_HEADPHONE">
+                    <profile channelMasks="AUDIO_CHANNEL_OUT_STEREO" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="48000" />
+                </devicePort>
+                <devicePort role="sink" tagName="Bt Sco All" type="AUDIO_DEVICE_OUT_BLUETOOTH_SCO_HEADSET">
+                    <profile channelMasks="AUDIO_CHANNEL_OUT_STEREO" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="48000" />
+                </devicePort>
+                <devicePort role="sink" tagName="Aux Device Out" type="AUDIO_DEVICE_OUT_AUX_DIGITAL">
+                    <profile channelMasks="AUDIO_CHANNEL_OUT_MONO AUDIO_CHANNEL_OUT_STEREO AUDIO_CHANNEL_OUT_2POINT1 AUDIO_CHANNEL_OUT_QUAD AUDIO_CHANNEL_OUT_PENTA AUDIO_CHANNEL_OUT_5POINT1 AUDIO_CHANNEL_OUT_6POINT1 AUDIO_CHANNEL_OUT_7POINT1" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="44100 48000 64000 88200 96000 128000 176400 192000" />
+                </devicePort>
+                <devicePort role="source" tagName="Built-In Mic" type="AUDIO_DEVICE_IN_BUILTIN_MIC">
+                    <profile channelMasks="AUDIO_CHANNEL_IN_MONO AUDIO_CHANNEL_IN_STEREO AUDIO_CHANNEL_IN_FRONT_BACK" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="8000 11025 12000 16000 22050 24000 32000 44100 48000" />
+                </devicePort>
+                <devicePort role="source" tagName="Built-In Back Mic" type="AUDIO_DEVICE_IN_BACK_MIC">
+                    <profile channelMasks="AUDIO_CHANNEL_IN_MONO AUDIO_CHANNEL_IN_STEREO AUDIO_CHANNEL_IN_FRONT_BACK" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="8000 11025 12000 16000 22050 24000 32000 44100 48000" />
+                </devicePort>
+                <devicePort role="source" tagName="Wired Headset Mic" type="AUDIO_DEVICE_IN_WIRED_HEADSET">
+                    <profile channelMasks="AUDIO_CHANNEL_IN_MONO AUDIO_CHANNEL_IN_STEREO AUDIO_CHANNEL_IN_FRONT_BACK" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="8000 11025 12000 16000 22050 24000 32000 44100 48000" />
+                </devicePort>
+                <devicePort role="source" tagName="Bt Sco Headset Mic" type="AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET">
+                    <profile channelMasks="AUDIO_CHANNEL_IN_MONO AUDIO_CHANNEL_IN_STEREO AUDIO_CHANNEL_IN_FRONT_BACK" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="8000 11025 12000 16000 22050 24000 32000 44100 48000" />
+                </devicePort>
+                <devicePort role="source" tagName="Aux Device In" type="AUDIO_DEVICE_IN_AUX_DIGITAL">
+                    <profile channelMasks="AUDIO_CHANNEL_IN_MONO AUDIO_CHANNEL_IN_STEREO AUDIO_CHANNEL_IN_FRONT_BACK" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="8000 11025 12000 16000 22050 24000 32000 44100 48000" />
+                </devicePort>
+                <devicePort role="source" tagName="Voice Call Mic" type="AUDIO_DEVICE_IN_VOICE_CALL">
+                    <profile channelMasks="AUDIO_CHANNEL_IN_MONO AUDIO_CHANNEL_IN_STEREO AUDIO_CHANNEL_IN_FRONT_BACK" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="8000 11025 12000 16000 22050 24000 32000 44100 48000" />
+                </devicePort>
+                <devicePort role="source" tagName="FM Mic" type="AUDIO_DEVICE_IN_FM_TUNER">
+                    <profile channelMasks="AUDIO_CHANNEL_IN_MONO AUDIO_CHANNEL_IN_STEREO AUDIO_CHANNEL_IN_FRONT_BACK" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="8000 11025 12000 16000 22050 24000 32000 44100 48000" />
+                </devicePort>
+            </devicePorts>
+            <routes>
+                <route sink="Earpiece" sources="primary-out,fast,mmap_no_irq_out" type="mix" />
+                <route sink="Speaker" sources="primary-out,fast,mmap_no_irq_out" type="mix" />
+                <route sink="Wired Headset" sources="primary-out,fast" type="mix" />
+                <route sink="Wired Headphone" sources="primary-out,fast" type="mix" />
+                <route sink="Bt Sco All" sources="primary-out,fast" type="mix" />
+                <route sink="primary-in" sources="Built-In Mic,Built-In Back Mic,Wired Headset Mic,Bt Sco Headset Mic,Aux Device In,Voice Call Mic,FM Mic" type="mix" />
+            </routes>
+        </module>
+        <module halVersion="2.0" name="a2dpsink">
+            <mixPorts>
+                <mixPort name="a2dp input" role="sink">
+                    <profile channelMasks="AUDIO_CHANNEL_IN_MONO AUDIO_CHANNEL_IN_STEREO" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="44100 48000" />
+                </mixPort>
+            </mixPorts>
+            <devicePorts>
+                <devicePort role="source" tagName="BT A2DP In" type="AUDIO_DEVICE_IN_BLUETOOTH_A2DP">
+                    <profile channelMasks="AUDIO_CHANNEL_IN_MONO AUDIO_CHANNEL_IN_STEREO" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="44100 48000" />
+                </devicePort>
+            </devicePorts>
+            <routes>
+                <route sink="a2dp input" sources="BT A2DP In" type="mix" />
+            </routes>
+        </module>
+        <module halVersion="2.0" name="r_submix">
+            <attachedDevices>
+                <item>Remote Submix In</item>
+            </attachedDevices>
+            <mixPorts>
+                <mixPort name="r_submix output" role="source">
+                    <profile channelMasks="AUDIO_CHANNEL_OUT_STEREO" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="48000" />
+                </mixPort>
+                <mixPort name="r_submix input" role="sink">
+                    <profile channelMasks="AUDIO_CHANNEL_IN_STEREO" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="48000" />
+                </mixPort>
+            </mixPorts>
+            <devicePorts>
+                <devicePort role="sink" tagName="Remote Submix Out" type="AUDIO_DEVICE_OUT_REMOTE_SUBMIX">
+                    <profile channelMasks="AUDIO_CHANNEL_OUT_STEREO" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="48000" />
+                </devicePort>
+                <devicePort role="source" tagName="Remote Submix In" type="AUDIO_DEVICE_IN_REMOTE_SUBMIX">
+                    <profile channelMasks="AUDIO_CHANNEL_IN_STEREO" format="AUDIO_FORMAT_PCM_16_BIT" name="" samplingRates="48000" />
+                </devicePort>
+            </devicePorts>
+            <routes>
+                <route sink="Remote Submix Out" sources="r_submix output" type="mix" />
+                <route sink="r_submix input" sources="Remote Submix In" type="mix" />
+            </routes>
+        </module>
+    </modules>
+    <xi:include href="audio_policy_volumes.xml" />
+    <xi:include href="default_volume_tables.xml" />
+</audioPolicyConfiguration>
