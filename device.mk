@@ -67,8 +67,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service_64 \
-    libcamera2ndk_vendor \
-    Snap
+    libcamera2ndk_vendor
 
 # Charger
 PRODUCT_PACKAGES += \
@@ -80,17 +79,13 @@ PRODUCT_COPY_FILES += \
 
 # Display
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.mapper@4.0-impl-qti-display \
-    android.hardware.memtrack-service.lineage \
     libdisplayconfig.qti \
-    libdisplayconfig.system.qti \
     libqdMetaData \
     libsdmcore \
     libsdmutils \
     libtinyxml \
     vendor.qti.hardware.display.allocator-service \
-    vendor.qti.hardware.display.composer-service \
-    vendor.qti.hardware.display.demura-service
+    vendor.qti.hardware.display.composer-service
 
 # DRM
 PRODUCT_PACKAGES += \
@@ -99,15 +94,6 @@ PRODUCT_PACKAGES += \
 # Fastboot
 PRODUCT_PACKAGES += \
     fastbootd
-
-# Fingerprint
-PRODUCT_PACKAGES += \
-    android.hardware.biometrics.fingerprint@2.3-service.samsung
-
-# Health
-PRODUCT_PACKAGES += \
-    android.hardware.health-service.samsung \
-    android.hardware.health-service.samsung-recovery
 
 # HIDL
 PRODUCT_PACKAGES += \
@@ -123,10 +109,6 @@ PRODUCT_PACKAGES += \
 # Lineage Health
 PRODUCT_PACKAGES += \
     vendor.lineage.health-service.default
-
-# LiveDisplay
-PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay@2.0-service-sdm
 
 # Media
 PRODUCT_COPY_FILES += \
@@ -240,9 +222,12 @@ PRODUCT_PACKAGES += \
 # USB
 PRODUCT_PACKAGES += \
     android.hardware.usb-service.qti \
-    android.hardware.usb.gadget-service.qti \
-    init.qcom.usb.rc \
-    init.qcom.usb.sh
+    android.hardware.usb.gadget-service.qti
+
+# Copy usb rc and sh via PRODUCT_COPY_FILES
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/init/init.qcom.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.usb.rc \
+    $(LOCAL_PATH)/rootdir/bin/init.qcom.usb.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qcom.usb.sh
 
 # Vendor service manager
 PRODUCT_PACKAGES += \
@@ -265,7 +250,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 
 # Unified variants firmware:
-# Copy per-variant firmware files into vendor/firmware/<model>/
 VENDOR_FW := vendor/samsung/bengal/proprietary/vendor/firmware
 PRODUCT_COPY_FILES += \
     $(VENDOR_FW)/SM-A057F/ipa_fws.b01:$(TARGET_COPY_OUT_VENDOR)/firmware/SM-A057F/ipa_fws.b01 \
@@ -306,12 +290,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     init.a05s.kmsglog.rc
 
-# Inherit proprietary blobs
-$(call inherit-product, vendor/samsung/bengal/bengal-vendor.mk)
-
 # Stock vendor SELinux policies from DYH1
 PRODUCT_PACKAGES += \
     stock_vendor_file_contexts \
     stock_vendor_property_contexts \
     stock_vendor_hwservice_contexts \
     stock_vendor_service_contexts
+
+# Inherit proprietary blobs
+$(call inherit-product, vendor/samsung/bengal/bengal-vendor.mk)
