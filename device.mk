@@ -290,12 +290,5 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     init.a05s.kmsglog.rc
 
-# Stock vendor SELinux policies from DYH1
-PRODUCT_PACKAGES += \
-    stock_vendor_file_contexts \
-    stock_vendor_property_contexts \
-    stock_vendor_hwservice_contexts \
-    stock_vendor_service_contexts
-
 # Inherit proprietary blobs
 $(call inherit-product, vendor/samsung/bengal/bengal-vendor.mk)
