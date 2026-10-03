@@ -1,0 +1,25 @@
+user=_app seinfo=platform name=com.gd.mobicore.pa domain=mobicore_app type=app_data_file levelFrom=user
+user=_app seinfo=platform name=com.trustonic.tuiservice domain=mobicore_app type=app_data_file levelFrom=user
+user=system seinfo=platform name=com.android.power domain=blocked_app type=system_app_data_file
+user=system seinfo=platform name=com.android.sms domain=blocked_app type=system_app_data_file
+user=_app seinfo=platform name=com.android.power domain=blocked_app type=app_data_file
+user=_app seinfo=platform name=com.android.sms domain=blocked_app type=app_data_file
+user=system seinfo=platform name=com.android.data.backup domain=blocked_app type=system_app_data_file
+user=system seinfo=platform name=com.android.sec.backup.svc domain=blocked_app type=system_app_data_file
+user=_app seinfo=platform name=com.android.data.backup domain=blocked_app type=app_data_file
+user=_app seinfo=platform name=com.android.sec.backup.svc domain=blocked_app type=app_data_file
+user=_app seinfo=aasa_blocked domain=blocked_app type=app_data_file levelFrom=user
+user=system seinfo=aasa_blocked domain=blocked_app type=app_data_file
+user=_app seinfo=attiqi name=com.att.iqi domain=attiqi_app type=attiqi_app_data_file
+user=_app seinfo=platform name=com.thales.dis.android.iuiccservice:service domain=thales_iuicc_app type=app_data_file levelFrom=user
+user=_app seinfo=tango name=com.google.tango:app domain=untrusted_app type=app_data_file levelFrom=user
+user=_app seinfo=platform name=com.qualcomm.timeservice domain=vendor_timeservice_app type=app_data_file levelFrom=all
+user=_app seinfo=platform name=.qtidataservices domain=vendor_qtidataservices_app type=app_data_file levelFrom=all
+user=radio seinfo=platform name=.imshelperservice domain=vendor_imshelper_app type=radio_data_file
+user=_app seinfo=platform name=com.qualcomm.qti.poweroffalarm domain=vendor_poweroffalarm_app type=app_data_file levelFrom=all
+user=_app seinfo=platform name=com.qualcomm.qti.qms.service.trustzoneaccess domain=vendor_tzas_app type=app_data_file levelFrom=all
+user=_app seinfo=platform name=com.qti.ltebc domain=vendor_embmssl_app type=app_data_file levelFrom=all
+user=system seinfo=platform name=com.qualcomm.qti.perfdump domain=vendor_perfdump_app type=system_app_data_file
+user=_app seinfo=platform name=.pasr domain=vendor_powerservice_app type=app_data_file levelFrom=all
+user=system seinfo=platform name=com.longcheer.midtest domain=midtest_app type=system_app_data_file levelFrom=user
+user=system seinfo=platform name=com.longcheer.sarauth domain=midtest_app type=system_app_data_file levelFrom=user

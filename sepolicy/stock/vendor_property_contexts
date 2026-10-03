@@ -1,0 +1,541 @@
+#line 1 "out/soong/.intermediates/system/sepolicy/contexts/vendor_property_contexts/android_common/gen/namespace_checked/vendor/samsung/system/sepolicy/samsung/property_contexts"
+#_VENDOR_OR_ODM_NAMESPACES = [ 
+#             "ctl.odm.", 
+#             "ctl.vendor.", 
+#             "ctl.start$odm.", 
+#             "ctl.start$vendor.", 
+#             "ctl.stop$odm.", 
+#             "ctl.stop$vendor.", 
+#             "ro.boot.", 
+#             "ro.hardware.", 
+#             "ro.odm.", 
+#             "ro.vendor.", 
+#             "odm.", 
+#             "persist.odm.", 
+#             "persist.vendor.", 
+#             "vendor." 
+#     ]
+
+# http://mobilerndhub.sec.samsung.net/hub/site/seandroid/board/O_treble_review_request/view/22616833
+vendor.sensor.                       u:object_r:vendor_sensor_prop:s0
+
+# http://mobilerndhub.sec.samsung.net/hub/site/seandroid/board/P_review_request/view/23332597
+persist.vendor.nfc.log.index                u:object_r:vendor_nfc_prop:s0
+
+# http://mobilerndhub.sec.samsung.net/hub/site/seandroid/board/P_review_request/view/23343491
+vendor.debug.egl.                                u:object_r:vendor_debug_egl_prop:s0
+
+# http://mobilerndhub.sec.samsung.net/hub/site/seandroid/board/P_review_request/view/23344749
+vendor.tzdaemon                u:object_r:vendor_tzdaemon_prop:s0
+vendor.secureos.               u:object_r:vendor_secureos_prop:s0
+vendor.tzts_daemon             u:object_r:vendor_tztsdaemon_prop:s0
+
+# http://mobilerndhub.sec.samsung.net/hub/site/seandroid/board/O_review_request/view/22726878
+# vendor.vidc.enc. has been managed as system_prop by qualcomm
+# PROPERTY SUFFIX VOILATION vendor.vidc.enc.csc.enable             u:object_r:system_prop:s0
+
+# http://mobilerndhub.sec.samsung.net/hub/site/seandroid/board/O_review_request/view/22963489
+# PROPERTY SUFFIX VOILATION persist.vendor.camera.feature.cac    u:object_r:sec_camera_prop:s0
+
+# http://mobilerndhub.sec.samsung.net/hub/site/seandroid/board/P_review_request/view/23365202/?page=1
+vendor.proxy_daemon             u:object_r:vendor_proxydaemon_prop:s0
+
+# http://mobilerndhub.sec.samsung.net/hub/site/seandroid/board/P_review_request/view/23344683
+vendor.wlandriver.             u:object_r:vendor_wlandriver_prop:s0
+
+# http://mobilerndhub.sec.samsung.net/hub/site/seandroid/board/P_review_request/view/23375973
+#vendor.omadm.                                 u:object_r:vendor_omadm_prop:s0
+persist.vendor.sys.spr_hfa_completed          u:object_r:vendor_omadm_prop:s0
+persist.vendor.sys.omadm_hfa_prl              u:object_r:vendor_omadm_prop:s0
+
+# http://mobilerndhub.sec.samsung.net/hub/site/seandroid/board/P_review_request/view/23402289
+vendor.nfc.fw.                                           u:object_r:vendor_nfc_prop:s0
+
+# http://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-849
+ro.vendor.camera.wrapper.hal3TrebleMinorVersion   u:object_r:vendor_camera_prop:s0
+
+# http://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-1386
+vendor.ofi.rt_framework.dbgmask  u:object_r:vendor_ofi_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-2443
+# PROPERTY PREFIX Voilation  hostapd.dbglevel                u:object_r:vendor_hostapd_prop:s0
+
+# http://mobilerndhub.sec.samsung.net/hub/site/seandroid/board/P_review_request/view/23610824/
+# http://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-631
+persist.vendor.members.                           u:object_r:vendor_members_prop:s0
+
+# http://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-633
+vendor.fips.bssl.post                           u:object_r:vendor_bssl_post_prop:s0
+
+# http://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-912
+# QCOM_DUPLICATED : vendor.fastrpc.                                 u:object_r:vendor_fastrpc_prop:s0
+
+# http://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-1135
+ro.vendor.model_suffix                          u:object_r:vendor_model_suffix_prop:s0
+
+# http://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-1210
+vendor.wlbtd.                       u:object_r:vendor_wlbtd_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-4853
+# http://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-1266
+vendor.npu.usr_drv.log_mask          u:object_r:vendor_sec_camera_prop:s0
+
+# http://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-752
+persist.vendor.zit.      		u:object_r:vendor_zygoteinit_prop:s0
+
+# http://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-1510
+vendor.camera.motor.service                       u:object_r:vendor_camera_motor_prop:s0
+
+# http://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-1875
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-4857
+# VTS failure vts_treble_sys_prop_test
+vendor.dolby.                     u:object_r:vendor_dolby_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-2802
+ro.vendor.radio.            u:object_r:vendor_radio_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-2641 / SEANDROID-3540 / SEANDROID-4922
+# P201028-06841 vts_treble_sys_prop_test fix
+# SEC_REMOVED vendor.ro.security.vaultkeeper.        u:object_r:vendor_sec_vaultkeeper_prop:s0
+vendor.security.vaultkeeper.        u:object_r:vendor_sec_vaultkeeper_prop:s0
+ro.vendor.security.vaultkeeper.		u:object_r:vendor_sec_vaultkeeper_prop:s0
+vendor.security.cass.                       u:object_r:vendor_sec_cass_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-2963
+ro.vendor.multisim.                       u:object_r:vendor_radio_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-3079
+vendor.seHal.init                         u:object_r:vendor_sehal_init_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-3193
+vendor.display.sf.                                    u:object_r:vendor_display_sf_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-3222
+vendor.tmfd                    u:object_r:vendor_tmfd_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-3467
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-4887
+# P201028-06841 VTS fail vts_treble_sys_prop_test
+# SEC_REMVOED : vendor.sys.mobicoredaemon.      u:object_r:mobicore_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-4342
+# Change from dynamic_system_prop to sec_audio_prop
+# NAME PREFIX VOILATION secmm.superslowmotion.               u:object_r:sec_audio_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-4214
+persist.vendor.softdog              u:object_r:vendor_softdog_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-4190
+persist.vendor.dumpstate.verbose_logging.enabled           u:object_r:vendor_dumpstate_config_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-4299
+persist.vendor.uwb.log.index                               u:object_r:vendor_uwb_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-4798
+ro.vendor.heimdalld.                                       u:object_r:vendor_heimdalld_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-5381
+vendor.ota.recovery.status                                    u:object_r:vendor_fota_prop:s0
+
+# http://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-769
+# init.svc.vendor.drm-clearkey-hal-1-1			u:object_r:vendor_mediadrm_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-4649
+# init.svc.vendor.wvkprov_server_hal			u:object_r:vendor_wvkprov_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-6114/6462
+ro.vendor.nfc.			u:object_r:vendor_sec_nfc_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-6718
+vendor.gnss.psds                                           u:object_r:vendor_gnss_psds_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-7009
+vendor.thermal.amb.			u:object_r:vendor_thermal_test_prop:s0
+
+# http://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-7062
+vendor.ofi.dal.time						u:object_r:vendor_ofi_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-7108
+vendor.camera.unihal.enable   u:object_r:vendor_camera_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-7984
+vendor.tifs                u:object_r:vendor_tzdaemon_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-8358
+persist.vendor.snaplite_cache_status_64				u:object_r:vendor_snap_cache_prop:s0
+persist.vendor.snaplite_cache_integrity_64			u:object_r:vendor_snap_cache_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-8714
+ro.vendor.dqsvc.							u:object_r:vendor_dqsvc_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-8814/8865
+vendor.hdm.swblock		u:object_r:vendor_hdm_public_prop:s0 exact string
+ro.vendor.hdm.			u:object_r:vendor_hdm_restricted_prop:s0
+vendor.hdm.			u:object_r:vendor_hdm_restricted_prop:s0
+vendor.hdm.internal.		u:object_r:vendor_hdm_internal_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-8846
+vendor.camera.ppp.              u:object_r:vendor_camera_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-8999
+vendor.bluetooth_slimbus_fail				u:object_r:vendor_bluetooth_prop:s0
+#line 1 "out/soong/.intermediates/system/sepolicy/contexts/vendor_property_contexts/android_common/gen/namespace_checked/vendor/samsung/system/sepolicy/BSP/qcom/sepolicy/common/property_contexts"
+# http://mobilerndhub.sec.samsung.net/hub/site/seandroid/board/O_review_request/view/22964077
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-4854
+# persist.vendor.camera.debug.logfile    u:object_r:sec_camera_prop:s0
+
+# http://mobilerndhub.sec.samsung.net/hub/site/seandroid/board/P_review_request/view/23318858
+vendor.sys.qseecomd.               u:object_r:vendor_qseecomd_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-5131
+ro.vendor.wifi.sap.interface       u:object_r:vendor_wifi_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-6488
+ro.vendor.wifi.sap.concurrent.iface 			u:object_r:vendor_wifi_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-6928
+vendor.qcom.wifi.macloader         u:object_r:vendor_wifi_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-8583
+vendor.spdaemon.spss.available	         u:object_r:vendor_spdaemon_prop:s0
+#line 1 "out/soong/.intermediates/system/sepolicy/contexts/vendor_property_contexts/android_common/gen/namespace_checked/device/qcom/sepolicy_vndr/generic/vendor/common/property_contexts"
+# Copyright (c) 2018-2021, The Linux Foundation. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are
+# met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above
+#       copyright notice, this list of conditions and the following
+#       disclaimer in the documentation and/or other materials provided
+#       with the distribution.
+#     * Neither the name of The Linux Foundation nor the names of its
+#       contributors may be used to endorse or promote products derived
+#       from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+# ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+# BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+# BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+# IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+persist.vendor.service.bdroid.       u:object_r:vendor_bluetooth_prop:s0
+persist.vendor.bluetooth.            u:object_r:vendor_bluetooth_prop:s0
+ro.vendor.bluetooth.                 u:object_r:vendor_bluetooth_prop:s0
+persist.vendor.bluetooth.a2dp.       u:object_r:vendor_bluetooth_prop:s0
+persist.vendor.qcom.bluetooth.       u:object_r:vendor_bluetooth_prop:s0
+vendor.qcom.bluetooth.               u:object_r:vendor_bluetooth_prop:s0
+vendor.wc_transport.       u:object_r:vendor_bluetooth_prop:s0
+ctl.vendor.msm_irqbalance  u:object_r:vendor_msm_irqbalance_prop:s0
+ctl.vendor.netmgrd         u:object_r:vendor_ctl_netmgrd_prop:s0
+ctl.vendor.port-bridge     u:object_r:vendor_ctl_port-bridge_prop:s0
+ctl.vendor.qcrild          u:object_r:vendor_ctl_qcrild_prop:s0
+ctl.vendor.ipacm           u:object_r:vendor_ipacm_prop:s0
+ctl.vendor.ipacm-diag      u:object_r:vendor_ipacm-diag_prop:s0
+ctl.vendor.dataqti         u:object_r:vendor_dataqti_prop:s0
+ctl.vendor.sensors         u:object_r:vendor_sensors_prop:s0
+persist.vendor.sensors.    u:object_r:vendor_sensors_prop:s0
+ro.vendor.sensors.         u:object_r:vendor_sensors_prop:s0
+vendor.audio.              u:object_r:vendor_audio_prop:s0
+vendor.audio.ssr.trigger   u:object_r:vendor_audio_ssr_prop:s0
+vendor.voice.              u:object_r:vendor_audio_prop:s0
+persist.vendor.audio.      u:object_r:vendor_audio_prop:s0
+ro.vendor.audio.           u:object_r:vendor_audio_prop:s0
+persist.vendor.audio.spkr.cal.duration  u:object_r:vendor_audio_prop:s0
+ro.vendor.alarm_boot       u:object_r:vendor_alarm_boot_prop:s0
+ro.boot.alarmboot          u:object_r:vendor_alarm_boot_prop:s0
+vendor.debug.camera.       u:object_r:vendor_camera_prop:s0
+persist.vendor.camera.     u:object_r:vendor_camera_prop:s0
+persist.vendor.sys.crash_rcu      u:object_r:vendor_ramdump_prop:s0
+persist.vendor.sys.modem.diag.    u:object_r:vendor_modem_diag_prop:s0
+persist.vendor.sys.cnd     u:object_r:vendor_cnd_prop:s0
+persist.vendor.cne.feature u:object_r:vendor_cnd_prop:s0
+persist.vendor.cnd.wqe     u:object_r:vendor_cnd_prop:s0
+persist.vendor.cne.logging.qxdm u:object_r:vendor_cnd_prop:s0
+persist.vendor.crash.cnt   u:object_r:vendor_crash_cnt_prop:s0
+persist.vendor.crash.detect u:object_r:vendor_crash_detect_prop:s0
+persist.vendor.data.dont_use_epc u:object_r:vendor_dataqdp_prop:s0
+persist.vendor.data.dont_use_npflag u:object_r:vendor_dataqdp_prop:s0
+persist.vendor.data.profile_update u:object_r:vendor_dataqdp_prop:s0
+vendor.sys.listeners.registered   u:object_r:vendor_tee_listener_prop:s0
+vendor.sys.modem.diag.     u:object_r:vendor_modem_diag_prop:s0
+vendor.usb.                u:object_r:vendor_usb_prop:s0
+vendor.sys.usb.            u:object_r:vendor_usb_prop:s0
+vendor.wlan.driver.version       u:object_r:vendor_wifi_version:s0
+vendor.wlan.firmware.version     u:object_r:vendor_wifi_version:s0
+vendor.wlan.firmware.ver         u:object_r:vendor_public_vendor_default_prop:s0
+persist.vendor.usb.        u:object_r:vendor_usb_prop:s0
+ro.vendor.usb.             u:object_r:vendor_usb_prop:s0
+vendor.display.disable_rounded_corner_thread  u:object_r:vendor_display_prop:s0
+vendor.display.               u:object_r:vendor_display_prop:s0
+ro.vendor.display.            u:object_r:vendor_display_prop:s0
+persist.vendor.display.       u:object_r:vendor_display_prop:s0
+vendor.gralloc.            u:object_r:vendor_gralloc_prop:s0
+vendor.peripheral.         u:object_r:vendor_per_mgr_state_prop:s0
+vendor.ims.                u:object_r:vendor_ims_prop:s0
+ro.vendor.build.software.version  u:object_r:vendor_ims_prop:s0
+persist.vendor.ims.        u:object_r:vendor_ims_prop:s0
+persist.vendor.qti.telephony.vt_cam_interface u:object_r:vendor_ims_prop:s0
+ctl.vendor.imsrcsservice   u:object_r:vendor_ctl_vendor_imsrcsservice_prop:s0
+
+# HBTP
+ctl.vendor.hbtp u:object_r:vendor_ctl_vendor_hbtp_prop:s0
+
+#time service
+persist.vendor.delta_time.enable    u:object_r:vendor_time_service_prop:s0
+vendor.debug.time_services.enable   u:object_r:vendor_time_service_prop:s0
+
+#Atel
+persist.vendor.radio       u:object_r:vendor_radio_prop:s0
+vendor.radio               u:object_r:vendor_radio_prop:s0
+ro.vendor.ril.             u:object_r:vendor_radio_prop:s0
+ro.vendor.radio            u:object_r:vendor_radio_prop:s0
+
+persist.vendor.sys.        u:object_r:vendor_system_prop:s0
+
+# kernel modprobe
+vendor.all.modules.ready   u:object_r:vendor_modprobe_prop:s0
+
+#ss-restart
+persist.vendor.ssr.    u:object_r:vendor_ssr_prop:s0
+
+#ss-services (PD)
+persist.vendor.pd_locater_debug    u:object_r:vendor_pd_locater_dbg_prop:s0
+
+#capabilityconfigstore (CCHAL)
+persist.vendor.cap_configstore_debug    u:object_r:vendor_cap_configstore_dbg_prop:s0
+
+#rmt_storage
+ctl.vendor.rmt_storage     u:object_r:vendor_ctl_vendor_rmt_storage_prop:s0
+
+#GPU Available frequencies
+vendor.gpu.available_frequencies u:object_r:vendor_gpu_prop:s0
+
+# vendor_public_vendor_default_prop
+ro.vendor.graphics.memory  u:object_r:vendor_public_vendor_default_prop:s0
+vendor.debug.egl.changepixelformat  u:object_r:vendor_public_vendor_default_prop:s0
+vendor.debug.prerotation.disable  u:object_r:vendor_public_vendor_default_prop:s0
+vendor.debug.egl.swapinterval  u:object_r:vendor_public_vendor_default_prop:s0
+vendor.debug.egl.profiler  u:object_r:vendor_public_vendor_default_prop:s0
+
+# shsusrd loading
+persist.vendor.data.shsusr_load u:object_r:vendor_data_shsusr_prop:s0
+persist.vendor.data.qmipriod_load u:object_r:vendor_data_qmipriod_prop:s0
+
+#vendor-wlan
+vendor.wlan.  u:object_r:vendor_wifi_prop:s0
+
+#qdcm socket service
+vendor.display.qdcm_socket_service u:object_r:vendor_qdcmss_prop:s0
+
+#keymaster strongbox service
+vendor.keymaster.strongbox.version u:object_r:vendor_km_strongbox_version_prop:s0
+ctl.vendor.keymaster-sb-4-0        u:object_r:vendor_km_strongbox_version_prop:s0
+ctl.vendor.authsecret.qti-1-0      u:object_r:vendor_km_strongbox_version_prop:s0
+
+#vendor-adsprpc
+vendor.fastrpc.                  u:object_r:vendor_adsprpc_prop:s0
+
+# QCV properties for storing soc_id, soc_name and soc_model
+ro.vendor.qti.soc_id         u:object_r:vendor_soc_id_prop:s0
+ro.vendor.qti.soc_name       u:object_r:vendor_soc_name_prop:s0
+ro.vendor.qti.soc_model      u:object_r:vendor_soc_model_prop:s0
+
+# Property to set media performance class
+ro.vendor.media_performance_class      u:object_r:vendor_media_performance_class:s0
+
+#kernel console log level
+persist.vendor.console.silent.config    u:object_r:vendor_console_log_level_prop:s0
+
+#qteeconnector properties
+persist.vendor.qteeconnector.           u:object_r:vendor_qteeconnector_opti_prop:s0
+
+vendor.dcvs.prop                 u:object_r:vendor_dcvs_prop:s0
+
+#pcie property
+persist.vendor.pcie. u:object_r:vendor_pcie_prop:s0
+
+#Dynamic sensor
+vendor.dynamic_sensor. u:object_r:vendor_dynamic_sensor_prop:s0
+
+#BT FW Version
+#SEC_DUPLICATED: vendor.bluetooth_fw_ver		u:object_r:vendor_bluetooth_prop:s0
+
+persist.vendor.runin.fp u:object_r:vendor_fingerprint_prop:s0
+vendor.fingerprint.name u:object_r:vendor_fingerprint_prop:s0
+#line 1 "out/soong/.intermediates/system/sepolicy/contexts/vendor_property_contexts/android_common/gen/namespace_checked/device/qcom/sepolicy_vndr/qva/vendor/common/property_contexts"
+# Copyright (c) 2018-2019, The Linux Foundation. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are
+# met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above
+#       copyright notice, this list of conditions and the following
+#       disclaimer in the documentation and/or other materials provided
+#       with the distribution.
+#     * Neither the name of The Linux Foundation nor the names of its
+#       contributors may be used to endorse or promote products derived
+#       from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED"AS IS" AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+# ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+# BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+# BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+# IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+# Changes from Qualcomm Innovation Center are provided under the following license:
+# Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause-Clear
+
+ctl.vendor.cnd                    u:object_r:vendor_cnd_vendor_prop:s0
+persist.vendor.cne.               u:object_r:vendor_cnd_vendor_prop:s0
+persist.vendor.cnd.               u:object_r:vendor_cnd_vendor_prop:s0
+
+ctl.vendor.dataadpl                          u:object_r:vendor_dataadpl_prop:s0
+vendor.spcom.                                u:object_r:vendor_spcomlib_prop:s0
+persist.vendor.bt.soc.scram_freqs            u:object_r:vendor_bluetooth_prop:s0
+ctl.vendor.mdm_helper                        u:object_r:vendor_mdm_helper_prop:s0
+
+# qcc property
+vendor.qti.qdma.                             u:object_r:vendor_qcc_prop:s0
+vendor.qti.qcc.                              u:object_r:vendor_qcc_prop:s0
+persist.vendor.qtr.                          u:object_r:vendor_qtr_prop:s0
+
+ro.vendor.confqmaa            u:object_r:vendor_confqmaa:s0 exact bool
+
+#perf
+vendor.post_boot.parsed                u:object_r:vendor_mpctl_prop:s0
+vendor.perf.cores_online               u:object_r:vendor_mpctl_prop:s0
+persist.vendor.qti.                    u:object_r:vendor_mpctl_prop:s0
+ro.vendor.at_library                   u:object_r:vendor_mpctl_prop:s0
+vendor.debug.trace.perf                u:object_r:vendor_mpctl_prop:s0
+vendor.target.init.complete            u:object_r:vendor_mpctl_prop:s0
+vendor.change.cgroup                   u:object_r:vendor_procomp_prop:s0
+vendor.change.cgroup.for.pid           u:object_r:vendor_procomp_prop:s0
+vendor.iop.enable_uxe                  u:object_r:vendor_iop_prop:s0
+vendor.perf.iop_v3.enable              u:object_r:vendor_iop_prop:s0
+vendor.perf.iop_v3.enable.debug        u:object_r:vendor_iop_prop:s0
+vendor.iop.enable_prefetch_ofr         u:object_r:vendor_iop_prop:s0
+# cgroup follow
+ro.vendor.qti.cgroup_follow.enable     u:object_r:vendor_cgroup_follow_prop:s0
+ro.vendor.qti.cgroup_follow.dex2oat_only   u:object_r:vendor_cgroup_follow_prop:s0
+#Bservice Property, Delayed Service Restart Property
+ro.vendor.qti.sys.fw.bservice_         u:object_r:vendor_bservice_prop:s0
+ro.vendor.qti.am.reschedule_service    u:object_r:vendor_reschedule_service_prop:s0
+#gesture-fling scroll
+vendor.perf.gestureflingboost.enable   u:object_r:vendor_scroll_prop:s0
+
+# NFC
+vendor.qti.nfc.                              u:object_r:vendor_nfc_nq_prop:s0
+
+# eSE
+vendor.qti.ese.                              u:object_r:vendor_ese_prop:s0
+
+# eSE-StrongBox : Dynamic keymint and weaver HAL
+vendor.ese.strongbox                         u:object_r:vendor_ese_strongbox_prop:s0
+
+#Disable SPU property
+vendor.gatekeeper.disable_spu                u:object_r:vendor_disable_spu_prop:s0
+
+#boot mode property
+vendor.sys.boot_mode                         u:object_r:vendor_boot_mode_prop:s0
+
+#mm-video
+vendor.media.target.version                  u:object_r:vendor_video_prop:s0
+vendor.video.disable.ubwc                    u:object_r:vendor_video_prop:s0
+vendor.media.target_variant                  u:object_r:vendor_video_prop:s0
+vendor.media.target.qssi                     u:object_r:vendor_video_prop:s0
+vendor.mm.target.enable.qcom_parser          u:object_r:vendor_video_prop:s0
+vendor.netflix.bsp_rev                       u:object_r:vendor_video_prop:s0
+
+
+# factory properties
+ctl.vendor.mmid                              u:object_r:vendor_ctl_vendor_mmid_prop:s0
+
+#seccam hal_service
+vendor.hyp_core_ctl                          u:object_r:vendor_core_ctl_prop:s0
+
+persist.vendor.mmi.                          u:object_r:vendor_mmi_prop:s0
+
+# izat location property
+vendor.qti.izat.                             u:object_r:vendor_location_prop:s0
+# WIGIG
+vendor.wigig.                                u:object_r:vendor_wigig_prop:s0
+ctl.vendor.wigig_supplicant                  u:object_r:vendor_ctl_vendor_wigigsvc_prop:s0
+ctl.vendor.wigig_hostapd                     u:object_r:vendor_ctl_vendor_wigigsvc_prop:s0
+ctl.vendor.sensingdaemon                     u:object_r:vendor_ctl_vendor_wigigsvc_prop:s0
+
+# netmgrd ko loading
+persist.vendor.data.shs_ko_load u:object_r:vendor_data_ko_prop:s0
+persist.vendor.data.perf_ko_load u:object_r:vendor_data_ko_prop:s0
+persist.vendor.data.offload_ko_load u:object_r:vendor_data_ko_prop:s0
+
+# hvdcp_opti properties
+persist.vendor.bms.                          u:object_r:vendor_hvdcp_opti_prop:s0
+persist.vendor.chg.                          u:object_r:vendor_hvdcp_opti_prop:s0
+persist.vendor.chg_plcy_mgr.                 u:object_r:vendor_hvdcp_opti_prop:s0
+persist.vendor.cp.                           u:object_r:vendor_hvdcp_opti_prop:s0
+persist.vendor.ctm.                          u:object_r:vendor_hvdcp_opti_prop:s0
+persist.vendor.hvdcp2.                       u:object_r:vendor_hvdcp_opti_prop:s0
+persist.vendor.hvdcp_opti.                   u:object_r:vendor_hvdcp_opti_prop:s0
+persist.vendor.hvdcp.                        u:object_r:vendor_hvdcp_opti_prop:s0
+persist.vendor.pps.                          u:object_r:vendor_hvdcp_opti_prop:s0
+persist.vendor.std-pd.                       u:object_r:vendor_hvdcp_opti_prop:s0
+persist.vendor.tb.                           u:object_r:vendor_hvdcp_opti_prop:s0
+persist.vendor.vin.                          u:object_r:vendor_hvdcp_opti_prop:s0
+persist.vendor.qg.                           u:object_r:vendor_hvdcp_opti_prop:s0
+persist.vendor.soh.                          u:object_r:vendor_hvdcp_opti_prop:s0
+
+# XLAT property
+persist.vendor.net.doxlat                    u:object_r:vendor_xlat_prop:s0
+
+ro.vendor.qspm.enable            u:object_r:vendor_qspm_prop:s0 exact bool
+
+#qvr properties
+vendor.qvr.                                   u:object_r:vendor_qvr_prop:s0
+vendor.sxr.                                   u:object_r:vendor_sxr_prop:s0
+vendor.qvrd.                                  u:object_r:vendor_qvrd_prop:s0
+persist.vendor.qvr.                           u:object_r:vendor_qvr_persist_prop:s0
+persist.vendor.qvrd.                          u:object_r:vendor_qvrd_persist_prop:s0
+
+#qmuxd property
+ctl.start$vendor.qmuxd                       u:object_r:vendor_ctl_qmuxd_prop:s0
+
+#bluetooth property
+ro.vendor.bt.enablelazyhal                   u:object_r:vendor_bluetooth_prop:s0 exact bool
+
+#SLM
+persist.vendor.slm.                          u:object_r:vendor_slm_prop:s0
+
+#MWQEM
+persist.vendor.mwqem.                        u:object_r:vendor_mwqem_prop:s0
+
+#pasr property
+vendor.pasr.                                 u:object_r:vendor_pasr_prop:s0
+ro.vendor.pasr.                              u:object_r:vendor_pasr_prop:s0
+
+#qesdk ready property
+vendor.qesdk.ready                           u:object_r:vendor_qesdk_ready_prop:s0
+
+#qms
+persist.vendor.data.qms.                     u:object_r:vendor_qms_prop:s0
+#line 1 "out/soong/.intermediates/system/sepolicy/contexts/vendor_property_contexts/android_common/gen/namespace_checked/vendor/longcheer/FactoryTools/sepolicy/SEP/vendor/property_contexts"
+#persist.vendor.sys.modem.diag           u:object_r:vendor_sys_prop:s0
+#line 1 "out/soong/.intermediates/system/sepolicy/contexts/vendor_property_contexts/android_common/gen/namespace_checked/system/sepolicy/reqd_mask/property_contexts"
+# empty property_contexts file - this file is used to generate an empty
+# non-platform property context for devices without any property_contexts
+# customizations.
