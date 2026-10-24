@@ -26,6 +26,11 @@ blob_fixups: blob_fixups_user_type = {
         .binary_regex_replace(b'ro.product.vendor.device', b'ro.vendor.radio.midevice'),
     'vendor/lib/libril-qc-hal-qmi.so': blob_fixup()
         .binary_regex_replace(b'ro.product.vendor.device', b'ro.vendor.radio.midevice'),
+    # Samsung SEC-RIL: call slot mapping and UICC enablement fixups
+    ('vendor/lib64/libsec-ril.so', 'odm/lib64/libsec-ril.so'): blob_fixup()
+        .binary_regex_replace(b'ril.dds.call.ongoing', b'vendor.calls.slot_id')
+        .sig_replace('88 58 9D 52 1F 00 08 6B AB 01 00 54', '88 58 9D 52 1F 00 08 6B 1F 20 03 D5')
+        .sig_replace('88 58 9D 52 FF 02 08 6B AB 01 00 54', '88 58 9D 52 FF 02 08 6B 1F 20 03 D5'),
 }  # fmt: skip
 
 

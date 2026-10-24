@@ -623,10 +623,30 @@ on property:odm.loopback-spk=0
 
 #zhangsen1 factory test start
 
-#Begin add ssss and dsds property 20230622
-#on property:ro.boot.singlecard=1
-#	setprop persist.radio.multisim.config ssss
-#on property:ro.boot.singlecard=0
-#	setprop persist.radio.multisim.config dsds
-#End add ssss and dsds property 20230622
+# Begin add ssss and dsds property
+on property:ro.boot.singlecard=1
+    setprop persist.radio.multisim.config ssss
+    setprop ro.vendor.multisim.simslotcount 1
+    setprop ro.multisim.simslotcount 1
+    setprop ro.telephony.sim_slots.count 1
+
+on property:ro.boot.singlecard=0
+    setprop persist.radio.multisim.config dsds
+    setprop ro.vendor.multisim.simslotcount 2
+    setprop ro.multisim.simslotcount 2
+    setprop ro.telephony.sim_slots.count 2
+
+on property:ro.boot.simslotcount=1
+    setprop persist.radio.multisim.config ssss
+    setprop ro.vendor.multisim.simslotcount 1
+    setprop ro.multisim.simslotcount 1
+    setprop ro.telephony.sim_slots.count 1
+
+on property:ro.boot.simslotcount=2
+    setprop persist.radio.multisim.config dsds
+    setprop ro.vendor.multisim.simslotcount 2
+    setprop ro.multisim.simslotcount 2
+    setprop ro.telephony.sim_slots.count 2
+# End add ssss and dsds property
+
 

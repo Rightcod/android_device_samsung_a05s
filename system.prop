@@ -54,6 +54,10 @@ media.stagefright.thumbnail.prefer_hw_codecs=true
 ro.nfc.port=I2C
 
 # Radio
+persist.radio.multisim.config=dsds
+ro.telephony.sim_slots.count=2
+ro.vendor.multisim.simslotcount=2
+ro.multisim.simslotcount=2
 persist.rild.nitz_long_ons_0=
 persist.rild.nitz_long_ons_1=
 persist.rild.nitz_long_ons_2=
