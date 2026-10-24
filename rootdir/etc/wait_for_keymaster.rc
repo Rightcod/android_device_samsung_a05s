@@ -1,0 +1,8 @@
+service wait_for_keymaster /system/bin/toolbox true
+    user root
+    group root
+    priority -20
+    ioprio rt 0
+    oneshot
+    disabled
+    seclabel u:r:init:s0

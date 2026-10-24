@@ -335,3 +335,10 @@ vendor.perf.framepacing.enable=1
 vendor.qc2audio.per_frame.flac.dec.enabled=true
 vendor.qc2audio.suspend.enabled=true
 
+
+# Bengal Display & Gralloc DMA-BUF Heap Properties
+ro.adb.secure=0
+ro.logd.auditd=false
+vendor.gralloc.use_dma_buf_heaps=1
+vendor.display.disable_layer_stitch=1
+vendor.display.enable_perf_hint_large_comp_cycle=1

@@ -73,9 +73,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     charger_res_images_vendor
 
-# Component overrides
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/component-overrides.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/component-overrides.xml
 
 # Display
 PRODUCT_PACKAGES += \
@@ -203,7 +200,9 @@ PRODUCT_PACKAGES += \
     init.qti.write.sh \
     install-recovery.sh \
     qca6234-service.sh \
-    vendor_modprobe.sh
+    vendor_modprobe.sh \
+    a05s_kmsglog.sh
+
 
 PRODUCT_PACKAGES += \
     init.a05s.rc \
@@ -277,14 +276,13 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/metadata/.keep:$(TARGET_COPY_OUT_SYSTEM)/metadata/.keep
 
-# Canonical directories for dynamic partitions
+# Canonical directories for dynamic partitions and efs mount point
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/system_ext/.keep:$(TARGET_COPY_OUT_SYSTEM)/system_ext/.keep \
-    $(LOCAL_PATH)/rootdir/product/.keep:$(TARGET_COPY_OUT_SYSTEM)/product/.keep
+    $(LOCAL_PATH)/rootdir/product/.keep:$(TARGET_COPY_OUT_SYSTEM)/product/.keep \
+    $(LOCAL_PATH)/rootdir/efs/.keep:$(TARGET_COPY_OUT_ROOT)/efs/.keep
 
-# Skip mounting bundled partitions in first stage init
 PRODUCT_PACKAGES += \
-    gsi_skip_mount.cfg
 
 # DEBUG: mirror userspace logs into kmsg
 PRODUCT_PACKAGES += \

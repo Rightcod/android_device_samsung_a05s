@@ -748,4 +748,9 @@
     <bool name="config_dynamic_bind_ims">true</bool>
     <string name="config_ims_package">org.codeaurora.ims</string>
     <bool name="config_enabled_lte">true</bool>
+
+    <!-- Default refresh rate for Galaxy A05s (60Hz base, 90Hz peak) -->
+    <bool name="config_hasVariableRefreshRate">true</bool>
+    <integer name="config_defaultRefreshRate">60</integer>
+    <integer name="config_defaultPeakRefreshRate">90</integer>
 </resources>

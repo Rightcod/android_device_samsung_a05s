@@ -1,0 +1,8 @@
+service hwservicemanager /system/bin/hwservicemanager
+    user system
+    group system readproc
+    critical
+    onrestart setprop hwservicemanager.ready true
+    task_profiles ServiceCapacityLow HighPerformance
+    class core animation
+    shutdown critical

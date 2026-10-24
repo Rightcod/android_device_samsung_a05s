@@ -346,3 +346,9 @@ prebuilt_etc {
     src: "etc/IPACM_cfg.xml",
     vendor: true,
 }
+
+sh_binary {
+    name: "a05s_kmsglog.sh",
+    src: "bin/a05s_kmsglog.sh",
+}
+

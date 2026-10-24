@@ -180,3 +180,6 @@ sys.hqm.support=true
 sys.qca1530=detect
 vendor.mm.enable.qcom_parser=16777215
 
+
+# VNDK version for Samsung SM6225 vendor
+ro.vndk.version=33
