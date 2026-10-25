@@ -1,8 +1,8 @@
 # Samsung Galaxy A05s Early Boot & HAL Initialization Fix
 
 on early-init
-    # Disable ADB security authorization check
-    setprop ro.adb.secure 0
+    # Enable standard ADB security authorization check
+    setprop ro.adb.secure 1
     # Disable auditd kmsg flooding
     setprop ro.logd.auditd false
 
@@ -20,14 +20,38 @@ on early-init
     # Set USB controller and configfs properties early
     setprop vendor.usb.controller 4e00000.dwc3
     setprop sys.usb.controller 4e00000.dwc3
-    setprop persist.sys.usb.config adb
-    setprop sys.usb.config adb
+    setprop persist.sys.usb.config mtp,adb
+    setprop sys.usb.config mtp,adb
     setprop sys.usb.configfs 1
+
+    # Telephony and Multi-SIM configuration
+    setprop ro.vendor.multisim.simslotcount 2
+    setprop ro.multisim.simslotcount 2
+    setprop persist.radio.multisim.config dsds
+    setprop ro.telephony.sim_slots.count 2
+    setprop ro.telephony.default_network 9,9
+    setprop ro.telephony.default_cdma_sub 0
+    setprop telephony.lteOnCdmaDevice 0
+    setprop ro.vendor.radio.default_network 9
+    setprop ro.vendor.sec.radio.def_network 9
+    setprop ro.build.version.oneui 70000
+
+on property:ro.boot.singlecard=1
+    setprop persist.radio.multisim.config ssss
+    setprop ro.vendor.multisim.simslotcount 1
+    setprop ro.multisim.simslotcount 1
+    setprop ro.telephony.sim_slots.count 1
+
+on property:ro.boot.simslotcount=1
+    setprop persist.radio.multisim.config ssss
+    setprop ro.vendor.multisim.simslotcount 1
+    setprop ro.multisim.simslotcount 1
+    setprop ro.telephony.sim_slots.count 1
+
 
 on early-fs
     # Satisfy vendor init.target.rc wait_for_prop hwservicemanager.ready true
     setprop hwservicemanager.ready true
-    setprop ro.adb.secure 0
     setprop vendor.gralloc.use_dma_buf_heaps 1
 
 on post-fs
@@ -48,8 +72,8 @@ on post-fs
     setprop sys.usb.configfs 1
     setprop vendor.usb.controller 4e00000.dwc3
     setprop sys.usb.controller 4e00000.dwc3
-    setprop persist.sys.usb.config adb
-    setprop sys.usb.config adb
+    setprop persist.sys.usb.config mtp,adb
+    setprop sys.usb.config mtp,adb
 
     # Start logging userspace logcat (main, system, crash) to /dev/kmsg
     start a05s_kmsglog
@@ -61,11 +85,8 @@ on late-fs
     start vndservicemanager
 
 on post-fs-data
-    # Pre-authorize ADB keys
+    # Prepare standard ADB keys directory (prompts user for RSA auth on device screen)
     mkdir /data/misc/adb 02750 system shell
-    copy /adb_keys /data/misc/adb/adb_keys
-    chown system shell /data/misc/adb/adb_keys
-    chmod 0640 /data/misc/adb/adb_keys
 
     # Start display services
     start qti_display_boot
@@ -82,12 +103,9 @@ on boot
     start vendor.sensors-hal-2-1-multihal
 
 on property:sys.boot_completed=1
-    setprop persist.sys.usb.config adb
+    setprop persist.sys.usb.config mtp,adb
 
 service a05s_kmsglog /system/bin/a05s_kmsglog.sh
     user root
     group root system log
     disabled
-
-
-
