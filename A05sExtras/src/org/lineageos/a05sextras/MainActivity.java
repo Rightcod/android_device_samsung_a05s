@@ -77,26 +77,29 @@ public class MainActivity extends Activity {
 
         // Gaming Spoof
         switchGameSpoof = findViewById(R.id.switch_game_spoof);
-        boolean gameSpoofOn = getProp("persist.sys.spoof.games", "1").equals("1");
+        boolean gameSpoofOn = getProp("persist.sys.spoof.games", "1").equals("1") || getProp("persist.sys.pixelprops.games", "true").equals("true");
         switchGameSpoof.setChecked(gameSpoofOn);
         switchGameSpoof.setOnCheckedChangeListener((btn, isChecked) -> {
             setProp("persist.sys.spoof.games", isChecked ? "1" : "0");
+            setProp("persist.sys.pixelprops.games", isChecked ? "true" : "false");
         });
 
         // Photos Spoof
         switchPhotosSpoof = findViewById(R.id.switch_photos_spoof);
-        boolean photosSpoofOn = getProp("persist.sys.spoof.photos", "1").equals("1");
+        boolean photosSpoofOn = getProp("persist.sys.spoof.photos", "1").equals("1") || getProp("persist.sys.pixelprops.gphotos", "true").equals("true");
         switchPhotosSpoof.setChecked(photosSpoofOn);
         switchPhotosSpoof.setOnCheckedChangeListener((btn, isChecked) -> {
             setProp("persist.sys.spoof.photos", isChecked ? "1" : "0");
+            setProp("persist.sys.pixelprops.gphotos", isChecked ? "true" : "false");
         });
 
         // PIF Spoof
         switchPifSpoof = findViewById(R.id.switch_pif_spoof);
-        boolean pifSpoofOn = getProp("persist.sys.spoof.pif", "1").equals("1");
+        boolean pifSpoofOn = getProp("persist.sys.spoof.pif", "1").equals("1") || getProp("persist.sys.pixelprops.pi", "true").equals("true");
         switchPifSpoof.setChecked(pifSpoofOn);
         switchPifSpoof.setOnCheckedChangeListener((btn, isChecked) -> {
             setProp("persist.sys.spoof.pif", isChecked ? "1" : "0");
+            setProp("persist.sys.pixelprops.pi", isChecked ? "true" : "false");
         });
 
         // DT2S Statusbar
