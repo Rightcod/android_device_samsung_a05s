@@ -24,7 +24,7 @@ on early-init
     setprop sys.usb.config mtp,adb
     setprop sys.usb.configfs 1
 
-    # Telephony and Multi-SIM configuration
+    # Telephony, VoLTE and Multi-SIM configuration
     setprop ro.vendor.multisim.simslotcount 2
     setprop ro.multisim.simslotcount 2
     setprop persist.radio.multisim.config dsds
@@ -35,6 +35,18 @@ on early-init
     setprop ro.vendor.radio.default_network 9
     setprop ro.vendor.sec.radio.def_network 9
     setprop ro.build.version.oneui 70000
+
+    # VoLTE and IMS configuration
+    setprop persist.vendor.radio.volte 1
+    setprop persist.vendor.radio.volte.enabled 1
+    setprop persist.dbg.volte_avail_ovr 1
+    setprop persist.dbg.vt_avail_ovr 1
+    setprop persist.dbg.wfc_avail_ovr 1
+    setprop persist.radio.calls.on.ims 1
+    setprop persist.vendor.radio.ims_enabled 1
+    setprop persist.vendor.ims.feature 1
+    setprop ro.telephony.ims.supported true
+    setprop ro.vendor.telephony.ims.supported true
 
 on property:ro.boot.singlecard=1
     setprop persist.radio.multisim.config ssss
@@ -99,8 +111,16 @@ on post-fs-data
     # Start adbd early
     start adbd
 
+    # Start Qualcomm / Samsung IMS daemons
+    start vendor.imsdaemon
+    start vendor.ims_rtp_daemon
+    start vendor.qti.ims.daemon
+
 on boot
     start vendor.sensors-hal-2-1-multihal
+    start vendor.imsdaemon
+    start vendor.ims_rtp_daemon
+    start vendor.qti.ims.daemon
 
 on property:sys.boot_completed=1
     setprop persist.sys.usb.config mtp,adb

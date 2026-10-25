@@ -746,7 +746,9 @@
     <bool name="config_device_vt_available">true</bool>
     <bool name="config_device_wfc_ims_available">true</bool>
     <bool name="config_dynamic_bind_ims">true</bool>
-    <string name="config_ims_package">org.codeaurora.ims</string>
+    <string name="config_ims_package">com.sec.imsservice</string>
+    <string name="config_ims_mmtel_package">com.sec.imsservice</string>
+    <string name="config_ims_rcs_package">com.sec.imsservice</string>
     <bool name="config_enabled_lte">true</bool>
 
     <!-- Default refresh rate for Galaxy A05s (60Hz base, 90Hz peak) -->

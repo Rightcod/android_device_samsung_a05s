@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="32dp">
+
+        <!-- Header -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="?android:attr/textColorPrimary"
+            android:paddingBottom="4dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_summary"
+            android:textSize="14sp"
+            android:textColor="?android:attr/textColorSecondary"
+            android:paddingBottom="20dp" />
+
+        <!-- Category: Display -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/category_display"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="?android:attr/colorAccent"
+            android:paddingTop="12dp"
+            android:paddingBottom="8dp" />
+
+        <!-- 90Hz Refresh Rate Switch -->
+        <LinearLayout
+            android:id="@+id/row_refresh_rate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_refresh_rate"
+                    android:textSize="16sp"
+                    android:textColor="?android:attr/textColorPrimary" />
+                <TextView
+                    android:id="@+id/summary_refresh_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/summary_refresh_rate_90"
+                    android:textSize="13sp"
+                    android:textColor="?android:attr/textColorSecondary" />
+            </LinearLayout>
+            <Switch
+                android:id="@+id/switch_refresh_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Category: Gaming & Spoofing -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/category_gaming"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="?android:attr/colorAccent"
+            android:paddingTop="12dp"
+            android:paddingBottom="8dp" />
+
+        <!-- Game Spoof Switch -->
+        <LinearLayout
+            android:id="@+id/row_game_spoof"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_game_spoof"
+                    android:textSize="16sp"
+                    android:textColor="?android:attr/textColorPrimary" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/summary_game_spoof"
+                    android:textSize="13sp"
+                    android:textColor="?android:attr/textColorSecondary" />
+            </LinearLayout>
+            <Switch
+                android:id="@+id/switch_game_spoof"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- Google Photos Spoof Switch -->
+        <LinearLayout
+            android:id="@+id/row_photos_spoof"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_photos_spoof"
+                    android:textSize="16sp"
+                    android:textColor="?android:attr/textColorPrimary" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/summary_photos_spoof"
+                    android:textSize="13sp"
+                    android:textColor="?android:attr/textColorSecondary" />
+            </LinearLayout>
+            <Switch
+                android:id="@+id/switch_photos_spoof"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- Play Integrity Fix Switch -->
+        <LinearLayout
+            android:id="@+id/row_pif_spoof"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_pif_spoof"
+                    android:textSize="16sp"
+                    android:textColor="?android:attr/textColorPrimary" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/summary_pif_spoof"
+                    android:textSize="13sp"
+                    android:textColor="?android:attr/textColorSecondary" />
+            </LinearLayout>
+            <Switch
+                android:id="@+id/switch_pif_spoof"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Category: Gestures -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/category_gestures"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="?android:attr/colorAccent"
+            android:paddingTop="12dp"
+            android:paddingBottom="8dp" />
+
+        <!-- DT2S Statusbar Switch -->
+        <LinearLayout
+            android:id="@+id/row_dt2s_statusbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_dt2s_statusbar"
+                    android:textSize="16sp"
+                    android:textColor="?android:attr/textColorPrimary" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/summary_dt2s_statusbar"
+                    android:textSize="13sp"
+                    android:textColor="?android:attr/textColorSecondary" />
+            </LinearLayout>
+            <Switch
+                android:id="@+id/switch_dt2s_statusbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- DT2S Lockscreen Switch -->
+        <LinearLayout
+            android:id="@+id/row_dt2s_lockscreen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_dt2s_lockscreen"
+                    android:textSize="16sp"
+                    android:textColor="?android:attr/textColorPrimary" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/summary_dt2s_lockscreen"
+                    android:textSize="13sp"
+                    android:textColor="?android:attr/textColorSecondary" />
+            </LinearLayout>
+            <Switch
+                android:id="@+id/switch_dt2s_lockscreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Category: Charging -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/category_charging"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="?android:attr/colorAccent"
+            android:paddingTop="12dp"
+            android:paddingBottom="8dp" />
+
+        <!-- Live Battery & Wattage Display Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_charging_wattage"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="?android:attr/textColorPrimary" />
+            <TextView
+                android:id="@+id/text_live_charging"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/summary_charging_wattage"
+                android:textSize="15sp"
+                android:textColor="?android:attr/textColorSecondary"
+                android:paddingTop="6dp" />
+        </LinearLayout>
+
+        <!-- Maintainer Credits Footer -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="24dp"
+            android:text="Galaxy A05s LineageOS 23.2\nMaintainer: Rightcode | Tester: vanplact# | Helpers: tjari, fdur25"
+            android:textSize="12sp"
+            android:textColor="?android:attr/textColorTertiary" />
+
+    </LinearLayout>
+</ScrollView>

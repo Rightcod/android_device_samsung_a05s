@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Кастомизация crDroid</string>
+    <string name="app_summary">Спуфинг в играх 90/120 FPS, Google Фото, плавность 90 Гц</string>
+
+    <!-- Categories -->
+    <string name="category_gaming">🎮 Игровой режим и спуфинг</string>
+    <string name="category_display">⚡ Экран и частота обновления</string>
+    <string name="category_gestures">👆 Жесты и блокировка</string>
+    <string name="category_charging">🔋 Питание и зарядка</string>
+
+    <!-- Gaming & Spoofing -->
+    <string name="title_game_spoof">Разблокировка 90/120 FPS в играх</string>
+    <string name="summary_game_spoof">Подмена ROG Phone 6 для Standoff 2, PUBG Mobile, Genshin Impact, CoD Mobile</string>
+
+    <string name="title_photos_spoof">Безлимитные Google Фото</string>
+    <string name="summary_photos_spoof">Подмена под Pixel XL: неограниченное хранилище фото и видео в исходном качестве</string>
+
+    <string name="title_pif_spoof">Play Integrity / SafetyNet Fix</string>
+    <string name="summary_pif_spoof">Обход проверок и сертификация для банковских приложений и Госуслуг</string>
+
+    <!-- Display -->
+    <string name="title_refresh_rate">Плавность движений (90 Гц)</string>
+    <string name="summary_refresh_rate_90">Включена повышенная плавность 90 Гц</string>
+    <string name="summary_refresh_rate_60">Включена стандартная частота 60 Гц (экономия заряда)</string>
+    <string name="tile_refresh_rate">Частота экрана</string>
+
+    <!-- Gestures -->
+    <string name="title_dt2s_statusbar">Двойной тап для сна (Строка состояния)</string>
+    <string name="summary_dt2s_statusbar">Двойное касание статус-бара выключает экран</string>
+
+    <string name="title_dt2s_lockscreen">Двойной тап для сна (Экран блокировки)</string>
+    <string name="summary_dt2s_lockscreen">Двойное касание экрана блокировки выключает экран</string>
+
+    <!-- Charging -->
+    <string name="title_charging_wattage">Мощность зарядки в реальном времени</string>
+    <string name="summary_charging_wattage">Отображать текущие Ватты (W), Вольты (V) и силу тока (mA)</string>
+    <string name="battery_status_unknown">Статус батареи недоступен</string>
+</resources>

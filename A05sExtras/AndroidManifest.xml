@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.lineageos.a05sextras"
+    android:sharedUserId="android.uid.system"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-sdk android:minSdkVersion="30" android:targetSdkVersion="36" />
+
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.BATTERY_STATS" />
+
+    <application
+        android:label="@string/app_name"
+        android:icon="@drawable/ic_crdroid"
+        android:theme="@android:style/Theme.DeviceDefault.Settings"
+        android:directBootAware="true">
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <!-- Dashboard Tile in Android Settings Homepage -->
+            <intent-filter>
+                <action android:name="com.android.settings.action.SETTINGS" />
+            </intent-filter>
+            <meta-data
+                android:name="com.android.settings.category"
+                android:value="com.android.settings.category.ia.homepage" />
+            <meta-data
+                android:name="com.android.settings.title"
+                android:resource="@string/app_name" />
+            <meta-data
+                android:name="com.android.settings.summary"
+                android:resource="@string/app_summary" />
+            <meta-data
+                android:name="com.android.settings.icon"
+                android:resource="@drawable/ic_crdroid" />
+            <meta-data
+                android:name="com.android.settings.order"
+                android:value="-50" />
+        </activity>
+
+        <!-- Quick Settings Tile for 60Hz / 90Hz -->
+        <service
+            android:name=".RefreshRateTileService"
+            android:label="@string/tile_refresh_rate"
+            android:icon="@drawable/ic_refresh_rate"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name=".BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+</manifest>
