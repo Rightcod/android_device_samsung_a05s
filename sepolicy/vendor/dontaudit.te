@@ -1,1 +1,36 @@
 dontaudit untrusted_app ashmem_device:chr_file open;
+
+# Fingerprint extension hwservices
+dontaudit hal_fingerprint_default {
+    fpc_ext_hwservice
+    fp_ext_svc2_service
+    hal_goodix_hwservice
+}:hwservice_manager { add find };
+
+# Face HAL mapper/allocator
+dontaudit hal_face_default {
+    hal_graphics_allocator_hwservice
+    hal_graphics_mapper_hwservice
+}:hwservice_manager find;
+
+# Binder transactions
+dontaudit mediaserver init:binder { call transfer };
+dontaudit init mediaserver:binder { call transfer };
+
+# Init tetheroffload / QTI data hwservices
+dontaudit init {
+    hal_tetheroffload_hwservice
+    hidl_manager_hwservice
+    vendor_hal_datafactory_hwservice
+    vendor_hal_latency_hwservice
+    vendor_hal_mwqemadapter_hwservice
+}:hwservice_manager { add find };
+
+# Thermal
+dontaudit hal_health_default hal_thermal_hwservice:hwservice_manager find;
+
+# Service manager searches
+dontaudit vendor_qcc_trd_2 default_android_service:service_manager find;
+dontaudit system_server default_android_service:service_manager find;
+dontaudit system_app default_android_service:service_manager find;
+dontaudit system_server init:hwservice_manager list;
