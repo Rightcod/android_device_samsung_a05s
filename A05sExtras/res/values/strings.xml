@@ -10,6 +10,12 @@
     <string name="category_charging">Charging &amp; Battery Status</string>
 
     <!-- Gaming & Spoofing -->
+    <string name="title_game_mode">Game Space Mode</string>
+    <string name="summary_game_mode">Optimize CPU/GPU performance and suppress distracting notifications</string>
+
+    <string name="title_game_dnd">Game Do Not Disturb</string>
+    <string name="summary_game_dnd">Block heads-up notifications while gaming</string>
+
     <string name="title_game_spoof">Game 90/120 FPS Spoofing</string>
     <string name="summary_game_spoof">Spoof ROG Phone 6 for Standoff 2, PUBG Mobile, Genshin, CoD to unlock max FPS</string>
 
@@ -24,8 +30,12 @@
     <string name="summary_refresh_rate_90">Ultra-smooth 90 Hz display active</string>
     <string name="summary_refresh_rate_60">Standard 60 Hz battery saving active</string>
     <string name="tile_refresh_rate">Refresh Rate</string>
+    <string name="tile_game_mode">Game Mode</string>
 
     <!-- Gestures -->
+    <string name="title_dt2w">Double-tap to wake</string>
+    <string name="summary_dt2w">Double-tap the screen to wake up device</string>
+
     <string name="title_dt2s_statusbar">Double-tap to sleep (Status bar)</string>
     <string name="summary_dt2s_statusbar">Double-tap the status bar to turn off screen</string>
 
@@ -36,4 +46,5 @@
     <string name="title_charging_wattage">Real-time Charging Wattage</string>
     <string name="summary_charging_wattage">Show real-time watts, voltage and amperage</string>
     <string name="battery_status_unknown">Battery status unavailable</string>
+    <string name="credits">Galaxy A05s LineageOS 23.2\nMaintainer: Rightcode | Testers: SlingShot, vanplact# | Helpers: tjari, fdur25</string>
 </resources>

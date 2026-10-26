@@ -25,10 +25,12 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <!-- Dashboard Tile in Android Settings Homepage -->
             <intent-filter>
+                <action android:name="com.android.settings.action.IA_SETTINGS" />
                 <action android:name="com.android.settings.action.SETTINGS" />
             </intent-filter>
             <meta-data
@@ -48,11 +50,47 @@
                 android:value="-50" />
         </activity>
 
+        <!-- System Settings category alias -->
+        <activity-alias
+            android:name=".SystemSettingsActivity"
+            android:targetActivity=".MainActivity"
+            android:label="@string/app_name"
+            android:icon="@drawable/ic_crdroid"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.settings.action.IA_SETTINGS" />
+            </intent-filter>
+            <meta-data
+                android:name="com.android.settings.category"
+                android:value="com.android.settings.category.ia.system" />
+            <meta-data
+                android:name="com.android.settings.title"
+                android:resource="@string/app_name" />
+            <meta-data
+                android:name="com.android.settings.summary"
+                android:resource="@string/app_summary" />
+            <meta-data
+                android:name="com.android.settings.icon"
+                android:resource="@drawable/ic_crdroid" />
+        </activity-alias>
+
         <!-- Quick Settings Tile for 60Hz / 90Hz -->
         <service
             android:name=".RefreshRateTileService"
             android:label="@string/tile_refresh_rate"
             android:icon="@drawable/ic_refresh_rate"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <!-- Quick Settings Tile for Game Mode / Game Space -->
+        <service
+            android:name=".GameModeTileService"
+            android:label="@string/tile_game_mode"
+            android:icon="@drawable/ic_gamepad"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
             android:exported="true">
             <intent-filter>

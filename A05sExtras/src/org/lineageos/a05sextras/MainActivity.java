@@ -75,6 +75,22 @@ public class MainActivity extends Activity {
             updateRefreshRateSummary(isChecked);
         });
 
+        // Game Mode (Game Space)
+        Switch switchGameMode = findViewById(R.id.switch_game_mode);
+        boolean gameModeOn = getProp("persist.sys.game_mode", "0").equals("1");
+        switchGameMode.setChecked(gameModeOn);
+        switchGameMode.setOnCheckedChangeListener((btn, isChecked) -> {
+            setProp("persist.sys.game_mode", isChecked ? "1" : "0");
+        });
+
+        // Game DND (Heads-up block)
+        Switch switchGameDnd = findViewById(R.id.switch_game_dnd);
+        int headsUp = Settings.Global.getInt(getContentResolver(), "heads_up_notifications_enabled", 1);
+        switchGameDnd.setChecked(headsUp == 0);
+        switchGameDnd.setOnCheckedChangeListener((btn, isChecked) -> {
+            Settings.Global.putInt(getContentResolver(), "heads_up_notifications_enabled", isChecked ? 0 : 1);
+        });
+
         // Gaming Spoof
         switchGameSpoof = findViewById(R.id.switch_game_spoof);
         boolean gameSpoofOn = getProp("persist.sys.spoof.games", "1").equals("1") || getProp("persist.sys.pixelprops.games", "true").equals("true");
@@ -100,6 +116,14 @@ public class MainActivity extends Activity {
         switchPifSpoof.setOnCheckedChangeListener((btn, isChecked) -> {
             setProp("persist.sys.spoof.pif", isChecked ? "1" : "0");
             setProp("persist.sys.pixelprops.pi", isChecked ? "true" : "false");
+        });
+
+        // DT2W (Double Tap to Wake)
+        Switch switchDt2w = findViewById(R.id.switch_dt2w);
+        int dt2wStatus = Settings.Secure.getInt(getContentResolver(), "double_tap_to_wake", 1);
+        switchDt2w.setChecked(dt2wStatus == 1);
+        switchDt2w.setOnCheckedChangeListener((btn, isChecked) -> {
+            Settings.Secure.putInt(getContentResolver(), "double_tap_to_wake", isChecked ? 1 : 0);
         });
 
         // DT2S Statusbar

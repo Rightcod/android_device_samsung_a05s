@@ -755,4 +755,7 @@
     <bool name="config_hasVariableRefreshRate">true</bool>
     <integer name="config_defaultRefreshRate">60</integer>
     <integer name="config_defaultPeakRefreshRate">90</integer>
+
+    <!-- Number of physical SIM slots on Galaxy A05s (Dual SIM + SD tray) -->
+    <integer name="config_num_physical_slots">2</integer>
 </resources>

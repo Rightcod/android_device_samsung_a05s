@@ -10,6 +10,12 @@
     <string name="category_charging">🔋 Питание и зарядка</string>
 
     <!-- Gaming & Spoofing -->
+    <string name="title_game_mode">Игровой режим (Game Space)</string>
+    <string name="summary_game_mode">Оптимизация производительности CPU/GPU и подавление всплывающих уведомлений</string>
+
+    <string name="title_game_dnd">Игровой режим Не беспокоить</string>
+    <string name="summary_game_dnd">Блокировать всплывающие уведомления (Heads-up) во время игр</string>
+
     <string name="title_game_spoof">Разблокировка 90/120 FPS в играх</string>
     <string name="summary_game_spoof">Подмена ROG Phone 6 для Standoff 2, PUBG Mobile, Genshin Impact, CoD Mobile</string>
 
@@ -24,8 +30,12 @@
     <string name="summary_refresh_rate_90">Включена повышенная плавность 90 Гц</string>
     <string name="summary_refresh_rate_60">Включена стандартная частота 60 Гц (экономия заряда)</string>
     <string name="tile_refresh_rate">Частота экрана</string>
+    <string name="tile_game_mode">Игровой режим</string>
 
     <!-- Gestures -->
+    <string name="title_dt2w">Двойной тап для пробуждения</string>
+    <string name="summary_dt2w">Двойное касание выключенного экрана пробуждает устройство</string>
+
     <string name="title_dt2s_statusbar">Двойной тап для сна (Строка состояния)</string>
     <string name="summary_dt2s_statusbar">Двойное касание статус-бара выключает экран</string>
 
@@ -36,4 +46,5 @@
     <string name="title_charging_wattage">Мощность зарядки в реальном времени</string>
     <string name="summary_charging_wattage">Отображать текущие Ватты (W), Вольты (V) и силу тока (mA)</string>
     <string name="battery_status_unknown">Статус батареи недоступен</string>
+    <string name="credits">Galaxy A05s LineageOS 23.2\nMaintainer: Rightcode | Testers: SlingShot, vanplact# | Helpers: tjari, fdur25</string>
 </resources>

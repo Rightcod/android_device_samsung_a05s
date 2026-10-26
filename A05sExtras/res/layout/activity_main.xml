@@ -94,6 +94,72 @@
             android:paddingTop="12dp"
             android:paddingBottom="8dp" />
 
+        <!-- Game Mode Switch -->
+        <LinearLayout
+            android:id="@+id/row_game_mode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_game_mode"
+                    android:textSize="16sp"
+                    android:textColor="?android:attr/textColorPrimary" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/summary_game_mode"
+                    android:textSize="13sp"
+                    android:textColor="?android:attr/textColorSecondary" />
+            </LinearLayout>
+            <Switch
+                android:id="@+id/switch_game_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- Game DND Switch -->
+        <LinearLayout
+            android:id="@+id/row_game_dnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_game_dnd"
+                    android:textSize="16sp"
+                    android:textColor="?android:attr/textColorPrimary" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/summary_game_dnd"
+                    android:textSize="13sp"
+                    android:textColor="?android:attr/textColorSecondary" />
+            </LinearLayout>
+            <Switch
+                android:id="@+id/switch_game_dnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
         <!-- Game Spoof Switch -->
         <LinearLayout
             android:id="@+id/row_game_spoof"
@@ -211,6 +277,39 @@
             android:paddingTop="12dp"
             android:paddingBottom="8dp" />
 
+        <!-- DT2W Switch -->
+        <LinearLayout
+            android:id="@+id/row_dt2w"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_dt2w"
+                    android:textSize="16sp"
+                    android:textColor="?android:attr/textColorPrimary" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/summary_dt2w"
+                    android:textSize="13sp"
+                    android:textColor="?android:attr/textColorSecondary" />
+            </LinearLayout>
+            <Switch
+                android:id="@+id/switch_dt2w"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
         <!-- DT2S Statusbar Switch -->
         <LinearLayout
             android:id="@+id/row_dt2s_statusbar"
@@ -325,7 +424,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingTop="24dp"
-            android:text="Galaxy A05s LineageOS 23.2\nMaintainer: Rightcode | Tester: vanplact# | Helpers: tjari, fdur25"
+            android:text="@string/credits"
             android:textSize="12sp"
             android:textColor="?android:attr/textColorTertiary" />
 
