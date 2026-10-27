@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">crDroid Settings</string>
-    <string name="app_summary">Game spoofing, 90Hz smoothness, Photos backup &amp; tweaks</string>
+    <string name="app_name">Game Space</string>
+    <string name="app_summary">Game Mode, 90Hz smoothness, FPS unlock &amp; tweaks</string>
 
     <!-- Categories -->
     <string name="category_gaming">Gaming &amp; Spoofing</string>
