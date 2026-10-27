@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#F0101016"
+    android:padding="16dp">
+
+    <!-- Header with FPS meter -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:id="@+id/hud_fps_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="90 FPS"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#00FF66" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text=" · GAME SPACE"
+            android:textSize="12sp"
+            android:textColor="#888899"
+            android:paddingStart="8dp" />
+
+        <Button
+            android:id="@+id/btn_hud_close"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:text="✕"
+            android:textSize="14sp"
+            android:textColor="#FFFFFF"
+            android:background="?android:attr/selectableItemBackground" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#333344"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Action Buttons Row -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <!-- Boost RAM Button -->
+        <Button
+            android:id="@+id/btn_hud_boost"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="@string/hud_boost_ram"
+            android:textSize="12sp"
+            android:textColor="#FFFFFF"
+            android:background="#222233"
+            android:layout_marginEnd="8dp" />
+
+        <!-- DND Toggle Button -->
+        <Button
+            android:id="@+id/btn_hud_dnd"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="@string/hud_dnd"
+            android:textSize="12sp"
+            android:textColor="#FFFFFF"
+            android:background="#222233"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Force 90Hz Toggle Button -->
+        <Button
+            android:id="@+id/btn_hud_90hz"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="@string/hud_90hz"
+            android:textSize="12sp"
+            android:textColor="#FFFFFF"
+            android:background="#222233"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Screenshot Button -->
+        <Button
+            android:id="@+id/btn_hud_shot"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="@string/hud_shot"
+            android:textSize="12sp"
+            android:textColor="#FFFFFF"
+            android:background="#222233" />
+    </LinearLayout>
+</LinearLayout>

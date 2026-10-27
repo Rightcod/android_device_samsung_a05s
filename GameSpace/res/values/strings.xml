@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Game Space</string>
+    <string name="dashboard_title">Game Space</string>
+    <string name="device_specs">Snapdragon 680 · Adreno 610 · 90 Hz</string>
+    <string name="section_games">My Games</string>
+    <string name="btn_add_game">+ Add Games</string>
+    <string name="no_games">No games added yet. Tap \'+ Add Games\' to select your favorite games!</string>
+    <string name="launch_game">PLAY</string>
+
+    <string name="section_features">Gaming Enhancements</string>
+    <string name="title_floating_gamebar">Floating Game Bar</string>
+    <string name="summary_floating_gamebar">Show overlay handle with live FPS meter, DND and RAM boost while playing</string>
+
+    <string name="title_game_spoof">ROG Phone 6 90/120 FPS</string>
+    <string name="summary_game_spoof">Unlock extreme framerate in Standoff 2, PUBG, Genshin, CoD</string>
+
+    <string name="title_game_dnd">Game Do Not Disturb</string>
+    <string name="summary_game_dnd">Silence heads-up banners and distractions during games</string>
+
+    <string name="title_force_90hz">Force 90 Hz Gaming</string>
+    <string name="summary_force_90hz">Keep refresh rate locked at 90 Hz for maximum smoothness</string>
+
+    <!-- Dialog -->
+    <string name="dialog_select_games">Select Games</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_cancel">Cancel</string>
+
+    <!-- GameBar HUD -->
+    <string name="hud_fps">FPS</string>
+    <string name="hud_boost_ram">Boost</string>
+    <string name="hud_dnd">DND</string>
+    <string name="hud_90hz">90Hz</string>
+    <string name="hud_shot">Screen</string>
+    <string name="hud_close">Close</string>
+    <string name="msg_ram_cleared">RAM cleaned! Background apps optimized.</string>
+</resources>

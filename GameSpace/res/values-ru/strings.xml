@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Game Space</string>
+    <string name="dashboard_title">Game Space</string>
+    <string name="device_specs">Snapdragon 680 · Adreno 610 · 90 Гц</string>
+    <string name="section_games">Мои игры</string>
+    <string name="btn_add_game">+ Добавить игру</string>
+    <string name="no_games">Игры не добавлены. Нажмите \'+ Добавить игру\', чтобы выбрать установленные игры!</string>
+    <string name="launch_game">ИГРАТЬ</string>
+
+    <string name="section_features">Игровые оптимизации</string>
+    <string name="title_floating_gamebar">Плавающий Game Bar</string>
+    <string name="summary_floating_gamebar">Оверлей в играх с живым счетчиком FPS, очисткой RAM и блокировкой уведомлений</string>
+
+    <string name="title_game_spoof">Разблокировка 90/120 FPS</string>
+    <string name="summary_game_spoof">Подмена ROG Phone 6 для Standoff 2, PUBG Mobile, Genshin Impact, CoD Mobile</string>
+
+    <string name="title_game_dnd">Игровой режим Не беспокоить</string>
+    <string name="summary_game_dnd">Блокировать всплывающие уведомления (Heads-up) во время игр</string>
+
+    <string name="title_force_90hz">Принудительные 90 Гц</string>
+    <string name="summary_force_90hz">Фиксация максимальной частоты 90 Гц в играх для плавной картинки</string>
+
+    <!-- Dialog -->
+    <string name="dialog_select_games">Выберите игры</string>
+    <string name="btn_save">Сохранить</string>
+    <string name="btn_cancel">Отмена</string>
+
+    <!-- GameBar HUD -->
+    <string name="hud_fps">FPS</string>
+    <string name="hud_boost_ram">Ускорить</string>
+    <string name="hud_dnd">DND</string>
+    <string name="hud_90hz">90 Гц</string>
+    <string name="hud_shot">Снимок</string>
+    <string name="hud_close">Скрыть</string>
+    <string name="msg_ram_cleared">ОЗУ очищена! Фоновые процессы оптимизированы.</string>
+</resources>
