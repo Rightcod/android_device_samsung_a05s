@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Game Space</string>
-    <string name="app_summary">Game Mode, 90Hz smoothness, FPS unlock &amp; tweaks</string>
+    <string name="app_name">A05s Extras</string>
+    <string name="app_summary">90Hz smoothness, unlimited Photos, device tweaks &amp; battery stats</string>
 
     <!-- Categories -->
     <string name="category_gaming">Gaming &amp; Spoofing</string>

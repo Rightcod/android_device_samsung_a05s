@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Game Space</string>
-    <string name="app_summary">Игровой режим, разблокировка FPS 90/120, плавность 90 Гц</string>
+    <string name="app_name">A05s Extras</string>
+    <string name="app_summary">Плавность 90 Гц, безлимитные Google Фото, твики и зарядка</string>
 
     <!-- Categories -->
     <string name="category_gaming">🎮 Игровой режим и спуфинг</string>

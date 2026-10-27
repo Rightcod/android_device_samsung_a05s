@@ -15,20 +15,15 @@
 
     <application
         android:label="@string/app_name"
-        android:icon="@drawable/ic_gamepad"
+        android:icon="@drawable/ic_crdroid"
         android:theme="@android:style/Theme.DeviceDefault.Settings"
         android:directBootAware="true">
 
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:icon="@drawable/ic_gamepad"
+            android:icon="@drawable/ic_crdroid"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
             <!-- Dashboard Tile in Android Settings Homepage -->
             <intent-filter>
                 <action android:name="com.android.settings.action.IA_SETTINGS" />
@@ -45,13 +40,13 @@
                 android:resource="@string/app_summary" />
             <meta-data
                 android:name="com.android.settings.icon"
-                android:resource="@drawable/ic_gamepad" />
+                android:resource="@drawable/ic_crdroid" />
             <meta-data
                 android:name="com.android.settings.order"
                 android:value="-50" />
             <meta-data
                 android:name="com.android.settings.keywords"
-                android:value="gamespace, game space, game mode, gaming, 90hz, fps, crdroid, a05s" />
+                android:value="a05s, extras, crdroid, 90hz, refresh rate, spoofing, wattage, charging" />
         </activity>
 
         <!-- System Settings category alias -->
@@ -59,7 +54,7 @@
             android:name=".SystemSettingsActivity"
             android:targetActivity=".MainActivity"
             android:label="@string/app_name"
-            android:icon="@drawable/ic_gamepad"
+            android:icon="@drawable/ic_crdroid"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.android.settings.action.IA_SETTINGS" />
@@ -75,10 +70,10 @@
                 android:resource="@string/app_summary" />
             <meta-data
                 android:name="com.android.settings.icon"
-                android:resource="@drawable/ic_gamepad" />
+                android:resource="@drawable/ic_crdroid" />
             <meta-data
                 android:name="com.android.settings.keywords"
-                android:value="gamespace, game space, game mode, gaming, 90hz, fps, crdroid, a05s" />
+                android:value="a05s, extras, crdroid, 90hz, refresh rate, spoofing, wattage, charging" />
         </activity-alias>
 
         <!-- Quick Settings Tile for 60Hz / 90Hz -->
