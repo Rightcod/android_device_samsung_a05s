@@ -347,6 +347,13 @@ prebuilt_etc {
     vendor: true,
 }
 
+prebuilt_etc {
+    name: "vendor.samsung.rild.rc",
+    src: "etc/vendor.samsung.rild.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
 sh_binary {
     name: "a05s_kmsglog.sh",
     src: "bin/a05s_kmsglog.sh",

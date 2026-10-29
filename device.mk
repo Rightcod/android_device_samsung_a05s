@@ -215,6 +215,7 @@ PRODUCT_PACKAGES += \
     init.samsung.bsp.rc \
     init.samsung.rc \
     init.target.rc \
+    vendor.samsung.rild.rc \
     fstab.ramplus \
     IPACM_cfg.xml
 

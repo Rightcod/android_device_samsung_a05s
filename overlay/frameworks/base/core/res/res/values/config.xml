@@ -743,8 +743,11 @@
     <!-- IMS/RIL toggles for QCOM bengal (mirrors MysticGSI caf-ims + Telephony-LTE
          RROs: force-enable what AOSP defaults disable on Samsung QCOM) -->
     <bool name="config_device_volte_available">true</bool>
+    <bool name="config_carrier_volte_available">true</bool>
     <bool name="config_device_vt_available">true</bool>
+    <bool name="config_carrier_vt_available">true</bool>
     <bool name="config_device_wfc_ims_available">true</bool>
+    <bool name="config_carrier_wfc_ims_available">true</bool>
     <bool name="config_dynamic_bind_ims">true</bool>
     <bool name="config_enabled_lte">true</bool>
 
