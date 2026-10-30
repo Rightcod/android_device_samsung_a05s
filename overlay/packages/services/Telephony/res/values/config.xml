@@ -24,4 +24,9 @@
          are routed through the android.media.AudioManager class (true) or through
          the com.android.internal.telephony.Phone interface (false). -->
     <bool name="send_mic_mute_to_AudioManager">true</bool>
+
+    <!-- Samsung IMS package for MMTEL (VoLTE calls and SMS over IMS) -->
+    <string name="config_ims_mmtel_package" translatable="false">com.sec.imsservice</string>
+    <!-- Samsung IMS package for RCS -->
+    <string name="config_ims_rcs_package" translatable="false">com.sec.imsservice</string>
 </resources>

@@ -750,6 +750,7 @@
     <bool name="config_carrier_wfc_ims_available">true</bool>
     <bool name="config_dynamic_bind_ims">true</bool>
     <bool name="config_enabled_lte">true</bool>
+    <bool name="config_allow_ussd_over_ims">true</bool>
     <string name="config_ims_package">com.sec.imsservice</string>
 
     <!-- Default refresh rate for Galaxy A05s (60Hz base, 90Hz peak) -->
