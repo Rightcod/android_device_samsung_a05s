@@ -207,14 +207,6 @@ public class CallAudioService extends Service {
             if (activeSlot < 0) activeSlot = 0;
             if (!mCallActive || mActiveSlot != activeSlot) {
                 Log.i(TAG, "Active call on slot " + activeSlot + " (previous active: " + mCallActive + ")");
-                if (!mCallActive) {
-                    // Restart audio HAL on new call to clear stuck routing (from phh call fix)
-                    Log.i(TAG, "Restarting vendor.audio-hal for clean call session");
-                    setProp("ctl.restart", "vendor.audio-hal");
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException ignored) {}
-                }
                 mCallActive = true;
                 mActiveSlot = activeSlot;
             }
