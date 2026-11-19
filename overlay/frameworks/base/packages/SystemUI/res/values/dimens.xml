@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Отступ слева и справа в статус-баре от закруглений экрана -->
+    <dimen name="rounded_corner_content_padding">18dp</dimen>
+    <dimen name="status_bar_padding_start">18dp</dimen>
+    <dimen name="status_bar_padding_end">18dp</dimen>
+</resources>

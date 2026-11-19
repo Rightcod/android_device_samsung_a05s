@@ -16,8 +16,16 @@ persist.vendor.cne.feature=1
 
 # Display
 debug.sf.enable_hwc_vds=0
+ro.surface_flinger.supports_background_blur=0
+persist.sys.sf.disable_blurs=1
+debug.sf.enable_gl_backpressure=0
+debug.sf.enable_hwc_backpressure=0
+debug.sf.disable_backpressure=1
 debug.sf.latch_unsignaled=1
-ro.surface_flinger.supports_background_blur=1
+debug.sf.auto_latch_unsignaled=1
+persist.sys.phh.enable_sf_gl_backpressure=0
+persist.sys.phh.enable_sf_hwc_backpressure=0
+persist.sys.phh.sf_disable_backpressure=1
 ro.hwui.drop_shadow_cache_size=6
 ro.hwui.gradient_cache_size=1
 ro.hwui.layer_cache_size=48
@@ -75,18 +83,8 @@ persist.vendor.radio.ims_enabled=1
 persist.vendor.ims.feature=1
 ro.telephony.ims.supported=true
 ro.vendor.telephony.ims.supported=true
-persist.rild.nitz_long_ons_0=
-persist.rild.nitz_long_ons_1=
-persist.rild.nitz_long_ons_2=
-persist.rild.nitz_long_ons_3=
-persist.rild.nitz_plmn=
-persist.rild.nitz_short_ons_0=
-persist.rild.nitz_short_ons_1=
-persist.rild.nitz_short_ons_2=
-persist.rild.nitz_short_ons_3=
 persist.vendor.radio.atfwd.start=true
-ril.subscription.types=NV,RUIM
-rild.libpath=/vendor/lib64/libril-qc-hal-qmi.so
+ro.radio.noril=no
 
 # Sensors
 persist.vendor.sensors.enable.mag_filter=true
@@ -113,7 +111,14 @@ dalvik.vm.dex2oat64.enabled=true
 dalvik.vm.dexopt.secondary=true
 dalvik.vm.dexopt.thermal-cutoff=2
 dalvik.vm.finalizer-timeout-ms=60000
-dalvik.vm.heapsize=36m
+dalvik.vm.heapstartsize=8m
+dalvik.vm.heapgrowthlimit=256m
+dalvik.vm.heapsize=512m
+dalvik.vm.heaptargetutilization=0.75
+dalvik.vm.heapminfree=512k
+dalvik.vm.heapmaxfree=8m
+ro.input.stylus_handwriting=0
+persist.vendor.debug.snap=0
 dalvik.vm.image-dex2oat-Xms=64m
 dalvik.vm.image-dex2oat-Xmx=64m
 dalvik.vm.lockprof.threshold=500
@@ -154,7 +159,6 @@ persist.log.level=0xFFFFFFFF
 persist.log.semlevel=0xFFFFFF00
 persist.mm.enable.prefetch=true
 persist.rmnet.data.enable=true
-persist.sys.force_sw_gles=1
 persist.timed.enable=true
 persist.traced.enable=1
 persist.vendor.data.mode=concurrent
@@ -204,3 +208,10 @@ vendor.mm.enable.qcom_parser=16777215
 
 # VNDK version for Samsung SM6225 vendor
 ro.vndk.version=33
+
+# Additional IMS & VoLTE properties for Samsung Bengal
+persist.sys.cust.lte_config=true
+persist.rcs.supported=1
+persist.dbg.ims_volte_enable=1
+persist.radio.VT_ENABLE=1
+persist.dbg.allow_ims_off=1
