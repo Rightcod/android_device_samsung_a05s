@@ -1,0 +1,249 @@
+diff --git a/core/java/android/app/ActivityThread.java b/core/java/android/app/ActivityThread.java
+index 6777dbaad..65ae32c7c 100644
+--- a/core/java/android/app/ActivityThread.java
++++ b/core/java/android/app/ActivityThread.java
+@@ -7842,6 +7842,7 @@ public final class ActivityThread extends ClientTransactionHandler
+         initZipPathValidatorCallback();
+ 
+         mBoundApplication = data;
++        spoofAppPropsIfNeeded(data.appInfo != null ? data.appInfo.packageName : data.processName);
+         mConfigurationController.setConfiguration(data.config);
+         mConfigurationController.setCompatConfiguration(data.config);
+         mConfiguration = mConfigurationController.getConfiguration();
+@@ -9388,4 +9389,142 @@ public final class ActivityThread extends ClientTransactionHandler
+     // ------------------ Regular JNI ------------------------
+     private native void nPurgePendingResources();
+     private native void nInitZygoteChildHeapProfiling();
++
++    private static void spoofAppPropsIfNeeded(String packageName) {
++        if (packageName == null) return;
++
++        // 1. Game spoofing (Samsung Galaxy S24 Ultra)
++        boolean spoofGames = SystemProperties.getBoolean("persist.sys.spoof.games", true)
++                || SystemProperties.getBoolean("persist.sys.pixelprops.games", true);
++        if (spoofGames && isTargetGame(packageName)) {
++            setBuildField("MANUFACTURER", "samsung");
++            setBuildField("BRAND", "samsung");
++            setBuildField("DEVICE", "e3q");
++            setBuildField("PRODUCT", "e3qxxx");
++            setBuildField("MODEL", "SM-S928B");
++            return;
++        }
++
++        // 2. Google Photos unlimited original quality backup (Pixel XL)
++        boolean spoofPhotos = SystemProperties.getBoolean("persist.sys.spoof.photos", true)
++                || SystemProperties.getBoolean("persist.sys.pixelprops.gphotos", true);
++        if (spoofPhotos && "com.google.android.apps.photos".equals(packageName)) {
++            setBuildField("MANUFACTURER", "Google");
++            setBuildField("BRAND", "google");
++            setBuildField("DEVICE", "marlin");
++            setBuildField("PRODUCT", "marlin");
++            setBuildField("MODEL", "Pixel XL");
++            setBuildField("FINGERPRINT", "google/marlin/marlin:10/QP1A.191005.007.A3/5972272:user/release-keys");
++            return;
++        }
++    }
++
++    private static boolean isTargetGame(String pkg) {
++        if (pkg == null) return false;
++        String lower = pkg.toLowerCase();
++        if (lower.contains("pubg")
++                || lower.contains("tencent.ig")
++                || lower.contains("freefire")
++                || lower.contains("codm")
++                || lower.contains("callofduty")
++                || lower.contains("standoff2")
++                || lower.contains("axlebolt")
++                || lower.contains("mobile.legends")
++                || lower.contains("mobilelegends")
++                || lower.contains("wildrift")
++                || lower.contains("genshin")
++                || lower.contains("yuanshen")
++                || lower.contains("starrail")
++                || lower.contains("hkrpg")
++                || lower.contains("brawlstars")
++                || lower.contains("clashroyale")
++                || lower.contains("clashofclans")
++                || lower.contains("bloodstrike")
++                || lower.contains("carxtech")
++                || lower.contains("arena.breakout")
++                || lower.contains("uamo")
++                || lower.contains("farlight84")) {
++            return true;
++        }
++
++        return pkg.equals("com.axlebolt.standoff2")
++                || pkg.equals("com.tencent.ig")
++                || pkg.equals("com.tencent.igfit")
++                || pkg.equals("com.tencent.iglite")
++                || pkg.equals("com.pubg.krmobile")
++                || pkg.equals("com.vng.pubgmobile")
++                || pkg.equals("com.rekoo.pubgm")
++                || pkg.equals("com.pubg.imobile")
++                || pkg.equals("com.pubg.newstate")
++                || pkg.equals("com.tencent.tmgp.pubgmhd")
++                || pkg.equals("com.activision.callofduty.shooter")
++                || pkg.equals("com.activision.callofduty.warzone")
++                || pkg.equals("com.activision.callofudty.warzone")
++                || pkg.equals("com.garena.game.codm")
++                || pkg.equals("com.vng.codmvn")
++                || pkg.equals("com.tencent.tmgp.kr.codm")
++                || pkg.equals("com.tencent.tmgp.cod")
++                || pkg.equals("com.miHoYo.GenshinImpact")
++                || pkg.equals("com.miHoYo.Yuanshen")
++                || pkg.equals("com.HoYoverse.hkrpgoversea")
++                || pkg.equals("com.miHoYo.hkrpg")
++                || pkg.equals("com.HoYoverse.Nap")
++                || pkg.equals("com.miHoYo.nap")
++                || pkg.equals("com.kurogame.wutheringwaves.global")
++                || pkg.equals("com.kurogame.kj")
++                || pkg.equals("com.epicgames.fortnite")
++                || pkg.equals("com.epicgames.portal")
++                || pkg.equals("com.riotgames.league.wildrift")
++                || pkg.equals("com.riotgames.league.wildrifttw")
++                || pkg.equals("com.riotgames.league.wildriftvn")
++                || pkg.equals("com.riotgames.league.teamfighttactics")
++                || pkg.equals("com.riotgames.league.teamfighttacticstw")
++                || pkg.equals("com.riotgames.league.teamfighttacticsvn")
++                || pkg.equals("com.mobile.legends")
++                || pkg.equals("com.mobilelegends.mi")
++                || pkg.equals("com.dts.freefire")
++                || pkg.equals("com.dts.freefireth")
++                || pkg.equals("com.dts.freefiremax")
++                || pkg.equals("com.dts.freefireth.huawei")
++                || pkg.equals("com.dxx.firenow")
++                || pkg.equals("com.ea.gp.apexmobile")
++                || pkg.equals("com.ea.gp.apexlegendsmobilefps")
++                || pkg.equals("com.ea.gp.fifamobile")
++                || pkg.equals("com.supercell.brawlstars")
++                || pkg.equals("com.supercell.clashroyale")
++                || pkg.equals("com.supercell.clashofclans")
++                || pkg.equals("com.gameloft.android.ANMP.GloftA9HM")
++                || pkg.equals("com.carxtech.sr")
++                || pkg.equals("com.netease.l2m")
++                || pkg.equals("com.netease.lztgglobal")
++                || pkg.equals("com.netease.bloodstrike")
++                || pkg.equals("com.proximabeta.mf.uamo")
++                || pkg.equals("com.proxima.dfm")
++                || pkg.equals("com.levelinfinite.soc.eur")
++                || pkg.equals("com.levelinfinite.sgameGlobal")
++                || pkg.equals("com.tencent.tmgp.sgame")
++                || pkg.equals("com.farlightgames.farlight84")
++                || pkg.equals("com.miraclegames.farlight84")
++                || pkg.equals("com.mojang.minecraftpe");
++    }
++
++    private static void setBuildField(String key, String value) {
++        try {
++            java.lang.reflect.Field field = Build.class.getDeclaredField(key);
++            field.setAccessible(true);
++            field.set(null, value);
++            field.setAccessible(false);
++        } catch (Throwable ignored) {
++        }
++    }
++
++    private static void setBuildVersionField(String key, Object value) {
++        try {
++            java.lang.reflect.Field field = Build.VERSION.class.getDeclaredField(key);
++            field.setAccessible(true);
++            field.set(null, value);
++            field.setAccessible(false);
++        } catch (Throwable ignored) {
++        }
++    }
+ }
+diff --git a/packages/SettingsLib/src/com/android/settingslib/graph/SignalDrawable.java b/packages/SettingsLib/src/com/android/settingslib/graph/SignalDrawable.java
+index 14fa9ec02..793e2c506 100644
+--- a/packages/SettingsLib/src/com/android/settingslib/graph/SignalDrawable.java
++++ b/packages/SettingsLib/src/com/android/settingslib/graph/SignalDrawable.java
+@@ -97,9 +97,17 @@ public class SignalDrawable extends DrawableWrapper {
+ 
+     public SignalDrawable(@NonNull Context context, @NonNull Handler handler) {
+         super(context.getDrawable(ICON_RES));
+-        final String attributionPathString = context.getString(
+-                com.android.internal.R.string.config_signalAttributionPath);
+-        mAttributionPath.set(PathParser.createPathFromPathData(attributionPathString));
++        String attributionPathString = null;
++        try {
++            attributionPathString = context.getString(
++                    com.android.internal.R.string.config_signalAttributionPath);
++        } catch (Exception ignored) {}
++        if (android.text.TextUtils.isEmpty(attributionPathString)) {
++            attributionPathString = "M20,10h2v8h-2z M20,20h2v2h-2z";
++        }
++        try {
++            mAttributionPath.set(PathParser.createPathFromPathData(attributionPathString));
++        } catch (Exception ignored) {}
+         updateScaledAttributionPath();
+         mCutoutWidthFraction = context.getResources().getFloat(
+                 com.android.internal.R.dimen.config_signalCutoutWidthFraction);
+diff --git a/services/core/java/com/android/server/display/DisplayDeviceConfig.java b/services/core/java/com/android/server/display/DisplayDeviceConfig.java
+index 4fee6d3c4..0ada882f1 100644
+--- a/services/core/java/com/android/server/display/DisplayDeviceConfig.java
++++ b/services/core/java/com/android/server/display/DisplayDeviceConfig.java
+@@ -2567,7 +2567,9 @@ public class DisplayDeviceConfig {
+ 
+         // These arrays are allowed to be empty, we set null values so that
+         // BrightnessMappingStrategy will create a SimpleMappingStrategy instead.
+-        if (sysBrightnessFloat.length == 0 || sysNits.length == 0) {
++        if (sysBrightnessFloat.length == 0 || sysNits.length == 0 || sysBrightnessFloat.length != sysNits.length) {
++            Slog.w(TAG, "sysBrightnessFloat and sysNits lengths do not match or are empty ("
++                    + sysBrightnessFloat.length + " vs " + sysNits.length + "), falling back to simple mapping.");
+             setSimpleMappingStrategyValues();
+             return;
+         }
+@@ -2595,14 +2597,31 @@ public class DisplayDeviceConfig {
+      * Use the brightness minimum and maximum values to clamp these arrays.
+      */
+     private void constrainNitsAndBacklightArrays() {
++        if (mRawBacklight == null || mRawNits == null
++                || mRawBacklight.length == 0 || mRawNits.length == 0
++                || mRawBacklight.length != mRawNits.length) {
++            Slog.w(TAG, "Invalid raw backlight/nits arrays, falling back to simple mapping.");
++            setSimpleMappingStrategyValues();
++            return;
++        }
++
+         if (mRawBacklight[0] > mBacklightMinimum
+                 || mRawBacklight[mRawBacklight.length - 1] < mBacklightMaximum
+                 || mBacklightMinimum > mBacklightMaximum) {
+-            throw new IllegalStateException("Min or max values are invalid"
++            Slog.w(TAG, "Min or max values are invalid"
+                     + "; raw min=" + mRawBacklight[0]
+                     + "; raw max=" + mRawBacklight[mRawBacklight.length - 1]
+                     + "; backlight min=" + mBacklightMinimum
+-                    + "; backlight max=" + mBacklightMaximum);
++                    + "; backlight max=" + mBacklightMaximum + ", clamping safely.");
++            if (mRawBacklight[0] > mBacklightMinimum) {
++                mBacklightMinimum = mRawBacklight[0];
++            }
++            if (mRawBacklight[mRawBacklight.length - 1] < mBacklightMaximum) {
++                mBacklightMaximum = mRawBacklight[mRawBacklight.length - 1];
++            }
++            if (mBacklightMinimum > mBacklightMaximum) {
++                mBacklightMinimum = mBacklightMaximum;
++            }
+         }
+ 
+         float[] newNits = new float[mRawBacklight.length];
+@@ -2634,7 +2653,7 @@ public class DisplayDeviceConfig {
+                 newNitsVal = rawBacklightToNits(i - 1, newBacklightVal);
+             } else {
+                 newBacklightVal = mRawBacklight[i];
+-                newNitsVal = mRawNits[i];
++                newNitsVal = (i < mRawNits.length) ? mRawNits[i] : 0f;
+             }
+             newBacklight[newIndex] = newBacklightVal;
+             newNits[newIndex] = newNitsVal;
+@@ -2645,6 +2664,10 @@ public class DisplayDeviceConfig {
+     }
+ 
+     private float rawBacklightToNits(int i, float backlight) {
++        if (mRawBacklight == null || mRawNits == null
++                || i < 0 || i + 1 >= mRawBacklight.length || i + 1 >= mRawNits.length) {
++            return backlight;
++        }
+         return MathUtils.map(mRawBacklight[i], mRawBacklight[i + 1],
+                 mRawNits[i], mRawNits[i + 1], backlight);
+     }

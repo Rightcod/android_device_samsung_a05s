@@ -1,0 +1,18 @@
+diff --git a/services/surfaceflinger/DisplayHardware/HidlComposerHal.cpp b/services/surfaceflinger/DisplayHardware/HidlComposerHal.cpp
+index 0bf5ef3..4bee286 100644
+--- a/services/surfaceflinger/DisplayHardware/HidlComposerHal.cpp
++++ b/services/surfaceflinger/DisplayHardware/HidlComposerHal.cpp
+@@ -219,7 +219,12 @@ sp<GraphicBuffer> allocateClearSlotBuffer() {
+ 
+ HidlComposer::HidlComposer(const std::string& serviceName)
+       : mClearSlotBuffer(allocateClearSlotBuffer()), mWriter(kWriterInitialSize) {
+-    mComposer = V2_1::IComposer::getService(serviceName);
++    for (int retry = 0; retry < 40 && mComposer == nullptr; retry++) {
++        mComposer = V2_1::IComposer::getService(serviceName);
++        if (mComposer != nullptr) break;
++        ALOGW("Waiting for hwcomposer service '%s' (attempt %d/40)...", serviceName.c_str(), retry + 1);
++        usleep(250000);
++    }
+ 
+     if (mComposer == nullptr) {
+         LOG_ALWAYS_FATAL("failed to get hwcomposer service");

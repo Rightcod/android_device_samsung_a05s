@@ -1,0 +1,32 @@
+diff --git a/bpf/loader/NetBpfLoad.cpp b/bpf/loader/NetBpfLoad.cpp
+index 238864798b..554341e762 100644
+--- a/bpf/loader/NetBpfLoad.cpp
++++ b/bpf/loader/NetBpfLoad.cpp
+@@ -1391,9 +1391,24 @@ static bool loadAllObjects() {
+     if (!loadObject(BPFROOT "offload.o")) return false;
+     if (!loadObject(BPFROOT "test.o", libbpf)) return false;
+     if (isAtLeastT) {
+-        if (!loadObject(BPFROOT "clatd.o", libbpf)) return false;
+-        if (!loadObject(BPFROOT "dscpPolicy.o", libbpf)) return false;
+-        if (!loadObject(BPFROOT "netd.o", libbpf)) return false;
++        if (!loadObject(BPFROOT "clatd.o", libbpf)) {
++            ALOGW("Failed to load clatd.o with libbpf=%d, attempting fallback", libbpf);
++            if (!loadObject(BPFROOT "clatd.o", !libbpf)) {
++                ALOGW("Failed to load clatd.o with fallback, ignoring error to allow boot");
++            }
++        }
++        if (!loadObject(BPFROOT "dscpPolicy.o", libbpf)) {
++            ALOGW("Failed to load dscpPolicy.o with libbpf=%d, attempting fallback", libbpf);
++            if (!loadObject(BPFROOT "dscpPolicy.o", !libbpf)) {
++                ALOGW("Failed to load dscpPolicy.o with fallback, ignoring error");
++            }
++        }
++        if (!loadObject(BPFROOT "netd.o", libbpf)) {
++            ALOGW("Failed to load netd.o with libbpf=%d, attempting fallback", libbpf);
++            if (!loadObject(BPFROOT "netd.o", !libbpf)) {
++                ALOGW("Failed to load netd.o with fallback, ignoring error");
++            }
++        }
+     }
+     return true;
+ }

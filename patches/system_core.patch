@@ -1,0 +1,131 @@
+diff --git a/fs_mgr/fs_mgr.cpp b/fs_mgr/fs_mgr.cpp
+index 45bb756..779ee49 100644
+--- a/fs_mgr/fs_mgr.cpp
++++ b/fs_mgr/fs_mgr.cpp
+@@ -2357,9 +2357,15 @@ bool fs_mgr_create_canonical_mount_point(const std::string& mount_point) {
+         ok = false;
+         PERROR << "failed to realpath(" << mount_point << ")";
+     } else if (mount_point != real_mount_point) {
+-        ok = false;
+-        LERROR << "mount point is not canonical: realpath(" << mount_point << ") -> "
+-               << real_mount_point;
++        LWARNING << "mount point is a symlink: " << mount_point << " -> " << real_mount_point
++                 << ", converting to real directory";
++        unlink(mount_point.c_str());
++        if (mkdir(mount_point.c_str(), 0755) == 0 || errno == EEXIST) {
++            ok = true;
++        } else {
++            ok = false;
++            LERROR << "failed to recreate canonical mount point: " << mount_point;
++        }
+     }
+     if (!ok && created_mount_point) {
+         rmdir(mount_point.c_str());
+diff --git a/init/selinux.cpp b/init/selinux.cpp
+index 93f6312..ebfa195 100644
+--- a/init/selinux.cpp
++++ b/init/selinux.cpp
+@@ -97,26 +97,12 @@ namespace init {
+ 
+ namespace {
+ 
+-enum EnforcingStatus { SELINUX_PERMISSIVE, SELINUX_ENFORCING };
+-
+-EnforcingStatus StatusFromProperty() {
+-    std::string value;
+-    if (android::fs_mgr::GetKernelCmdline("androidboot.selinux", &value) && value == "permissive") {
+-        return SELINUX_PERMISSIVE;
+-    }
+-    if (android::fs_mgr::GetBootconfig("androidboot.selinux", &value) && value == "permissive") {
+-        return SELINUX_PERMISSIVE;
+-    }
+-    return SELINUX_ENFORCING;
+-}
+-
+ bool IsEnforcing() {
+-    if (ALLOW_PERMISSIVE_SELINUX) {
+-        return StatusFromProperty() == SELINUX_ENFORCING;
+-    }
+     return true;
+ }
+ 
++
++
+ bool ReadFirstLine(const char* file, std::string* line) {
+     line->clear();
+ 
+@@ -425,12 +411,10 @@ void ReadPolicy(std::string* policy) {
+ }
+ 
+ void SelinuxSetEnforcement() {
+-    bool kernel_enforcing = (security_getenforce() == 1);
+     bool is_enforcing = IsEnforcing();
+-    if (kernel_enforcing != is_enforcing) {
+-        if (security_setenforce(is_enforcing)) {
+-            PLOG(FATAL) << "security_setenforce(" << (is_enforcing ? "true" : "false")
+-                        << ") failed";
++    if (security_getenforce() != 1 && is_enforcing) {
++        if (security_setenforce(1)) {
++            PLOG(FATAL) << "security_setenforce(true) failed";
+         }
+     }
+ }
+diff --git a/init/switch_root.cpp b/init/switch_root.cpp
+index 86fad80..bdc7b54 100644
+--- a/init/switch_root.cpp
++++ b/init/switch_root.cpp
+@@ -78,8 +78,8 @@ void SwitchRoot(const std::string& new_root) {
+         auto new_mount_path = new_root + mount_path;
+         mkdir(new_mount_path.c_str(), 0755);
+         if (mount(mount_path.c_str(), new_mount_path.c_str(), nullptr, MS_MOVE, nullptr) != 0) {
+-            PLOG(FATAL) << "Unable to move mount at '" << mount_path << "' to "
+-                        << "'" << new_mount_path << "'";
++            PLOG(ERROR) << "Unable to move mount at '" << mount_path << "' to "
++                        << "'" << new_mount_path << "', continuing boot";
+         }
+     }
+ 
+diff --git a/rootdir/create_root_structure.mk b/rootdir/create_root_structure.mk
+index 14b0fd1..aa03c00 100644
+--- a/rootdir/create_root_structure.mk
++++ b/rootdir/create_root_structure.mk
+@@ -51,24 +51,9 @@ ALL_ROOTDIR_SYMLINKS := \
+   $(TARGET_ROOT_OUT)/sdcard \
+   $(TARGET_ROOT_OUT)/adb_keys \
+ 
+-ifdef BOARD_USES_VENDORIMAGE
+-  LOCAL_POST_INSTALL_CMD += ; mkdir -p $(TARGET_ROOT_OUT)/vendor
+-else
+-  LOCAL_POST_INSTALL_CMD += ; ln -sf /system/vendor $(TARGET_ROOT_OUT)/vendor
+-  ALL_ROOTDIR_SYMLINKS += $(TARGET_ROOT_OUT)/vendor
+-endif
+-ifdef BOARD_USES_PRODUCTIMAGE
+-  LOCAL_POST_INSTALL_CMD += ; mkdir -p $(TARGET_ROOT_OUT)/product
+-else
+-  LOCAL_POST_INSTALL_CMD += ; ln -sf /system/product $(TARGET_ROOT_OUT)/product
+-  ALL_ROOTDIR_SYMLINKS += $(TARGET_ROOT_OUT)/product
+-endif
+-ifdef BOARD_USES_SYSTEM_EXTIMAGE
+-  LOCAL_POST_INSTALL_CMD += ; mkdir -p $(TARGET_ROOT_OUT)/system_ext
+-else
+-  LOCAL_POST_INSTALL_CMD += ; ln -sf /system/system_ext $(TARGET_ROOT_OUT)/system_ext
+-  ALL_ROOTDIR_SYMLINKS += $(TARGET_ROOT_OUT)/system_ext
+-endif
++LOCAL_POST_INSTALL_CMD += ; mkdir -p $(TARGET_ROOT_OUT)/vendor
++LOCAL_POST_INSTALL_CMD += ; mkdir -p $(TARGET_ROOT_OUT)/product
++LOCAL_POST_INSTALL_CMD += ; mkdir -p $(TARGET_ROOT_OUT)/system_ext
+ ifdef BOARD_USES_METADATA_PARTITION
+   LOCAL_POST_INSTALL_CMD += ; mkdir -p $(TARGET_ROOT_OUT)/metadata
+ endif
+diff --git a/rootdir/init.rc b/rootdir/init.rc
+index 92dcdd0..e23dcc8 100644
+--- a/rootdir/init.rc
++++ b/rootdir/init.rc
+@@ -1141,6 +1141,7 @@ on load-bpf-programs
+     # NOTE: Still requires CAP_SYSLOG and sepolicy allow rules to read /proc/kallsyms
+     write /proc/sys/kernel/kptr_restrict 1
+ 
++    # Start bpfloader service (runs netbpfload with kmsg and without reboot_on_failure)
+     exec_start bpfloader
+ 
+     # Restore kallsyms protection after bpf programs have been loaded.

@@ -1,0 +1,13 @@
+diff --git a/generic/vendor/common/seapp_contexts b/generic/vendor/common/seapp_contexts
+index de84ba9..fe68e2a 100644
+--- a/generic/vendor/common/seapp_contexts
++++ b/generic/vendor/common/seapp_contexts
+@@ -30,8 +30,6 @@
+ # Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
+ # SPDX-License-Identifier: BSD-3-Clause-Clear
+ 
+-# A fallback in case tango_core is missing something critical that untrusted_app provides
+-user=_app seinfo=tango name=com.google.tango:app domain=untrusted_app type=app_data_file levelFrom=user
+ 
+ #Needed for time service apk
+ user=_app seinfo=platform name=com.qualcomm.timeservice domain=vendor_timeservice_app type=app_data_file levelFrom=all

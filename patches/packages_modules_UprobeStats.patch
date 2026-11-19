@@ -1,0 +1,12 @@
+diff --git a/rust/src/Android.bp b/rust/src/Android.bp
+index 663b7b6..e626ae2 100644
+--- a/rust/src/Android.bp
++++ b/rust/src/Android.bp
+@@ -27,6 +27,7 @@ rust_library {
+ rust_binary {
+     name: "uprobestats_rs",
+     stem: "uprobestats",
++    min_sdk_version: "36",
+     enabled: select(release_flag("RELEASE_UPROBESTATS_RUST"), {
+         true: true,
+         false: false,

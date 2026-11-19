@@ -1,0 +1,21 @@
+diff --git a/shared/paths.go b/shared/paths.go
+index 64f94ba..5cab153 100644
+--- a/shared/paths.go
++++ b/shared/paths.go
+@@ -17,6 +17,7 @@ package shared
+ // This file exists to share path-related logic between both soong_ui and soong
+ 
+ import (
++	"os"
+ 	"path/filepath"
+ )
+ 
+@@ -37,5 +38,8 @@ func JoinPath(base string, rest ...string) string {
+ 
+ // Given the out directory, returns the root of the temp directory (to be cleared at the start of each execution of Soong)
+ func TempDirForOutDir(outDir string) (tempPath string) {
++	if envTmp := os.Getenv("SOONG_TEMPDIR"); envTmp != "" {
++		return envTmp
++	}
+ 	return filepath.Join(outDir, ".temp")
+ }

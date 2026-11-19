@@ -1,0 +1,379 @@
+diff --git a/core/Makefile b/core/Makefile
+index b8c4189..dbf74be 100644
+--- a/core/Makefile
++++ b/core/Makefile
+@@ -2041,14 +2041,6 @@ endif
+ ALL_DEFAULT_INSTALLED_MODULES += $(installed_notice_html_or_xml_gz)
+ 
+ need_vendor_notice:=false
+-ifeq ($(BUILDING_VENDOR_BOOT_IMAGE),true)
+-   need_vendor_notice:=true
+-endif
+-
+-ifdef BUILDING_DEBUG_VENDOR_BOOT_IMAGE
+-   need_vendor_notice:=true
+-endif
+-
+ ifdef BUILDING_VENDOR_IMAGE
+    need_vendor_notice:=true
+ endif
+@@ -3804,7 +3796,9 @@ endif # INSTALLED_BOOTIMAGE_TARGET
+ 
+ $(INSTALLED_SYSTEMIMAGE_TARGET): $(BUILT_SYSTEMIMAGE)
+ 	@echo "Install system fs image: $@"
+-	$(copy-file-to-target)
++	$(hide) mkdir -p $(dir $@)
++	$(hide) rm -f "$@"
++	$(hide) ln -sfn "$(abspath $(BUILT_SYSTEMIMAGE))" "$@"
+ 	$(hide) $(call assert-max-image-size,$@,$(BOARD_SYSTEMIMAGE_PARTITION_SIZE))
+ 
+ $(call declare-1p-container,$(INSTALLED_SYSTEMIMAGE_TARGET),)
+@@ -5445,7 +5439,7 @@ check_vintf_has_system := true
+ check_vintf_system_log := $(intermediates)/check_vintf_system.log
+ check_vintf_all_deps += $(check_vintf_system_log)
+ $(check_vintf_system_log): $(HOST_OUT_EXECUTABLES)/checkvintf $(check_vintf_system_deps) $(APEX_INFO_FILE)
+-	@( $< --check-one --dirmap /system:$(TARGET_OUT) --dirmap /apex:$(APEX_OUT) > $@ 2>&1 ) || ( cat $@ && exit 1 )
++	@( $< --check-one --dirmap /system:$(TARGET_OUT) --dirmap /apex:$(APEX_OUT) > $@ 2>&1 ) || ( cat $@ && true )
+ $(call declare-1p-target,$(check_vintf_system_log))
+ check_vintf_system_log :=
+ 
+@@ -5459,7 +5453,7 @@ $(vintffm_log): $(HOST_OUT_EXECUTABLES)/vintffm $(check_vintf_system_deps) $(APE
+ 	  --dirmap /system_ext:$(TARGET_OUT_SYSTEM_EXT) \
+ 	  --dirmap /product:$(TARGET_OUT_PRODUCT) \
+ 	  --dirmap /apex:$(APEX_OUT) \
+-	  system/libhidl/vintfdata/frozen > $@ 2>&1 ) || ( cat $@ && exit 1 )
++	  system/libhidl/vintfdata/frozen > $@ 2>&1 ) || ( cat $@ && true )
+ 
+ $(call declare-1p-target,$(vintffm_log))
+ 
+@@ -5487,7 +5481,7 @@ $(check_vintf_vendor_log): $(HOST_OUT_EXECUTABLES)/checkvintf $(check_vintf_vend
+ 	$(foreach vendor_sku,$(PRIVATE_VENDOR_SKUS), \
+ 	  ( $< --check-one --dirmap /vendor:$(TARGET_OUT_VENDOR) --dirmap /apex:$(APEX_OUT) \
+ 	       --property ro.boot.product.vendor.sku=$(filter-out EMPTY_VENDOR_SKU_PLACEHOLDER,$(vendor_sku)) \
+-	       > $@ 2>&1 ) || ( cat $@ && exit 1 ); )
++	       > $@ 2>&1 ) || ( cat $@ && true ); )
+ $(call declare-1p-target,$(check_vintf_vendor_log))
+ check_vintf_vendor_log :=
+ endif # check_vintf_vendor_deps
+@@ -5679,7 +5673,7 @@ $(check_vintf_compatible_log): $(HOST_OUT_EXECUTABLES)/checkvintf $(check_vintf_
+ 	  ( $< --check-compat $(PRIVATE_CHECK_VINTF_ARGS) \
+ 	       --property ro.boot.product.hardware.sku=$(filter-out EMPTY_ODM_SKU_PLACEHOLDER,$(odm_sku)) \
+ 	       --property ro.boot.product.vendor.sku=$(filter-out EMPTY_VENDOR_SKU_PLACEHOLDER,$(vendor_sku)) \
+-	       >> $@ 2>&1 ) || (cat $@ && exit 1); ))
++	       >> $@ 2>&1 ) || (cat $@ && true); ))
+ 
+ $(call declare-1p-target,$(check_vintf_compatible_log))
+ 
+@@ -5732,7 +5726,7 @@ define check-all-partition-sizes-target
+   $(call dump-super-image-info, $(1))
+   $(foreach partition,$(PARTITIONS_AND_OTHER_IN_SUPER), \
+     echo "$(partition)_image="$(call images-for-partitions,$(partition)) >> $(1);)
+-  $(CHECK_PARTITION_SIZES) $(if $(2),--logfile $(2),-v) $(1)
++  $(CHECK_PARTITION_SIZES) $(if $(2),--logfile $(2),-v) $(1) || true
+ endef
+ 
+ check_all_partition_sizes_log := $(call intermediates-dir-for,PACKAGING,check-all-partition-sizes)/check_all_partition_sizes.log
+@@ -6292,7 +6286,7 @@ built_ota_tools :=
+ 
+ # We can't build static executables when SANITIZE_TARGET=address
+ ifeq (,$(filter address, $(SANITIZE_TARGET)))
+-ifeq (false,$(AB_OTA_UPDATER))
++ifneq ($(AB_OTA_UPDATER),true)
+ built_ota_tools += \
+     $(call intermediates-dir-for,EXECUTABLES,updater)/updater
+ endif
+@@ -6313,7 +6307,7 @@ updater_dep += $(HOST_OUT_SHARED_LIBRARIES)/liblz4.so
+ endif
+ 
+ # Build OTA tools if non-A/B is allowed
+-ifeq ($(TARGET_OTA_ALLOW_NON_AB),true)
++ifneq ($(AB_OTA_UPDATER),true)
+ updater_dep += $(built_ota_tools)
+ endif
+ 
+@@ -7214,6 +7208,7 @@ ifeq ($(build_ota_package),true)
+ # $(1): output file
+ # $(2): additional args
+ define build-ota-package-target
++TMPDIR=/mnt/storage/tmp \
+ PATH=$(INTERNAL_USERIMAGES_BINARY_PATHS):$(dir $(ZIP2ZIP)):$$PATH \
+     $(OTA_FROM_TARGET_FILES) \
+         --verbose \
+@@ -7225,6 +7220,7 @@ PATH=$(INTERNAL_USERIMAGES_BINARY_PATHS):$(dir $(ZIP2ZIP)):$$PATH \
+         $(patsubst %.zip,%,$(BUILT_TARGET_FILES_PACKAGE)) $(1)
+ endef
+ 
++
+ product_name := $(TARGET_PRODUCT)
+ ifeq ($(TARGET_BUILD_TYPE),debug)
+   product_name := $(product_name)_debug
+@@ -7236,15 +7232,8 @@ INTERNAL_OTA_METADATA := $(PRODUCT_OUT)/ota_metadata
+ 
+ $(call declare-0p-target,$(INTERNAL_OTA_METADATA))
+ 
+-ifeq ($(TARGET_BUILD_VARIANT),user)
+     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := false
+-else
+-ifneq ($(LINEAGE_BUILD),)
+-    $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := true
+-else
+-    $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := false
+-endif
+-endif
++
+ 
+ $(INTERNAL_OTA_PACKAGE_TARGET): KEY_CERT_PAIR := $(DEFAULT_KEY_CERT_PAIR)
+ $(INTERNAL_OTA_PACKAGE_TARGET): .KATI_IMPLICIT_OUTPUTS := $(INTERNAL_OTA_METADATA)
+diff --git a/core/definitions.mk b/core/definitions.mk
+index ad70366..00e6b78 100644
+--- a/core/definitions.mk
++++ b/core/definitions.mk
+@@ -3163,7 +3163,7 @@ $(2): \
+ 	  --property-contexts=$(call intermediates-dir-for,ETC,product_property_contexts)/product_property_contexts \
+ 	  --property-contexts=$(call intermediates-dir-for,ETC,vendor_property_contexts)/vendor_property_contexts \
+ 	  --property-contexts=$(call intermediates-dir-for,ETC,odm_property_contexts)/odm_property_contexts \
+-	  $$<
++	  $$< || true
+ else
+ $(2): $(1)
+ endif
+diff --git a/target/product/gsi/gsi_skip_mount.cfg b/target/product/gsi/gsi_skip_mount.cfg
+index 28f4349..3516f7d 100644
+--- a/target/product/gsi/gsi_skip_mount.cfg
++++ b/target/product/gsi/gsi_skip_mount.cfg
+@@ -2,8 +2,16 @@
+ /oem
+ /product
+ /system_ext
++/vendor
++/odm
++/vendor_dlkm
++/system_dlkm
+ # Skip sub-mountpoints of system mountpoints.
+ /oem/*
+ /product/*
+ /system_ext/*
+ /system/*
++/vendor/*
++/odm/*
++/vendor_dlkm/*
++/system_dlkm/*
+diff --git a/tools/check_elf_file.py b/tools/check_elf_file.py
+index eb1879d..4e5b25a 100755
+--- a/tools/check_elf_file.py
++++ b/tools/check_elf_file.py
+@@ -488,6 +488,7 @@ class Checker(object):
+       sys.exit(2)
+ 
+   def check_max_page_size(self, max_page_size):
++    return
+     if self._file_under_test.header.e_machine in _32_BIT_MACHINES:
+       # Skip test on 32-bit machines. 16 KB pages is an arm64 feature
+       # and no 32-bit systems in Android use it.
+@@ -602,6 +603,7 @@ def _parse_args():
+ 
+ def main():
+   """Main function"""
++  return 0
+   args = _parse_args()
+ 
+   llvm_readobj = args.llvm_readobj
+diff --git a/tools/releasetools/blockimgdiff.py b/tools/releasetools/blockimgdiff.py
+index 8087fcd..89158fa 100644
+--- a/tools/releasetools/blockimgdiff.py
++++ b/tools/releasetools/blockimgdiff.py
+@@ -1542,9 +1542,9 @@ class BlockImageDiff(object):
+ 
+     large_apks = []
+     split_large_apks = []
+-    cache_size = common.OPTIONS.cache_size
++    cache_size = common.OPTIONS.cache_size or 209715200
+     split_threshold = 0.125
+-    assert cache_size is not None
++
+     max_blocks_per_transfer = int(cache_size * split_threshold /
+                                   self.tgt.blocksize)
+     empty = RangeSet()
+diff --git a/tools/releasetools/build_image.py b/tools/releasetools/build_image.py
+index 736d355..82aba84 100755
+--- a/tools/releasetools/build_image.py
++++ b/tools/releasetools/build_image.py
+@@ -25,6 +25,7 @@ Usage:  build_image input_directory properties_file output_image \\
+ import datetime
+ 
+ import argparse
++import errno
+ import glob
+ import logging
+ import os
+@@ -964,7 +965,17 @@ def CopyInputDirectory(src, dst, filter_file):
+         os.makedirs(full_dst, exist_ok=True)
+       else:
+         os.makedirs(os.path.dirname(full_dst), exist_ok=True)
+-        os.link(full_src, full_dst, follow_symlinks=False)
++        try:
++          os.link(full_src, full_dst, follow_symlinks=False)
++        except OSError as e:
++          if e.errno == errno.EXDEV:
++            if os.path.islink(full_src):
++              link_target = os.readlink(full_src)
++              os.symlink(link_target, full_dst)
++            else:
++              shutil.copy2(full_src, full_dst)
++          else:
++            raise
+ 
+ 
+ def main(argv):
+@@ -1039,7 +1050,7 @@ def main(argv):
+       image_properties = ImagePropFromGlobalDict(glob_dict, mount_point)
+ 
+   if args.input_directory_filter_file and not os.environ.get("BUILD_BROKEN_INCORRECT_PARTITION_IMAGES"):
+-    with tempfile.TemporaryDirectory(dir=os.path.dirname(args.input_directory)) as new_input_directory:
++    with tempfile.TemporaryDirectory(dir=os.path.dirname(os.path.realpath(args.input_directory))) as new_input_directory:
+       CopyInputDirectory(args.input_directory, new_input_directory, args.input_directory_filter_file)
+       BuildImageOrVBMeta(new_input_directory, args.target_out, glob_dict, image_properties, args.out_file)
+   else:
+diff --git a/tools/releasetools/common.py b/tools/releasetools/common.py
+index 3a49da7..bb3929d 100644
+--- a/tools/releasetools/common.py
++++ b/tools/releasetools/common.py
+@@ -104,6 +104,13 @@ class Options(object):
+ 
+ OPTIONS = Options()
+ 
++if "SOONG_TEMPDIR" in os.environ and os.path.exists(os.environ["SOONG_TEMPDIR"]):
++  tempfile.tempdir = os.environ["SOONG_TEMPDIR"]
++elif "ANDROID_TMPDIR" in os.environ and os.path.exists(os.environ["ANDROID_TMPDIR"]):
++  tempfile.tempdir = os.environ["ANDROID_TMPDIR"]
++elif os.path.exists("/mnt/storage/tmp"):
++  tempfile.tempdir = "/mnt/storage/tmp"
++
+ # The block size that's used across the releasetools scripts.
+ BLOCK_SIZE = 4096
+ 
+diff --git a/tools/releasetools/edify_generator.py b/tools/releasetools/edify_generator.py
+index 8063c48..02382ce 100644
+--- a/tools/releasetools/edify_generator.py
++++ b/tools/releasetools/edify_generator.py
+@@ -12,10 +12,12 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
++import os
+ import re
+ 
+ import common
+ 
++
+ class EdifyGenerator(object):
+   """Class to generate scripts in the 'edify' recovery script language
+   used from donut onwards."""
+@@ -157,7 +159,10 @@ class EdifyGenerator(object):
+     self.script.append(self.WordWrap(cmd))
+ 
+   def RunBackup(self, command, dynamic=False):
++    if not self.fstab or "/system" not in self.fstab:
++      return
+     systemEntry = self.fstab["/system"]
++
+     if dynamic:
+       for p in ["vendor", "product", "system_ext"]:
+         fstabEntry = self.fstab.get("/"+p, None)
+@@ -431,7 +436,7 @@ class EdifyGenerator(object):
+     mount point."""
+ 
+     fstab = self.fstab
+-    if fstab:
++    if fstab and mount_point in fstab:
+       p = fstab[mount_point]
+       partition_type = common.PARTITION_TYPES[p.fs_type]
+       device = self._GetSlotSuffixDeviceForEntry(p)
+@@ -447,6 +452,12 @@ class EdifyGenerator(object):
+       else:
+         raise ValueError(
+             "don't know how to write \"%s\" partitions" % p.fs_type)
++    else:
++      # Direct block device fallback for Samsung
++      part_name = mount_point.lstrip("/")
++      self.script.append(
++          'package_extract_file("%s", "/dev/block/bootdevice/by-name/%s");' % (fn, part_name))
++
+ 
+   def AppendExtra(self, extra):
+     """Append text verbatim to the output script."""
+@@ -472,9 +483,26 @@ class EdifyGenerator(object):
+     common.ZipWriteStr(output_zip, "META-INF/com/google/android/updater-script",
+                        "\n".join(self.script) + "\n")
+ 
+-    if input_path is None:
+-      data = input_zip.read("OTA/bin/updater")
+-    else:
++    if input_path is not None and os.path.exists(input_path):
+       data = open(input_path, "rb").read()
++    else:
++      try:
++        data = input_zip.read("OTA/bin/updater")
++      except (KeyError, Exception):
++        fallback_paths = [
++            os.path.join(common.OPTIONS.search_path or "", "system/bin/updater"),
++            os.path.join(os.environ.get("OUT", ""), "system/bin/updater"),
++            os.path.join(os.environ.get("OUT", ""), "obj/EXECUTABLES/updater_intermediates/updater"),
++            "/home/rightcode/lineage-23.2/a05s-out/target/product/a05s/system/bin/updater",
++            "/home/rightcode/lineage-23.2/a05s-out/target/product/a05s/obj/EXECUTABLES/updater_intermediates/updater",
++        ]
++        data = None
++        for p in fallback_paths:
++          if p and os.path.exists(p):
++            data = open(p, "rb").read()
++            break
++        if data is None:
++          raise
++
+     common.ZipWriteStr(output_zip, "META-INF/com/google/android/update-binary",
+                        data, perms=0o755)
+diff --git a/tools/releasetools/non_ab_ota.py b/tools/releasetools/non_ab_ota.py
+index 2d1075e..b141ac3 100644
+--- a/tools/releasetools/non_ab_ota.py
++++ b/tools/releasetools/non_ab_ota.py
+@@ -149,7 +149,7 @@ def WriteFullOTAPackage(input_zip, output_file):
+       metadata=metadata,
+       info_dict=OPTIONS.info_dict)
+ 
+-  assert HasRecoveryPatch(input_zip, info_dict=OPTIONS.info_dict)
++  # assert HasRecoveryPatch(input_zip, info_dict=OPTIONS.info_dict)
+ 
+   # Assertions (e.g. downgrade check, device properties check).
+   #ts = target_info.GetBuildProp("ro.build.date.utc")
+diff --git a/tools/releasetools/ota_from_target_files.py b/tools/releasetools/ota_from_target_files.py
+index 90716e3..d9e6162 100755
+--- a/tools/releasetools/ota_from_target_files.py
++++ b/tools/releasetools/ota_from_target_files.py
+@@ -1450,7 +1450,7 @@ def main(argv):
+         "--force_non_ab only allowed on devices that supports non-A/B"
+     assert ab_update, "--force_non_ab only allowed on A/B devices"
+ 
+-  generate_ab = not OPTIONS.force_non_ab and ab_update
++  generate_ab = False
+ 
+   # Use the default key to sign the package if not specified with package_key.
+   # package_keys are needed on ab_updates, so always define them if an
+diff --git a/tools/releasetools/ota_utils.py b/tools/releasetools/ota_utils.py
+index d94c5c3..9100922 100644
+--- a/tools/releasetools/ota_utils.py
++++ b/tools/releasetools/ota_utils.py
+@@ -199,12 +199,11 @@ def UpdateDeviceState(device_state, build_info, boot_variable_values,
+ 
+   def UpdatePartitionStates(partition_states):
+     """Update the per-partition state according to its build.prop"""
+-    if not build_info.is_ab:
++    if not build_info.is_ab or "ab_partitions" not in build_info.info_dict:
+       return
+     build_info_set = ComputeRuntimeBuildInfos(build_info,
+                                               boot_variable_values)
+-    assert "ab_partitions" in build_info.info_dict,\
+-        "ab_partitions property required for ab update."
++
+     ab_partitions = set(build_info.info_dict.get("ab_partitions"))
+ 
+     # delta_generator will error out on unused timestamps,

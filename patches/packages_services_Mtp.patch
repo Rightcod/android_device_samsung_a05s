@@ -1,0 +1,24 @@
+diff --git a/src/com/android/mtp/ServiceIntentSender.java b/src/com/android/mtp/ServiceIntentSender.java
+index 629f6df..d35dfb9 100644
+--- a/src/com/android/mtp/ServiceIntentSender.java
++++ b/src/com/android/mtp/ServiceIntentSender.java
+@@ -37,10 +37,17 @@ class ServiceIntentSender {
+         mContext = context;
+ 
+         // Create notification channel.
++        CharSequence channelName = null;
++        try {
++            channelName = context.getResources().getString(
++                    com.android.internal.R.string.default_notification_channel_label);
++        } catch (Exception ignored) {}
++        if (android.text.TextUtils.isEmpty(channelName)) {
++            channelName = "MTP";
++        }
+         final NotificationChannel mChannel = new NotificationChannel(
+                 CHANNEL_ID,
+-                context.getResources().getString(
+-                        com.android.internal.R.string.default_notification_channel_label),
++                channelName,
+                 NotificationManager.IMPORTANCE_LOW);
+         final NotificationManager notificationManager =
+                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

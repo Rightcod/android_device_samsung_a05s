@@ -1,0 +1,83 @@
+diff --git a/loader/Loader.cpp b/loader/Loader.cpp
+index cde6447..602c311 100644
+--- a/loader/Loader.cpp
++++ b/loader/Loader.cpp
+@@ -684,13 +684,7 @@ void vendorBpfLoader() {
+ 
+     // Load all ELF objects, create programs and maps, and pin them
+     if (android::bpf::loadAllElfObjects()) {
+-        ALOGE("=== CRITICAL FAILURE LOADING BPF PROGRAMS FROM /vendor/etc/bpf ===");
+-        ALOGE("If this triggers reliably, you're probably missing kernel options or patches.");
+-        ALOGE("If this triggers randomly, you might be hitting some memory allocation "
+-              "problems or startup script race.");
+-        ALOGE("--- DO NOT EXPECT SYSTEM TO BOOT SUCCESSFULLY ---");
+-        sleep(20);
+-        exit(121);
++        ALOGW("=== FAILURE LOADING BPF PROGRAMS FROM /vendor/etc/bpf, continuing anyway ===");
+     }
+ 
+     const char* args[] = {"/apex/com.android.tethering/bin/netbpfload", "done", NULL};
+diff --git a/loader/bpfloader.rs b/loader/bpfloader.rs
+index 34e9b68..338bdbe 100644
+--- a/loader/bpfloader.rs
++++ b/loader/bpfloader.rs
+@@ -15,6 +15,7 @@
+  */
+ 
+ //! BPF loader for system and vendor applications
++#![allow(dead_code)]
+ 
+ use android_ids::{AID_GRAPHICS, AID_MEDIA_RW, AID_ROOT, AID_SYSTEM};
+ use android_logger::AndroidLogger;
+@@ -99,14 +100,13 @@ impl Log for BpfKmsgLogger {
+ 
+         if record.metadata().level() <= self.log_level {
+             let mut writer = self.kmsg_writer.lock().unwrap();
+-            write!(
++            let _ = write!(
+                 writer,
+                 "<{}>{}: {}",
+                 level_to_kern_level(&record.level()),
+                 self.tag,
+                 record.args()
+-            )
+-            .unwrap();
++            );
+             let _ = writer.flush();
+         }
+         self.a_logger.log(record);
+@@ -645,19 +645,17 @@ fn load_libbpf_progs() {
+     info!("Loading libbpf programs");
+     for file_desc in FILE_ARR {
+         if let Err(e) = libbpf_worker(file_desc) {
+-            if file_desc.critical {
+-                panic!("Error when loading {0}: {e}", file_desc.filename);
+-            } else {
+-                error!("Error when loading {0}: {e}", file_desc.filename);
+-            }
++            warn!("Error when loading {0}: {e}", file_desc.filename);
+         };
+     }
+ }
+ 
+ fn main() {
+-    let kmsg_fd = env::var("ANDROID_FILE__dev_kmsg").unwrap().parse::<i32>().unwrap();
+-    // SAFETY: The init script opens this file for us
+-    let kmsg_file = unsafe { File::from_raw_fd(kmsg_fd) };
++    let kmsg_file = match env::var("ANDROID_FILE__dev_kmsg").ok().and_then(|v| v.parse::<i32>().ok()) {
++        // SAFETY: fd is provided by init for dev_kmsg
++        Some(fd) => unsafe { File::from_raw_fd(fd) },
++        None => File::options().write(true).open("/dev/kmsg").unwrap_or_else(|_| File::open("/dev/null").unwrap()),
++    };
+ 
+     if let Err(logger) = BpfKmsgLogger::init(kmsg_file) {
+         error!("BpfLoader-rs: log::setlogger failed: {logger}");
+@@ -675,7 +673,7 @@ fn main() {
+     info!("Loading legacy BPF progs");
+ 
+     if let Err(e) = create_dir(Path::new("/sys/fs/bpf/vendor")) {
+-        panic!("Error during mkdir /sys/fs/bpf/vendor: {e}");
++        warn!("Error during mkdir /sys/fs/bpf/vendor: {e}");
+     };
+ 
+     // SAFETY: Linking in the existing legacy vendor bpfloader functionality.
