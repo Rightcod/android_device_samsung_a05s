@@ -1,2 +1,10 @@
 # Fingerprint
 type fingerprint_device, dev_type;
+
+# EFS block device
+type sec_efsblk_device, dev_type;
+
+# DMA-BUF heaps
+type vendor_dmabuf_qseecom_ta_heap_device, dmabuf_heap_device_type, dev_type;
+type vendor_dmabuf_qseecom_heap_device, dmabuf_heap_device_type, dev_type;
+type vendor_dmabuf_secure_cdsp_heap_device, dmabuf_heap_device_type, dev_type;

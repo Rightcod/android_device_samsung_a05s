@@ -38,3 +38,12 @@
 /vendor/firmware/SM-A057M(/.*)? u:object_r:vendor_firmware_file:s0
 /vendor/firmware/SM-E145F(/.*)? u:object_r:vendor_firmware_file:s0
 /vendor/firmware/SM-M145F(/.*)? u:object_r:vendor_firmware_file:s0
+
+# Block devices
+/dev/block/by-name/(sec_efs|SEC_EFS)        u:object_r:sec_efsblk_device:s0
+/dev/block/platform/.+/by-name/(sec_efs|SEC_EFS) u:object_r:sec_efsblk_device:s0
+
+# Vendor DMA-BUF Heaps
+/dev/dma_heap/qcom,qseecom              u:object_r:vendor_dmabuf_qseecom_heap_device:s0
+/dev/dma_heap/qcom,qseecom-ta           u:object_r:vendor_dmabuf_qseecom_ta_heap_device:s0
+/dev/dma_heap/qcom,secure-cdsp          u:object_r:vendor_dmabuf_secure_cdsp_heap_device:s0

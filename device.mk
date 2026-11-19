@@ -54,7 +54,25 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/bluetooth_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
-    frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
+    frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml \
+    $(LOCAL_PATH)/audio/card-defs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/card-defs.xml \
+    $(LOCAL_PATH)/audio/card-defs.xml:$(TARGET_COPY_OUT_ODM)/etc/card-defs.xml \
+    $(LOCAL_PATH)/audio/usecaseKvManager.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usecaseKvManager.xml \
+    $(LOCAL_PATH)/audio/usecaseKvManager.xml:$(TARGET_COPY_OUT_ODM)/etc/usecaseKvManager.xml \
+    $(LOCAL_PATH)/audio/resourcemanager_bengal_qrd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/resourcemanager_bengal_qrd.xml \
+    $(LOCAL_PATH)/audio/resourcemanager_bengal_qrd.xml:$(TARGET_COPY_OUT_ODM)/etc/resourcemanager_bengal_qrd.xml \
+    $(LOCAL_PATH)/audio/resourcemanager_bengal.xml:$(TARGET_COPY_OUT_VENDOR)/etc/resourcemanager_bengal.xml \
+    $(LOCAL_PATH)/audio/resourcemanager_bengal.xml:$(TARGET_COPY_OUT_ODM)/etc/resourcemanager_bengal.xml \
+    $(LOCAL_PATH)/audio/resourcemanager_scubaidp.xml:$(TARGET_COPY_OUT_VENDOR)/etc/resourcemanager_scubaidp.xml \
+    $(LOCAL_PATH)/audio/resourcemanager_scubaqrd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/resourcemanager_scubaqrd.xml \
+    $(LOCAL_PATH)/audio/mixer_paths_bengal_qrd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_bengal_qrd.xml \
+    $(LOCAL_PATH)/audio/mixer_paths_bengal_qrd.xml:$(TARGET_COPY_OUT_ODM)/etc/mixer_paths_bengal_qrd.xml \
+    $(LOCAL_PATH)/audio/mixer_paths_bengal.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_bengal.xml \
+    $(LOCAL_PATH)/audio/mixer_paths_bengal.xml:$(TARGET_COPY_OUT_ODM)/etc/mixer_paths_bengal.xml \
+    $(LOCAL_PATH)/audio/mixer_paths_scubaidp.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_scubaidp.xml \
+    $(LOCAL_PATH)/audio/mixer_paths_scubaqrd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_scubaqrd.xml \
+    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/audio/acdbdata,$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata) \
+    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/audio/acdbdata,$(TARGET_COPY_OUT_ODM)/etc/acdbdata)
 
 # Bluetooth
 PRODUCT_PACKAGES += \
@@ -200,8 +218,7 @@ PRODUCT_PACKAGES += \
     init.qti.write.sh \
     install-recovery.sh \
     qca6234-service.sh \
-    vendor_modprobe.sh \
-    a05s_kmsglog.sh
+    vendor_modprobe.sh
 
 
 PRODUCT_PACKAGES += \
@@ -283,7 +300,15 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/product/.keep:$(TARGET_COPY_OUT_SYSTEM)/product/.keep \
     $(LOCAL_PATH)/rootdir/efs/.keep:$(TARGET_COPY_OUT_ROOT)/efs/.keep
 
+# krazey/ImsStack, ImsMedia, CarrierSettings
+$(call inherit-product, packages/modules/ImsMedia/imsmedia.mk)
+$(call inherit-product, packages/apps/CarrierSettings/carrier_settings.mk)
 PRODUCT_PACKAGES += \
+    ImsStack \
+    Iwlan \
+    QualifiedNetworksService
+
+$(call soong_config_set_bool,imsstack_namespace,use_android16_telephony_compat,true)
 
 # DEBUG: mirror userspace logs into kmsg
 PRODUCT_PACKAGES += \

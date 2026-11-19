@@ -30,7 +30,7 @@ dontaudit init {
 dontaudit hal_health_default hal_thermal_hwservice:hwservice_manager find;
 
 # Service manager searches
-dontaudit vendor_qcc_trd_2 default_android_service:service_manager find;
+dontaudit vendor_qcc_trd default_android_service:service_manager find;
 dontaudit system_server default_android_service:service_manager find;
 dontaudit system_app default_android_service:service_manager find;
 dontaudit system_server init:hwservice_manager list;

@@ -25,7 +25,6 @@ then
 	loopbacktest $open "$1" 13
 	if test $1 -eq $handsetmic_to_receiver
 	then
-		setenforce 0
 		agmplay /vendor/etc/rcv_pb.wav –D 0 -d 100 -i CODEC_DMA-LPAIF_RXTX-RX-0
 		agmcap /data/handsetmiccapture.wav -D 100 -d 101 -c 1 -r 48000 -i CODEC_DMA-LPAIF_RXTX-TX-3
 		pkill -f $pname_play
@@ -33,7 +32,6 @@ then
 		loopbacktest $close "$1"
 	elif test $1 -eq  $speakmic_to_receiver
 	then
-		setenforce 0
 		agmplay /vendor/etc/rcv_pb.wav –D 0 -d 100 -i CODEC_DMA-LPAIF_RXTX-RX-0
 		agmcap /data/speakmiccapture.wav -D 100 -d 101 -c 1 -r 48000 -i CODEC_DMA-LPAIF_RXTX-TX-3
 		pkill -f $pname_play
@@ -41,7 +39,6 @@ then
 		loopbacktest $close "$1"
 	elif test $1 -eq $headsetmic_to_receiver
 	then
-		setenforce 0
 		agmplay /vendor/etc/rcv_pb.wav –D 0 -d 100 -i CODEC_DMA-LPAIF_RXTX-RX-0
 		agmcap /data/headsetmiccapture.wav -D 100 -d 101 -c 1 -r 48000 -i CODEC_DMA-LPAIF_RXTX-TX-3
 		pkill -f $pname_play
@@ -49,7 +46,6 @@ then
 		loopbacktest $close "$1"
 	elif test $1 -eq $handsetmic_to_speak
 	then
-		setenforce 0
 		agmplay /vendor/etc/spk_pb.wav –D 0 -d 100 -i CODEC_DMA-LPAIF_RXTX-RX-1
 		agmcap /data/handsetmiccapture.wav -D 100 -d 101 -c 1 -r 48000 -i CODEC_DMA-LPAIF_RXTX-TX-3
 		pkill -f $pname_play
@@ -57,7 +53,6 @@ then
 		loopbacktest $close "$1"
 	elif test $1 -eq $speakmic_to_speak
 	then
-		setenforce 0
 		agmplay /vendor/etc/spk_pb.wav –D 0 -d 100 -i CODEC_DMA-LPAIF_RXTX-RX-1
 		agmcap /data/speakmiccapture.wav -D 100 -d 101 -c 1 -r 48000 -i CODEC_DMA-LPAIF_RXTX-TX-3
 		pkill -f $pname_play
@@ -65,7 +60,6 @@ then
 		loopbacktest $close "$1"
 	elif test $1 -eq $headsetmic_to_speak
 	then
-		setenforce 0
 		agmplay /vendor/etc/spk_pb.wav –D 0 -d 100 -i CODEC_DMA-LPAIF_RXTX-RX-1
 		agmcap /data/headsetmiccapture.wav -D 100 -d 101 -c 1 -r 48000 -i CODEC_DMA-LPAIF_RXTX-TX-3
 		pkill -f $pname_play
@@ -73,7 +67,6 @@ then
 		loopbacktest $close "$1"
 	elif test $1 -eq $handsetmic_headphone
 	then
-		setenforce 0
 		agmplay /vendor/etc/rcv_pb.wav –D 0 -d 100 -i CODEC_DMA-LPAIF_RXTX-RX-0
 		agmcap /data/handsetmiccapture.wav -D 100 -d 101 -c 1 -r 48000 -i CODEC_DMA-LPAIF_RXTX-TX-3
 		pkill -f $pname_play
@@ -81,7 +74,6 @@ then
 		loopbacktest $close "$1"
 	elif test $1 -eq $speakmic_to_headphone
 	then
-		setenforce 0
 		agmplay /vendor/etc/rcv_pb.wav –D 0 -d 100 -i CODEC_DMA-LPAIF_RXTX-RX-0
 		agmcap /data/speakmiccapture.wav -D 100 -d 101 -c 1 -r 48000 -i CODEC_DMA-LPAIF_RXTX-TX-3
 		pkill -f $pname_play
@@ -89,7 +81,6 @@ then
 		loopbacktest $close "$1"
 	elif test $1 -eq $headsetmic_to_headphone
 	then
-		setenforce 0
 		agmplay /vendor/etc/spk_pb.wav –D 0 -d 100 -i CODEC_DMA-LPAIF_RXTX-RX-1
 		agmcap /data/headsetmiccapture.wav -D 100 -d 101 -c 1 -r 48000 -i CODEC_DMA-LPAIF_RXTX-TX-3
 		pkill -f $pname_play

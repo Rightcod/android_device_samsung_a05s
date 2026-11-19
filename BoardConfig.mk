@@ -36,7 +36,7 @@ BOARD_BOOT_HEADER_VERSION := 4
 BOARD_BOOTIMG_HEADER_VERSION := 4
 BOARD_INIT_BOOT_HEADER_VERSION := 4
 BOARD_KERNEL_BASE := 0x00000000
-BOARD_KERNEL_CMDLINE := firmware_class.path=/vendor/firmware_mnt/image printk.devkmsg=on bootconfig loop.max_part=7 androidboot.selinux=permissive loglevel=8 initcall_debug
+BOARD_KERNEL_CMDLINE := firmware_class.path=/vendor/firmware_mnt/image printk.devkmsg=off quiet loglevel=3 bootconfig loop.max_part=7 androidboot.selinux=enforcing audit=0
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 BOARD_MKBOOTIMG_INIT_ARGS += --header_version $(BOARD_INIT_BOOT_HEADER_VERSION)
@@ -51,7 +51,7 @@ TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilts/kernel
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilts/dtb.img
 BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilts/dtb
 BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilts/dtbo.img
-BOARD_BOOTCONFIG := androidboot.hardware=qcom androidboot.memcg=1 androidboot.load_modules_parallel=true androidboot.usbcontroller=4e00000.dwc3 androidboot.fstab_suffix=default
+BOARD_BOOTCONFIG := androidboot.hardware=qcom androidboot.memcg=1 androidboot.load_modules_parallel=true androidboot.usbcontroller=4e00000.dwc3 androidboot.fstab_suffix=default androidboot.selinux=enforcing
 
 # Kernel modules for vendor ramdisk
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES := $(wildcard $(DEVICE_PATH)/prebuilts/modules/*.ko)
@@ -120,13 +120,16 @@ BOARD_AVB_VENDOR_BOOT_ROLLBACK_INDEX_LOCATION := 3
 
 # VINTF
 DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
+DEVICE_FRAMEWORK_MANIFEST_FILE += $(DEVICE_PATH)/framework_manifest.xml
 
 # Build-broken flags
 BUILD_BROKEN_DUP_SYSPROP := true
 
-# Qualcomm SM6225 / Bengal Sepolicy
-include device/qcom/sepolicy_vndr/sm6225/SEPolicy.mk
+# SELinux
+include device/qcom/sepolicy_vndr/SEPolicy.mk
+include device/lineage/sepolicy/libperfmgr/sepolicy.mk
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
+SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += packages/modules/ImsMedia/sepolicy/system_ext/private
 
 # Metadata partition
 BOARD_USES_METADATA_PARTITION := true

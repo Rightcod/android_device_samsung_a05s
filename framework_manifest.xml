@@ -1,0 +1,5 @@
+<manifest version="9.0" type="framework">
+    <vendor-ndk>
+        <version>33</version>
+    </vendor-ndk>
+</manifest>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="config_imsstack_emergency_mmtel_feature">false</bool>
+    <bool name="config_imsstack_rcs_feature">false</bool>
+    <bool name="config_imsstack_dedicated_bearer_qos_supported">false</bool>
+</resources>

@@ -115,6 +115,8 @@
                 <route sink="r_submix input" sources="Remote Submix In" type="mix" />
             </routes>
         </module>
+        <xi:include href="bluetooth_audio_policy_configuration_7_0.xml" />
+        <xi:include href="usb_audio_policy_configuration.xml" />
     </modules>
     <xi:include href="audio_policy_volumes.xml" />
     <xi:include href="default_volume_tables.xml" />

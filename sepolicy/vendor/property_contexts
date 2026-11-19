@@ -16,3 +16,6 @@ persist.vendor.fingerprint.              u:object_r:vendor_fp_prop:s0
 # Radio
 ro.vendor.ril.svlte1x  u:object_r:vendor_radio_prop:s0
 ro.vendor.ril.svdo  u:object_r:vendor_radio_prop:s0
+
+# Samsung Audio HAL props
+ril.official_cscver u:object_r:vendor_audio_prop:s0

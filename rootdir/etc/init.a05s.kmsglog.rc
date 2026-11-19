@@ -1,8 +1,11 @@
 # Samsung Galaxy A05s Early Boot & HAL Initialization Fix
 
 on early-init
-    # Enable standard ADB security authorization check
-    setprop ro.adb.secure 1
+    # Set kernel printk loglevel to 3 (ERR) to stop charger/battery driver flood
+    write /proc/sys/kernel/printk "3 3 1 3"
+    setprop ro.logd.klog false
+    # Disable ADB security check for early bringup diagnostics
+    setprop ro.adb.secure 0
     # Disable auditd kmsg flooding
     setprop ro.logd.auditd false
 
@@ -70,6 +73,10 @@ on post-fs
     # Satisfy vendor init.target.rc wait_for_prop hwservicemanager.ready true
     setprop hwservicemanager.ready true
 
+    # Link EFS factory.prop for secril_config_svc SimConfig
+    symlink /mnt/vendor/efs/imei/factory.prop /mnt/vendor/efs/factory.prop
+    symlink /efs/imei/factory.prop /efs/factory.prop
+
     # Re-assert bind mount system unified partitions to root mountpoints
     mount none /system/product /product bind rec
     mount none /system/system_ext /system_ext bind rec
@@ -86,9 +93,6 @@ on post-fs
     setprop sys.usb.controller 4e00000.dwc3
     setprop persist.sys.usb.config mtp,adb
     setprop sys.usb.config mtp,adb
-
-    # Start logging userspace logcat (main, system, crash) to /dev/kmsg
-    start a05s_kmsglog
 
 on late-fs
     # Ensure properties and context managers are ready for late mounts
@@ -125,7 +129,3 @@ on boot
 on property:sys.boot_completed=1
     setprop persist.sys.usb.config mtp,adb
 
-service a05s_kmsglog /system/bin/a05s_kmsglog.sh
-    user root
-    group root system log
-    disabled
