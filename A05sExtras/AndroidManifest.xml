@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_ROUTING" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.CONTROL_INCALL_EXPERIENCE" />
 
     <application
         android:name=".A05sExtrasApp"
@@ -111,10 +112,15 @@
             </intent-filter>
         </service>
 
-        <!-- In-Call Audio Routing Daemon -->
+        <!-- In-Call Audio Routing Daemon & Telecom InCallService -->
         <service
             android:name=".CallAudioService"
-            android:exported="false" />
+            android:permission="android.permission.BIND_INCALL_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.telecom.InCallService" />
+            </intent-filter>
+        </service>
 
         <receiver
             android:name=".BootReceiver"

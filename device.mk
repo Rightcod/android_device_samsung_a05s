@@ -296,6 +296,7 @@ PRODUCT_COPY_FILES += \
 
 # Canonical directories for dynamic partitions and efs mount point
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/permissions/privapp-permissions-a05sextras.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-a05sextras.xml \
     $(LOCAL_PATH)/rootdir/system_ext/.keep:$(TARGET_COPY_OUT_SYSTEM)/system_ext/.keep \
     $(LOCAL_PATH)/rootdir/product/.keep:$(TARGET_COPY_OUT_SYSTEM)/product/.keep \
     $(LOCAL_PATH)/rootdir/efs/.keep:$(TARGET_COPY_OUT_ROOT)/efs/.keep

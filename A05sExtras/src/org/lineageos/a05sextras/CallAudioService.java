@@ -1,36 +1,42 @@
 package org.lineageos.a05sextras;
 
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
-import android.os.Looper;
+import android.telecom.Call;
+import android.telecom.InCallService;
+import android.telecom.PhoneAccountHandle;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyCallback;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Native in-call audio routing daemon for Samsung Galaxy A05s (Qualcomm Bengal).
+ * Native in-call audio routing service for Samsung Galaxy A05s (Qualcomm Bengal).
+ *
+ * Integrates directly with Android Telecom as an InCallService while maintaining
+ * background TelephonyCallback fallbacks and periodic parameter enforcement.
  *
  * Samsung's audio.primary.bengal.so Audio HAL requires explicit voice session parameters:
- *   - "g_call_sim_slot=0x01" (SIM 1, VSID 0x11c05000) or "0x02" (SIM 2, VSID 0x11dc5000)
- *   - "g_call_state=514" (Active call)
- *   - "g_call_state=1" (Idle / Call ended)
+ *   - "g_call_sim_slot=1" (SIM 1 / Slot 0, VSID 0x11c05000)
+ *   - "g_call_sim_slot=2" (SIM 2 / Slot 1, VSID 0x11dc5000)
+ *   - "g_call_state=514" (Active call / in-call routing enabled)
+ *   - "g_call_state=1"   (Call idle / ended)
  *
- * This service monitors real-time telephony call states across both SIM slots and routes
- * audio directly via AudioManager.setParameters, including audio HAL recovery when needed.
+ * NOTE: The Audio HAL parses "g_call_sim_slot" via atoi(), so decimal strings ("1", "2")
+ * must be used. Hex strings ("0x01", "0x02") cause atoi() to return 0 and fail.
  */
-public class CallAudioService extends Service {
+public class CallAudioService extends InCallService {
     private static final String TAG = "A05sCallAudioService";
 
     private AudioManager mAudioManager;
@@ -42,28 +48,23 @@ public class CallAudioService extends Service {
 
     private boolean mCallActive = false;
     private int mActiveSlot = 0; // 0 for SIM 1, 1 for SIM 2
+
+    private final List<Call> mTrackedCalls = new CopyOnWriteArrayList<>();
     private final Map<Integer, Integer> mSlotCallStates = new HashMap<>();
     private final Map<Integer, TelephonyCallback> mCallbacks = new HashMap<>();
 
-    private static void setProp(String key, String val) {
-        try {
-            Class<?> clazz = Class.forName("android.os.SystemProperties");
-            Method method = clazz.getMethod("set", String.class, String.class);
-            method.invoke(null, key, val);
-        } catch (Throwable t) {
-            Log.w(TAG, "setProp failed for " + key + ": " + t.getMessage());
+    private final Call.Callback mCallCallback = new Call.Callback() {
+        @Override
+        public void onStateChanged(Call call, int state) {
+            Log.i(TAG, "Telecom call onStateChanged: state=" + state + ", call=" + call);
+            mHandler.post(() -> evaluateAllCallStates());
         }
-    }
 
-    private static String getProp(String key, String def) {
-        try {
-            Class<?> clazz = Class.forName("android.os.SystemProperties");
-            Method method = clazz.getMethod("get", String.class, String.class);
-            return (String) method.invoke(null, key, def);
-        } catch (Throwable t) {
-            return def;
+        @Override
+        public void onDetailsChanged(Call call, Call.Details details) {
+            mHandler.post(() -> evaluateAllCallStates());
         }
-    }
+    };
 
     @Override
     public void onCreate() {
@@ -85,25 +86,69 @@ public class CallAudioService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG, "CallAudioService onStartCommand");
-        mHandler.post(this::refreshCallState);
+        if (mHandler != null) {
+            mHandler.post(this::evaluateAllCallStates);
+        }
         return START_STICKY;
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        Log.i(TAG, "CallAudioService onBind: action=" + (intent != null ? intent.getAction() : "null"));
+        if (intent != null && InCallService.SERVICE_INTERFACE.equals(intent.getAction())) {
+            return super.onBind(intent);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        Log.i(TAG, "CallAudioService onUnbind");
+        return super.onUnbind(intent);
+    }
+
+    @Override
+    public void onCallAdded(Call call) {
+        super.onCallAdded(call);
+        Log.i(TAG, "Telecom onCallAdded: " + call);
+        if (call != null) {
+            mTrackedCalls.add(call);
+            call.registerCallback(mCallCallback);
+        }
+        if (mHandler != null) {
+            mHandler.post(this::evaluateAllCallStates);
+        }
+    }
+
+    @Override
+    public void onCallRemoved(Call call) {
+        super.onCallRemoved(call);
+        Log.i(TAG, "Telecom onCallRemoved: " + call);
+        if (call != null) {
+            mTrackedCalls.remove(call);
+            call.unregisterCallback(mCallCallback);
+        }
+        if (mHandler != null) {
+            mHandler.post(this::evaluateAllCallStates);
+        }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         Log.i(TAG, "CallAudioService onDestroy");
+        for (Call c : mTrackedCalls) {
+            try {
+                c.unregisterCallback(mCallCallback);
+            } catch (Throwable ignored) {}
+        }
+        mTrackedCalls.clear();
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
         }
         if (mWorkerThread != null) {
             mWorkerThread.quitSafely();
         }
-    }
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
     }
 
     private void setupSubscriptionListeners() {
@@ -113,7 +158,9 @@ public class CallAudioService extends Service {
                 new SubscriptionManager.OnSubscriptionsChangedListener() {
                     @Override
                     public void onSubscriptionsChanged() {
-                        mHandler.post(() -> registerTelephonyCallbacks());
+                        if (mHandler != null) {
+                            mHandler.post(() -> registerTelephonyCallbacks());
+                        }
                     }
                 });
 
@@ -126,7 +173,6 @@ public class CallAudioService extends Service {
         try {
             List<SubscriptionInfo> subInfos = mSubscriptionManager.getActiveSubscriptionInfoList();
             if (subInfos == null || subInfos.isEmpty()) {
-                // Register default
                 registerCallbackForSub(-1, 0);
                 return;
             }
@@ -169,33 +215,63 @@ public class CallAudioService extends Service {
 
         @Override
         public void onCallStateChanged(int state) {
-            mHandler.post(() -> handleCallStateChange(mSlot, state));
+            Log.d(TAG, "TelephonyCallback slot " + mSlot + " state=" + state);
+            if (mHandler != null) {
+                mHandler.post(() -> {
+                    mSlotCallStates.put(mSlot, state);
+                    evaluateAllCallStates();
+                });
+            }
         }
     }
 
-    private synchronized void handleCallStateChange(int slot, int state) {
-        Log.d(TAG, "Slot " + slot + " state changed to " + state);
-        mSlotCallStates.put(slot, state);
-        evaluateRouting();
+    private int getSlotForCall(Call call) {
+        try {
+            if (call != null) {
+                Call.Details details = call.getDetails();
+                if (details != null) {
+                    PhoneAccountHandle handle = details.getAccountHandle();
+                    if (handle != null && handle.getId() != null) {
+                        int subId = Integer.parseInt(handle.getId());
+                        if (mSubscriptionManager != null) {
+                            SubscriptionInfo info = mSubscriptionManager.getActiveSubscriptionInfo(subId);
+                            if (info != null) {
+                                return info.getSimSlotIndex();
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Throwable t) {
+            Log.w(TAG, "getSlotForCall error: " + t.getMessage());
+        }
+        return -1;
     }
 
-    private synchronized void evaluateRouting() {
+    private synchronized void evaluateAllCallStates() {
         boolean anyActive = false;
         int activeSlot = -1;
 
-        // Check if any slot is in OFFHOOK (2)
-        for (Map.Entry<Integer, Integer> entry : mSlotCallStates.entrySet()) {
-            if (entry.getValue() == TelephonyManager.CALL_STATE_OFFHOOK) {
+        // 1. First priority: Telecom tracked calls
+        for (Call c : mTrackedCalls) {
+            int st = c.getState();
+            if (st == Call.STATE_DIALING || st == Call.STATE_CONNECTING ||
+                st == Call.STATE_RINGING || st == Call.STATE_ACTIVE ||
+                st == Call.STATE_HOLDING) {
                 anyActive = true;
-                activeSlot = entry.getKey();
-                break;
+                int slot = getSlotForCall(c);
+                if (slot >= 0) {
+                    activeSlot = slot;
+                    break;
+                }
             }
         }
 
-        // If none is OFFHOOK, check for RINGING (1)
+        // 2. Second priority: TelephonyManager callback states
         if (!anyActive) {
             for (Map.Entry<Integer, Integer> entry : mSlotCallStates.entrySet()) {
-                if (entry.getValue() == TelephonyManager.CALL_STATE_RINGING) {
+                if (entry.getValue() == TelephonyManager.CALL_STATE_OFFHOOK ||
+                    entry.getValue() == TelephonyManager.CALL_STATE_RINGING) {
                     anyActive = true;
                     activeSlot = entry.getKey();
                     break;
@@ -203,10 +279,28 @@ public class CallAudioService extends Service {
             }
         }
 
+        // 3. Third priority: direct query on active subscriptions
+        if (!anyActive && mSubscriptionManager != null && mTelephonyManager != null) {
+            try {
+                List<SubscriptionInfo> subs = mSubscriptionManager.getActiveSubscriptionInfoList();
+                if (subs != null) {
+                    for (SubscriptionInfo sub : subs) {
+                        TelephonyManager subTm = mTelephonyManager.createForSubscriptionId(sub.getSubscriptionId());
+                        int st = subTm.getCallState();
+                        if (st != TelephonyManager.CALL_STATE_IDLE) {
+                            anyActive = true;
+                            activeSlot = sub.getSimSlotIndex();
+                            break;
+                        }
+                    }
+                }
+            } catch (Throwable ignored) {}
+        }
+
         if (anyActive) {
             if (activeSlot < 0) activeSlot = 0;
             if (!mCallActive || mActiveSlot != activeSlot) {
-                Log.i(TAG, "Active call on slot " + activeSlot + " (previous active: " + mCallActive + ")");
+                Log.i(TAG, "Active call on slot " + activeSlot + " (previous active: " + mCallActive + ", prev slot: " + mActiveSlot + ")");
                 mCallActive = true;
                 mActiveSlot = activeSlot;
             }
@@ -225,12 +319,13 @@ public class CallAudioService extends Service {
 
         try {
             if (active) {
-                String slotHex = (slot == 1) ? "0x02" : "0x01";
-                Log.d(TAG, "Applying: g_call_sim_slot=" + slotHex + ", g_call_state=514");
-                mAudioManager.setParameters("g_call_sim_slot=" + slotHex);
+                // Must be decimal strings: "1" for SIM 1 (Slot 0), "2" for SIM 2 (Slot 1)
+                String slotParam = (slot == 1) ? "2" : "1";
+                Log.d(TAG, "Applying audio params: g_call_sim_slot=" + slotParam + ", g_call_state=514");
+                mAudioManager.setParameters("g_call_sim_slot=" + slotParam);
                 mAudioManager.setParameters("g_call_state=514");
             } else {
-                Log.d(TAG, "Applying: g_call_state=1");
+                Log.d(TAG, "Applying audio params: g_call_state=1");
                 mAudioManager.setParameters("g_call_state=1");
             }
         } catch (Throwable t) {
@@ -238,34 +333,21 @@ public class CallAudioService extends Service {
         }
     }
 
-    private void refreshCallState() {
-        if (mTelephonyManager == null) return;
-        try {
-            int globalState = mTelephonyManager.getCallState();
-            if (globalState != TelephonyManager.CALL_STATE_IDLE && !mCallActive) {
-                Log.i(TAG, "Global call state is active (" + globalState + ") while service state is idle. Forcing evaluation.");
-                handleCallStateChange(0, globalState);
-            }
-        } catch (Throwable ignored) {}
-    }
-
-    // Safety watchdog: polls state every 500ms while a call is active (to keep routing solid)
-    // and every 2500ms when idle.
+    // Safety watchdog: enforces parameters every 800ms while a call is active,
+    // and checks for orphaned calls every 3000ms when idle.
     private final Runnable mWatchdogRunnable = new Runnable() {
         @Override
         public void run() {
             try {
                 if (mCallActive) {
-                    // Periodic parameter keep-alive while call is active
                     applyRoutingParameters(mActiveSlot, true);
-                    refreshCallState();
-                    mHandler.postDelayed(this, 500);
+                    mHandler.postDelayed(this, 800);
                 } else {
-                    refreshCallState();
-                    mHandler.postDelayed(this, 2500);
+                    evaluateAllCallStates();
+                    mHandler.postDelayed(this, 3000);
                 }
             } catch (Throwable t) {
-                mHandler.postDelayed(this, 2500);
+                mHandler.postDelayed(this, 3000);
             }
         }
     };
