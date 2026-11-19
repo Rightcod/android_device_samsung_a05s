@@ -24,7 +24,6 @@ public class MainActivity extends Activity {
     private TextView summaryRefreshRate;
     private Switch switchGameSpoof;
     private Switch switchPhotosSpoof;
-    private Switch switchPifSpoof;
     private Switch switchDt2sStatusbar;
     private Switch switchDt2sLockscreen;
     private TextView textLiveCharging;
@@ -69,9 +68,13 @@ public class MainActivity extends Activity {
         switchRefreshRate.setChecked(is90);
         updateRefreshRateSummary(is90);
         switchRefreshRate.setOnCheckedChangeListener((btn, isChecked) -> {
-            float target = isChecked ? 90.0f : 60.0f;
-            Settings.System.putFloat(getContentResolver(), "peak_refresh_rate", target);
-            Settings.System.putFloat(getContentResolver(), "min_refresh_rate", isChecked ? 60.0f : 60.0f);
+            if (isChecked) {
+                Settings.System.putFloat(getContentResolver(), "peak_refresh_rate", 90.0f);
+                Settings.System.putFloat(getContentResolver(), "min_refresh_rate", 60.0f);
+            } else {
+                Settings.System.putFloat(getContentResolver(), "peak_refresh_rate", 60.0f);
+                Settings.System.putFloat(getContentResolver(), "min_refresh_rate", 60.0f);
+            }
             updateRefreshRateSummary(isChecked);
         });
 
@@ -107,15 +110,6 @@ public class MainActivity extends Activity {
         switchPhotosSpoof.setOnCheckedChangeListener((btn, isChecked) -> {
             setProp("persist.sys.spoof.photos", isChecked ? "1" : "0");
             setProp("persist.sys.pixelprops.gphotos", isChecked ? "true" : "false");
-        });
-
-        // PIF Spoof
-        switchPifSpoof = findViewById(R.id.switch_pif_spoof);
-        boolean pifSpoofOn = getProp("persist.sys.spoof.pif", "1").equals("1") || getProp("persist.sys.pixelprops.pi", "true").equals("true");
-        switchPifSpoof.setChecked(pifSpoofOn);
-        switchPifSpoof.setOnCheckedChangeListener((btn, isChecked) -> {
-            setProp("persist.sys.spoof.pif", isChecked ? "1" : "0");
-            setProp("persist.sys.pixelprops.pi", isChecked ? "true" : "false");
         });
 
         // DT2W (Double Tap to Wake)

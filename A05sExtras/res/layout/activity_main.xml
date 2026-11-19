@@ -226,39 +226,6 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <!-- Play Integrity Fix Switch -->
-        <LinearLayout
-            android:id="@+id/row_pif_spoof"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_pif_spoof"
-                    android:textSize="16sp"
-                    android:textColor="?android:attr/textColorPrimary" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/summary_pif_spoof"
-                    android:textSize="13sp"
-                    android:textColor="?android:attr/textColorSecondary" />
-            </LinearLayout>
-            <Switch
-                android:id="@+id/switch_pif_spoof"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

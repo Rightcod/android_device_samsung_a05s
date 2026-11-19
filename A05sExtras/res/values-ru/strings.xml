@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">A05s Extras</string>
-    <string name="app_summary">Плавность 90 Гц, безлимитные Google Фото, твики и зарядка</string>
+    <string name="app_summary">Плавность 90 Гц, разблокировка FPS в играх, безлимитные Фото и твики</string>
 
     <!-- Categories -->
     <string name="category_gaming">🎮 Игровой режим и спуфинг</string>
@@ -17,13 +17,11 @@
     <string name="summary_game_dnd">Блокировать всплывающие уведомления (Heads-up) во время игр</string>
 
     <string name="title_game_spoof">Разблокировка 90/120 FPS в играх</string>
-    <string name="summary_game_spoof">Подмена ROG Phone 6 для Standoff 2, PUBG Mobile, Genshin Impact, CoD Mobile</string>
+    <string name="summary_game_spoof">Профиль Samsung Galaxy S24 Ultra для PUBG Mobile, Standoff 2, CoD Mobile и др.</string>
 
     <string name="title_photos_spoof">Безлимитные Google Фото</string>
-    <string name="summary_photos_spoof">Подмена под Pixel XL: неограниченное хранилище фото и видео в исходном качестве</string>
+    <string name="summary_photos_spoof">Подмена под Google Pixel XL: неограниченное хранилище фото и видео в исходном качестве</string>
 
-    <string name="title_pif_spoof">Play Integrity / SafetyNet Fix</string>
-    <string name="summary_pif_spoof">Обход проверок и сертификация для банковских приложений и Госуслуг</string>
 
     <!-- Display -->
     <string name="title_refresh_rate">Плавность движений (90 Гц)</string>
@@ -46,5 +44,5 @@
     <string name="title_charging_wattage">Мощность зарядки в реальном времени</string>
     <string name="summary_charging_wattage">Отображать текущие Ватты (W), Вольты (V) и силу тока (mA)</string>
     <string name="battery_status_unknown">Статус батареи недоступен</string>
-    <string name="credits">Galaxy A05s LineageOS 23.2\nMaintainer: Rightcode | Testers: SlingShot, vanplact# | Helpers: tjari, fdur25</string>
+    <string name="credits">Galaxy A05s LineageOS 23.2\nMaintainer: Rightcode | Testers: SlingShot, vanplact# | Helpers: 7jari, fdur25</string>
 </resources>

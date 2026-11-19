@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">A05s Extras</string>
+    <string name="app_summary">Плавність 90 Гц, розблокування FPS в іграх, безлімітні Фото та твіки</string>
+
+    <!-- Categories -->
+    <string name="category_gaming">🎮 Ігровий режим і спуфінг</string>
+    <string name="category_display">⚡ Екран і частота оновлення</string>
+    <string name="category_gestures">👆 Жести та блокування</string>
+    <string name="category_charging">🔋 Живлення та зарядка</string>
+
+    <!-- Gaming & Spoofing -->
+    <string name="title_game_mode">Ігровий режим (Game Space)</string>
+    <string name="summary_game_mode">Оптимізація продуктивності CPU/GPU та пригнічення спливаючих сповіщень</string>
+
+    <string name="title_game_dnd">Ігровий режим Не турбувати</string>
+    <string name="summary_game_dnd">Блокувати спливаючі сповіщення (Heads-up) під час гри</string>
+
+    <string name="title_game_spoof">Розблокування 90/120 FPS в іграх</string>
+    <string name="summary_game_spoof">Профіль Samsung Galaxy S24 Ultra для PUBG Mobile, Standoff 2, CoD Mobile тощо</string>
+
+    <string name="title_photos_spoof">Безлімітні Google Фото</string>
+    <string name="summary_photos_spoof">Підміна під Google Pixel XL: необмежене сховище фото та відео в оригінальній якості</string>
+
+
+    <!-- Display -->
+    <string name="title_refresh_rate">Плавність рухів (90 Гц)</string>
+    <string name="summary_refresh_rate_90">Увімкнено підвищену плавність 90 Гц</string>
+    <string name="summary_refresh_rate_60">Увімкнено стандартну частоту 60 Гц (економія заряду)</string>
+    <string name="tile_refresh_rate">Частота екрана</string>
+    <string name="tile_game_mode">Ігровий режим</string>
+
+    <!-- Gestures -->
+    <string name="title_dt2w">Подвійний тап для пробудження</string>
+    <string name="summary_dt2w">Подвійний дотик вимкненого екрана пробуджує пристрій</string>
+
+    <string name="title_dt2s_statusbar">Подвійний тап для сну (Рядок стану)</string>
+    <string name="summary_dt2s_statusbar">Подвійний дотик рядка стану вимикає екран</string>
+
+    <string name="title_dt2s_lockscreen">Подвійний тап для сну (Екран блокування)</string>
+    <string name="summary_dt2s_lockscreen">Подвійний дотик вільного місця на екрані блокування вимикає екран</string>
+
+    <!-- Charging -->
+    <string name="title_charging_wattage">Потужність зарядки в реальному часі</string>
+    <string name="summary_charging_wattage">Відображати поточні Вати (W), Вольти (V) та силу струму (mA)</string>
+    <string name="battery_status_unknown">Статус батареї недоступний</string>
+    <string name="credits">Galaxy A05s LineageOS 23.2\nMaintainer: Rightcode | Testers: SlingShot, vanplact# | Helpers: 7jari, fdur25</string>
+</resources>

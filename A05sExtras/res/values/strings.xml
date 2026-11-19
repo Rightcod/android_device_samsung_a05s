@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">A05s Extras</string>
-    <string name="app_summary">90Hz smoothness, unlimited Photos, device tweaks &amp; battery stats</string>
+    <string name="app_summary">90Hz smoothness, gaming FPS unlock, unlimited Photos &amp; battery stats</string>
 
     <!-- Categories -->
     <string name="category_gaming">Gaming &amp; Spoofing</string>
@@ -16,14 +16,12 @@
     <string name="title_game_dnd">Game Do Not Disturb</string>
     <string name="summary_game_dnd">Block heads-up notifications while gaming</string>
 
-    <string name="title_game_spoof">Game 90/120 FPS Spoofing</string>
-    <string name="summary_game_spoof">Spoof ROG Phone 6 for Standoff 2, PUBG Mobile, Genshin, CoD to unlock max FPS</string>
+    <string name="title_game_spoof">Unlock 90/120 FPS in Games</string>
+    <string name="summary_game_spoof">Spoof Samsung Galaxy S24 Ultra profile for PUBG Mobile, Standoff 2, CoD Mobile to unlock max FPS</string>
 
     <string name="title_photos_spoof">Unlimited Google Photos</string>
-    <string name="summary_photos_spoof">Spoof Pixel XL for unlimited original quality photo &amp; video backup</string>
+    <string name="summary_photos_spoof">Spoof Google Pixel XL for unlimited original quality photo &amp; video backup</string>
 
-    <string name="title_pif_spoof">Play Integrity / SafetyNet Fix</string>
-    <string name="summary_pif_spoof">Spoof certified device fingerprint for banking and finance apps</string>
 
     <!-- Display -->
     <string name="title_refresh_rate">Motion Smoothness (90 Hz)</string>
@@ -46,5 +44,5 @@
     <string name="title_charging_wattage">Real-time Charging Wattage</string>
     <string name="summary_charging_wattage">Show real-time watts, voltage and amperage</string>
     <string name="battery_status_unknown">Battery status unavailable</string>
-    <string name="credits">Galaxy A05s LineageOS 23.2\nMaintainer: Rightcode | Testers: SlingShot, vanplact# | Helpers: tjari, fdur25</string>
+    <string name="credits">Galaxy A05s LineageOS 23.2\nMaintainer: Rightcode | Testers: SlingShot, vanplact# | Helpers: 7jari, fdur25</string>
 </resources>
