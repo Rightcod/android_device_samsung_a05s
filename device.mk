@@ -94,7 +94,9 @@ PRODUCT_PACKAGES += \
 
 # Display
 PRODUCT_PACKAGES += \
+    android.hardware.graphics.mapper@4.0-impl-qti-display \
     libdisplayconfig.qti \
+    libgralloc.qti \
     libqdMetaData \
     libsdmcore \
     libsdmutils \
