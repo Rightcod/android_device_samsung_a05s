@@ -155,11 +155,7 @@ sh_binary {
     vendor: true,
 }
 
-sh_binary {
-    name: "init.qti.display_boot.sh",
-    src: "bin/init.qti.display_boot.sh",
-    vendor: true,
-}
+// init.qti.display_boot.sh provided by hardware/qcom-caf/sm8550/display
 
 sh_binary {
     name: "init.qti.early_init.sh",
@@ -340,12 +336,7 @@ prebuilt_etc {
     vendor: true,
 }
 
-// IPACM config (stock DYH1; no bengal source module exists in 23.2)
-prebuilt_etc {
-    name: "IPACM_cfg.xml",
-    src: "etc/IPACM_cfg.xml",
-    vendor: true,
-}
+// IPACM config provided by hardware/qcom-caf/sm8550/data-ipa-cfg-mgr
 
 prebuilt_etc {
     name: "vendor.samsung.rild.rc",

@@ -1,0 +1,3449 @@
+diff --git a/composer/hwc_session.cpp b/composer/hwc_session.cpp
+index 07d0fe10..f9bd0e88 100644
+--- a/composer/hwc_session.cpp
++++ b/composer/hwc_session.cpp
+@@ -54,6 +54,10 @@
+ 
+ #define __CLASS__ "HWCSession"
+ 
++#ifndef PAGE_SIZE
++#define PAGE_SIZE 4096
++#endif
++
+ #define HWC_UEVENT_SWITCH_HDMI "change@/devices/virtual/switch/hdmi"
+ #define HWC_UEVENT_DRM_EXT_HOTPLUG "mdss_mdp/drm/card"
+ 
+diff --git a/include/display/drm/msm_drm_pp.h b/include/display/drm/msm_drm_pp.h
+new file mode 100644
+index 00000000..3fc2e40b
+--- /dev/null
++++ b/include/display/drm/msm_drm_pp.h
+@@ -0,0 +1,778 @@
++/* SPDX-License-Identifier: GPL-2.0-only WITH Linux-syscall-note */
++/*
++ * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
++ * Copyright (c) 2017-2021, The Linux Foundation. All rights reserved.
++ */
++
++#ifndef _MSM_DRM_PP_H_
++#define _MSM_DRM_PP_H_
++
++#include <linux/types.h>
++#include <drm/drm.h>
++
++#define ENABLE_EVENT_SPR_OPR_VALUE
++#define ENABLE_EVENT_INTF_MISR_SIGNATURE
++#define MAX_DSI_DISPLAY 4
++
++/**
++ * struct drm_msm_pcc_coeff - PCC coefficient structure for each color
++ *                            component.
++ * @c: constant coefficient.
++ * @r: red coefficient.
++ * @g: green coefficient.
++ * @b: blue coefficient.
++ * @rg: red green coefficient.
++ * @gb: green blue coefficient.
++ * @rb: red blue coefficient.
++ * @rgb: red blue green coefficient.
++ */
++
++struct drm_msm_pcc_coeff {
++	__u32 c;
++	__u32 r;
++	__u32 g;
++	__u32 b;
++	__u32 rg;
++	__u32 gb;
++	__u32 rb;
++	__u32 rgb;
++};
++
++#define PCC_BEFORE (1 << 0)
++
++/**
++ * struct drm_msm_pcc - pcc feature structure
++ * @flags: for customizing operations. Values can be
++ *         - PCC_BEFORE: Operate PCC using a 'before' arrangement
++ * @r: red coefficients.
++ * @g: green coefficients.
++ * @b: blue coefficients.
++ * @r_rr: second order coefficients
++ * @r_gg: second order coefficients
++ * @r_bb: second order coefficients
++ * @g_rr: second order coefficients
++ * @g_gg: second order coefficients
++ * @g_bb: second order coefficients
++ * @b_rr: second order coefficients
++ * @b_gg: second order coefficients
++ * @b_bb: second order coefficients
++ */
++#define DRM_MSM_PCC3
++struct drm_msm_pcc {
++	__u64 flags;
++	struct drm_msm_pcc_coeff r;
++	struct drm_msm_pcc_coeff g;
++	struct drm_msm_pcc_coeff b;
++	__u32 r_rr;
++	__u32 r_gg;
++	__u32 r_bb;
++	__u32 g_rr;
++	__u32 g_gg;
++	__u32 g_bb;
++	__u32 b_rr;
++	__u32 b_gg;
++	__u32 b_bb;
++};
++
++/* struct drm_msm_pa_vlut - picture adjustment vLUT structure
++ * flags: for customizing vlut operation
++ * val: vLUT values
++ */
++#define PA_VLUT_SIZE 256
++struct drm_msm_pa_vlut {
++	__u64 flags;
++	__u32 val[PA_VLUT_SIZE];
++};
++
++#define PA_HSIC_HUE_ENABLE (1 << 0)
++#define PA_HSIC_SAT_ENABLE (1 << 1)
++#define PA_HSIC_VAL_ENABLE (1 << 2)
++#define PA_HSIC_CONT_ENABLE (1 << 3)
++/**
++ * struct drm_msm_pa_hsic - pa hsic feature structure
++ * @flags: flags for the feature customization, values can be:
++ *         - PA_HSIC_HUE_ENABLE: Enable hue adjustment
++ *         - PA_HSIC_SAT_ENABLE: Enable saturation adjustment
++ *         - PA_HSIC_VAL_ENABLE: Enable value adjustment
++ *         - PA_HSIC_CONT_ENABLE: Enable contrast adjustment
++ *
++ * @hue: hue setting
++ * @saturation: saturation setting
++ * @value: value setting
++ * @contrast: contrast setting
++ */
++#define DRM_MSM_PA_HSIC
++struct drm_msm_pa_hsic {
++	__u64 flags;
++	__u32 hue;
++	__u32 saturation;
++	__u32 value;
++	__u32 contrast;
++};
++
++#define MEMCOL_PROT_HUE (1 << 0)
++#define MEMCOL_PROT_SAT (1 << 1)
++#define MEMCOL_PROT_VAL (1 << 2)
++#define MEMCOL_PROT_CONT (1 << 3)
++#define MEMCOL_PROT_SIXZONE (1 << 4)
++#define MEMCOL_PROT_BLEND (1 << 5)
++/* struct drm_msm_memcol - Memory color feature structure.
++ *                         Skin, sky, foliage features are supported.
++ * @prot_flags: Bit mask for enabling protection feature.
++ * @color_adjust_p0: Adjustment curve.
++ * @color_adjust_p1: Adjustment curve.
++ * @color_adjust_p2: Adjustment curve.
++ * @blend_gain: Blend gain weightage from othe PA features.
++ * @sat_hold: Saturation hold value.
++ * @val_hold: Value hold info.
++ * @hue_region: Hue qualifier.
++ * @sat_region: Saturation qualifier.
++ * @val_region: Value qualifier.
++ */
++#define DRM_MSM_MEMCOL
++struct drm_msm_memcol {
++	__u64 prot_flags;
++	__u32 color_adjust_p0;
++	__u32 color_adjust_p1;
++	__u32 color_adjust_p2;
++	__u32 blend_gain;
++	__u32 sat_hold;
++	__u32 val_hold;
++	__u32 hue_region;
++	__u32 sat_region;
++	__u32 val_region;
++};
++
++#define DRM_MSM_SIXZONE
++#define SIXZONE_LUT_SIZE 384
++#define SIXZONE_HUE_ENABLE (1 << 0)
++#define SIXZONE_SAT_ENABLE (1 << 1)
++#define SIXZONE_VAL_ENABLE (1 << 2)
++#define SIXZONE_SV_ENABLE (1 << 3)
++/* struct drm_msm_sixzone_curve - Sixzone HSV adjustment curve structure.
++ * @p0: Hue adjustment.
++ * @p1: Saturation/Value adjustment.
++ */
++struct drm_msm_sixzone_curve {
++	__u32 p1;
++	__u32 p0;
++};
++
++/* struct drm_msm_sixzone - Sixzone feature structure.
++ * @flags: for feature customization, values can be:
++ *         - SIXZONE_HUE_ENABLE: Enable hue adjustment
++ *         - SIXZONE_SAT_ENABLE: Enable saturation adjustment
++ *         - SIXZONE_VAL_ENABLE: Enable value adjustment
++ *         - SIXZONE_SV_ENABLE: Enable SV feature
++ * @threshold: threshold qualifier.
++ * @adjust_p0: Adjustment curve.
++ * @adjust_p1: Adjustment curve.
++ * @sat_hold: Saturation hold info.
++ * @val_hold: Value hold info.
++ * @curve: HSV adjustment curve lut.
++ * @sat_adjust_p0: Saturation adjustment curve.
++ * @sat_adjust_p1: Saturation adjustment curve.
++ * @curve_p2: Saturation Mid/Saturation High adjustment
++ */
++struct drm_msm_sixzone {
++	__u64 flags;
++	__u32 threshold;
++	__u32 adjust_p0;
++	__u32 adjust_p1;
++	__u32 sat_hold;
++	__u32 val_hold;
++	struct drm_msm_sixzone_curve curve[SIXZONE_LUT_SIZE];
++	__u32 sat_adjust_p0;
++	__u32 sat_adjust_p1;
++	__u32 curve_p2[SIXZONE_LUT_SIZE];
++};
++
++#define GAMUT_3D_MODE_17 1
++#define GAMUT_3D_MODE_5 2
++#define GAMUT_3D_MODE_13 3
++
++#define GAMUT_3D_MODE17_TBL_SZ 1229
++#define GAMUT_3D_MODE5_TBL_SZ 32
++#define GAMUT_3D_MODE13_TBL_SZ 550
++#define GAMUT_3D_SCALE_OFF_SZ 16
++#define GAMUT_3D_SCALEB_OFF_SZ 12
++#define GAMUT_3D_TBL_NUM 4
++#define GAMUT_3D_SCALE_OFF_TBL_NUM 3
++#define GAMUT_3D_MAP_EN (1 << 0)
++
++/**
++ * struct drm_msm_3d_col - 3d gamut color component structure
++ * @c0: Holds c0 value
++ * @c2_c1: Holds c2/c1 values
++ */
++struct drm_msm_3d_col {
++	__u32 c2_c1;
++	__u32 c0;
++};
++/**
++ * struct drm_msm_3d_gamut - 3d gamut feature structure
++ * @flags: flags for the feature values are:
++ *         0 - no map
++ *         GAMUT_3D_MAP_EN - enable map
++ * @mode: lut mode can take following values:
++ *        - GAMUT_3D_MODE_17
++ *        - GAMUT_3D_MODE_5
++ *        - GAMUT_3D_MODE_13
++ * @scale_off: Scale offset table
++ * @col: Color component tables
++ */
++struct drm_msm_3d_gamut {
++	__u64 flags;
++	__u32 mode;
++	__u32 scale_off[GAMUT_3D_SCALE_OFF_TBL_NUM][GAMUT_3D_SCALE_OFF_SZ];
++	struct drm_msm_3d_col col[GAMUT_3D_TBL_NUM][GAMUT_3D_MODE17_TBL_SZ];
++};
++
++#define PGC_TBL_LEN 512
++#define PGC_8B_ROUND (1 << 0)
++/**
++ * struct drm_msm_pgc_lut - pgc lut feature structure
++ * @flags: flags for the featue values can be:
++ *         - PGC_8B_ROUND
++ * @c0: color0 component lut
++ * @c1: color1 component lut
++ * @c2: color2 component lut
++ */
++struct drm_msm_pgc_lut {
++	__u64 flags;
++	__u32 c0[PGC_TBL_LEN];
++	__u32 c1[PGC_TBL_LEN];
++	__u32 c2[PGC_TBL_LEN];
++};
++
++#define IGC_TBL_LEN 256
++#define IGC_DITHER_ENABLE (1 << 0)
++/**
++ * struct drm_msm_igc_lut - igc lut feature structure
++ * @flags: flags for the feature customization, values can be:
++ *             - IGC_DITHER_ENABLE: Enable dither functionality
++ * @c0: color0 component lut
++ * @c1: color1 component lut
++ * @c2: color2 component lut
++ * @strength: dither strength, considered valid when IGC_DITHER_ENABLE
++ *            is set in flags. Strength value based on source bit width.
++ * @c0_last: color0 lut_last component
++ * @c1_last: color1 lut_last component
++ * @c2_last: color2 lut_last component
++ */
++struct drm_msm_igc_lut {
++	__u64 flags;
++	__u32 c0[IGC_TBL_LEN];
++	__u32 c1[IGC_TBL_LEN];
++	__u32 c2[IGC_TBL_LEN];
++	__u32 strength;
++	__u32 c0_last;
++	__u32 c1_last;
++	__u32 c2_last;
++};
++#define LAST_LUT 2
++
++#define HIST_V_SIZE 256
++/**
++ * struct drm_msm_hist - histogram feature structure
++ * @flags: for customizing operations
++ * @data: histogram data
++ */
++struct drm_msm_hist {
++	__u64 flags;
++	__u32 data[HIST_V_SIZE];
++};
++
++#define AD4_LUT_GRP0_SIZE 33
++#define AD4_LUT_GRP1_SIZE 32
++/*
++ * struct drm_msm_ad4_init - ad4 init structure set by user-space client.
++ *                           Init param values can change based on tuning
++ *                           hence it is passed by user-space clients.
++ */
++struct drm_msm_ad4_init {
++	__u32 init_param_001[AD4_LUT_GRP0_SIZE];
++	__u32 init_param_002[AD4_LUT_GRP0_SIZE];
++	__u32 init_param_003[AD4_LUT_GRP0_SIZE];
++	__u32 init_param_004[AD4_LUT_GRP0_SIZE];
++	__u32 init_param_005[AD4_LUT_GRP1_SIZE];
++	__u32 init_param_006[AD4_LUT_GRP1_SIZE];
++	__u32 init_param_007[AD4_LUT_GRP0_SIZE];
++	__u32 init_param_008[AD4_LUT_GRP0_SIZE];
++	__u32 init_param_009;
++	__u32 init_param_010;
++	__u32 init_param_011;
++	__u32 init_param_012;
++	__u32 init_param_013;
++	__u32 init_param_014;
++	__u32 init_param_015;
++	__u32 init_param_016;
++	__u32 init_param_017;
++	__u32 init_param_018;
++	__u32 init_param_019;
++	__u32 init_param_020;
++	__u32 init_param_021;
++	__u32 init_param_022;
++	__u32 init_param_023;
++	__u32 init_param_024;
++	__u32 init_param_025;
++	__u32 init_param_026;
++	__u32 init_param_027;
++	__u32 init_param_028;
++	__u32 init_param_029;
++	__u32 init_param_030;
++	__u32 init_param_031;
++	__u32 init_param_032;
++	__u32 init_param_033;
++	__u32 init_param_034;
++	__u32 init_param_035;
++	__u32 init_param_036;
++	__u32 init_param_037;
++	__u32 init_param_038;
++	__u32 init_param_039;
++	__u32 init_param_040;
++	__u32 init_param_041;
++	__u32 init_param_042;
++	__u32 init_param_043;
++	__u32 init_param_044;
++	__u32 init_param_045;
++	__u32 init_param_046;
++	__u32 init_param_047;
++	__u32 init_param_048;
++	__u32 init_param_049;
++	__u32 init_param_050;
++	__u32 init_param_051;
++	__u32 init_param_052;
++	__u32 init_param_053;
++	__u32 init_param_054;
++	__u32 init_param_055;
++	__u32 init_param_056;
++	__u32 init_param_057;
++	__u32 init_param_058;
++	__u32 init_param_059;
++	__u32 init_param_060;
++	__u32 init_param_061;
++	__u32 init_param_062;
++	__u32 init_param_063;
++	__u32 init_param_064;
++	__u32 init_param_065;
++	__u32 init_param_066;
++	__u32 init_param_067;
++	__u32 init_param_068;
++	__u32 init_param_069;
++	__u32 init_param_070;
++	__u32 init_param_071;
++	__u32 init_param_072;
++	__u32 init_param_073;
++	__u32 init_param_074;
++	__u32 init_param_075;
++};
++
++/*
++ * struct drm_msm_ad4_cfg - ad4 config structure set by user-space client.
++ *                           Config param values can vary based on tuning,
++ *                           hence it is passed by user-space clients.
++ */
++struct drm_msm_ad4_cfg {
++	__u32 cfg_param_001;
++	__u32 cfg_param_002;
++	__u32 cfg_param_003;
++	__u32 cfg_param_004;
++	__u32 cfg_param_005;
++	__u32 cfg_param_006;
++	__u32 cfg_param_007;
++	__u32 cfg_param_008;
++	__u32 cfg_param_009;
++	__u32 cfg_param_010;
++	__u32 cfg_param_011;
++	__u32 cfg_param_012;
++	__u32 cfg_param_013;
++	__u32 cfg_param_014;
++	__u32 cfg_param_015;
++	__u32 cfg_param_016;
++	__u32 cfg_param_017;
++	__u32 cfg_param_018;
++	__u32 cfg_param_019;
++	__u32 cfg_param_020;
++	__u32 cfg_param_021;
++	__u32 cfg_param_022;
++	__u32 cfg_param_023;
++	__u32 cfg_param_024;
++	__u32 cfg_param_025;
++	__u32 cfg_param_026;
++	__u32 cfg_param_027;
++	__u32 cfg_param_028;
++	__u32 cfg_param_029;
++	__u32 cfg_param_030;
++	__u32 cfg_param_031;
++	__u32 cfg_param_032;
++	__u32 cfg_param_033;
++	__u32 cfg_param_034;
++	__u32 cfg_param_035;
++	__u32 cfg_param_036;
++	__u32 cfg_param_037;
++	__u32 cfg_param_038;
++	__u32 cfg_param_039;
++	__u32 cfg_param_040;
++	__u32 cfg_param_041;
++	__u32 cfg_param_042;
++	__u32 cfg_param_043;
++	__u32 cfg_param_044;
++	__u32 cfg_param_045;
++	__u32 cfg_param_046;
++	__u32 cfg_param_047;
++	__u32 cfg_param_048;
++	__u32 cfg_param_049;
++	__u32 cfg_param_050;
++	__u32 cfg_param_051;
++	__u32 cfg_param_052;
++	__u32 cfg_param_053;
++};
++
++#define DITHER_MATRIX_SZ 16
++#define DITHER_LUMA_MODE (1 << 0)
++
++/**
++ * struct drm_msm_dither - dither feature structure
++ * @flags: flags for the feature customization, values can be:
++	   -DITHER_LUMA_MODE: Enable LUMA dither mode
++ * @temporal_en: temperal dither enable
++ * @c0_bitdepth: c0 component bit depth
++ * @c1_bitdepth: c1 component bit depth
++ * @c2_bitdepth: c2 component bit depth
++ * @c3_bitdepth: c2 component bit depth
++ * @matrix: dither strength matrix
++ */
++struct drm_msm_dither {
++	__u64 flags;
++	__u32 temporal_en;
++	__u32 c0_bitdepth;
++	__u32 c1_bitdepth;
++	__u32 c2_bitdepth;
++	__u32 c3_bitdepth;
++	__u32 matrix[DITHER_MATRIX_SZ];
++};
++
++/**
++ * struct drm_msm_pa_dither - dspp dither feature structure
++ * @flags: for customizing operations
++ * @strength: dither strength
++ * @offset_en: offset enable bit
++ * @matrix: dither data matrix
++ */
++#define DRM_MSM_PA_DITHER
++struct drm_msm_pa_dither {
++	__u64 flags;
++	__u32 strength;
++	__u32 offset_en;
++	__u32 matrix[DITHER_MATRIX_SZ];
++};
++
++/**
++ * struct drm_msm_ad4_roi_cfg - ad4 roi params config set
++ * by user-space client.
++ * @h_x - hotizontal direction start
++ * @h_y - hotizontal direction end
++ * @v_x - vertical direction start
++ * @v_y - vertical direction end
++ * @factor_in - the alpha value for inside roi region
++ * @factor_out - the alpha value for outside roi region
++ */
++#define DRM_MSM_AD4_ROI
++struct drm_msm_ad4_roi_cfg {
++	__u32 h_x;
++	__u32 h_y;
++	__u32 v_x;
++	__u32 v_y;
++	__u32 factor_in;
++	__u32 factor_out;
++};
++
++#define LTM_FEATURE_DEF 1
++#define LTM_DATA_SIZE_0 32
++#define LTM_DATA_SIZE_1 128
++#define LTM_DATA_SIZE_2 256
++#define LTM_DATA_SIZE_3 33
++#define LTM_BUFFER_SIZE 5
++#define LTM_GUARD_BYTES 255
++#define LTM_BLOCK_SIZE 4
++
++#define LTM_STATS_SAT (1 << 1)
++#define LTM_STATS_MERGE_SAT (1 << 2)
++#define LTM_HIST_CHECKSUM_SUPPORT (1 << 0)
++
++/*
++ * struct drm_msm_ltm_stats_data - LTM stats data structure
++ */
++struct drm_msm_ltm_stats_data {
++	__u32 stats_01[LTM_DATA_SIZE_0][LTM_DATA_SIZE_1];
++	__u32 stats_02[LTM_DATA_SIZE_2];
++	__u32 stats_03[LTM_DATA_SIZE_0];
++	__u32 stats_04[LTM_DATA_SIZE_0];
++	__u32 stats_05[LTM_DATA_SIZE_0];
++	__u32 status_flag;
++	__u32 display_h;
++	__u32 display_v;
++	__u32 init_h[LTM_BLOCK_SIZE];
++	__u32 init_v;
++	__u32 inc_h;
++	__u32 inc_v;
++	__u32 portrait_en;
++	__u32 merge_en;
++	__u32 cfg_param_01;
++	__u32 cfg_param_02;
++	__u32 cfg_param_03;
++	__u32 cfg_param_04;
++	__u32 feature_flag;
++	__u32 checksum;
++};
++
++/*
++ * struct drm_msm_ltm_init_param - LTM init param structure
++ */
++struct drm_msm_ltm_init_param {
++	__u32 init_param_01;
++	__u32 init_param_02;
++	__u32 init_param_03;
++	__u32 init_param_04;
++};
++
++/*
++ * struct drm_msm_ltm_cfg_param - LTM config param structure
++ */
++struct  drm_msm_ltm_cfg_param {
++	__u32 cfg_param_01;
++	__u32 cfg_param_02;
++	__u32 cfg_param_03;
++	__u32 cfg_param_04;
++	__u32 cfg_param_05;
++	__u32 cfg_param_06;
++};
++
++/*
++ * struct drm_msm_ltm_data - LTM data structure
++ */
++struct drm_msm_ltm_data {
++	__u32 data[LTM_DATA_SIZE_0][LTM_DATA_SIZE_3];
++};
++
++/*
++ * struct drm_msm_ltm_buffers_crtl - LTM buffer control structure.
++ *                                   This struct will be used to init and
++ *                                   de-init the LTM buffers in driver.
++ * @num_of_buffers: valid number of buffers used
++ * @fds: fd array to for all the valid buffers
++ */
++struct drm_msm_ltm_buffers_ctrl {
++	__u32 num_of_buffers;
++	__u32 fds[LTM_BUFFER_SIZE];
++};
++
++/*
++ * struct drm_msm_ltm_buffer - LTM buffer structure.
++ *                             This struct will be passed from driver to user
++ *                             space for LTM stats data notification.
++ * @fd: fd assicated with the buffer that has LTM stats data
++ * @offset: offset from base address that used for alignment
++ * @status status flag for error indication
++ */
++struct drm_msm_ltm_buffer {
++	__u32 fd;
++	__u32 offset;
++	__u32 status;
++};
++
++#define SPR_INIT_PARAM_SIZE_1 4
++#define SPR_INIT_PARAM_SIZE_2 5
++#define SPR_INIT_PARAM_SIZE_3 16
++#define SPR_INIT_PARAM_SIZE_4 24
++#define SPR_INIT_PARAM_SIZE_5 32
++#define SPR_FLAG_BYPASS (1 << 0)
++
++/**
++ * struct drm_msm_spr_init_cfg - SPR initial configuration structure
++ *
++ */
++struct drm_msm_spr_init_cfg {
++	__u64 flags;
++	__u16 cfg0;
++	__u16 cfg1;
++	__u16 cfg2;
++	__u16 cfg3;
++	__u16 cfg4;
++	__u16 cfg5;
++	__u16 cfg6;
++	__u16 cfg7;
++	__u16 cfg8;
++	__u16 cfg9;
++	__u32 cfg10;
++	__u16 cfg11[SPR_INIT_PARAM_SIZE_1];
++	__u16 cfg12[SPR_INIT_PARAM_SIZE_1];
++	__u16 cfg13[SPR_INIT_PARAM_SIZE_1];
++	__u16 cfg14[SPR_INIT_PARAM_SIZE_2];
++	__u16 cfg15[SPR_INIT_PARAM_SIZE_5];
++	int cfg16[SPR_INIT_PARAM_SIZE_3];
++	int cfg17[SPR_INIT_PARAM_SIZE_4];
++};
++
++#define FEATURE_DEM
++#define CFG0_PARAM_LEN 8
++#define CFG1_PARAM_LEN 8
++#define CFG1_PARAM0_LEN 153
++#define CFG0_PARAM2_LEN 256
++#define CFG5_PARAM01_LEN 4
++#define CFG3_PARAM01_LEN 4
++
++struct drm_msm_dem_cfg {
++	__u64 flags;
++	__u32 pentile;
++	__u32 cfg0_en;
++	__u32 cfg0_param0_len;
++	__u32 cfg0_param0[CFG0_PARAM_LEN];
++	__u32 cfg0_param1_len;
++	__u32 cfg0_param1[CFG0_PARAM_LEN];
++	__u32 cfg0_param2_len;
++	__u64 cfg0_param2_c0[CFG0_PARAM2_LEN];
++	__u64 cfg0_param2_c1[CFG0_PARAM2_LEN];
++	__u64 cfg0_param2_c2[CFG0_PARAM2_LEN];
++	__u32 cfg0_param3_len;
++	__u32 cfg0_param3_c0[CFG0_PARAM_LEN];
++	__u32 cfg0_param3_c1[CFG0_PARAM_LEN];
++	__u32 cfg0_param3_c2[CFG0_PARAM_LEN];
++	__u32 cfg0_param4_len;
++	__u32 cfg0_param4[CFG0_PARAM_LEN];
++
++	__u32 cfg1_en;
++	__u32 cfg1_high_idx;
++	__u32 cfg1_low_idx;
++	__u32 cfg01_param0_len;
++	__u32 cfg01_param0[CFG1_PARAM_LEN];
++	__u32 cfg1_param0_len;
++	__u32 cfg1_param0_c0[CFG1_PARAM0_LEN];
++	__u32 cfg1_param0_c1[CFG1_PARAM0_LEN];
++	__u32 cfg1_param0_c2[CFG1_PARAM0_LEN];
++
++	__u32 cfg2_en;
++	__u32 cfg3_en;
++	__u32 cfg3_param0_len;
++	__u32 cfg3_param0_a[CFG3_PARAM01_LEN];
++	__u32 cfg3_param0_b[CFG3_PARAM01_LEN];
++	__u32 cfg3_ab_adj;
++	__u32 cfg4_en;
++	__u32 cfg5_en;
++	__u32 cfg5_param0_len;
++	__u32 cfg5_param0[CFG5_PARAM01_LEN];
++	__u32 cfg5_param1_len;
++	__u32 cfg5_param1[CFG5_PARAM01_LEN];
++
++	__u32 c0_depth;
++	__u32 c1_depth;
++	__u32 c2_depth;
++	__u32 src_id;
++};
++
++/**
++ * struct drm_msm_ad4_manual_str_cfg - ad4 manual strength config set
++ * by user-space client.
++ * @in_str - strength for inside roi region
++ * @out_str - strength for outside roi region
++ */
++#define DRM_MSM_AD4_MANUAL_STRENGTH
++struct drm_msm_ad4_manual_str_cfg {
++	__u32 in_str;
++	__u32 out_str;
++};
++
++#define RC_DATA_SIZE_MAX   2720
++#define RC_CFG_SIZE_MAX       4
++
++struct drm_msm_rc_mask_cfg {
++	__u64 flags;
++	__u32 cfg_param_01;
++	__u32 cfg_param_02;
++	__u32 cfg_param_03;
++	__u32 cfg_param_04[RC_CFG_SIZE_MAX];
++	__u32 cfg_param_05[RC_CFG_SIZE_MAX];
++	__u32 cfg_param_06[RC_CFG_SIZE_MAX];
++	__u64 cfg_param_07;
++	__u32 cfg_param_08;
++	__u64 cfg_param_09[RC_DATA_SIZE_MAX];
++	__u32 height;
++	__u32 width;
++};
++
++#define FP16_SUPPORTED
++#define FP16_GC_FLAG_ALPHA_EN (1 << 0)
++
++ /* FP16 GC mode options */
++#define FP16_GC_MODE_INVALID 0
++#define FP16_GC_MODE_SRGB 1
++#define FP16_GC_MODE_PQ 2
++
++/**
++ * struct drm_msm_fp16_gc - FP16 GC configuration structure
++ * @in flags - Settings flags for FP16 GC
++ * @in mode - Gamma correction mode to use for FP16 GC
++ */
++struct drm_msm_fp16_gc {
++	__u64 flags;
++	__u64 mode;
++};
++
++/**
++ * struct drm_msm_fp16_csc - FP16 CSC configuration structure
++ * @in flags - Settings flags for FP16 CSC. Currently unused
++ * @in cfg_param_0_len - Length of data for cfg_param_0
++ * @in cfg_param_0 - Data for param 0. Max size is FP16_CSC_CFG0_PARAM_LEN
++ * @in cfg_param_1_len - Length of data for cfg_param_1
++ * @in cfg_param_1 - Data for param 1. Max size is FP16_CSC_CFG1_PARAM_LEN
++ */
++#define FP16_CSC_CFG0_PARAM_LEN 12
++#define FP16_CSC_CFG1_PARAM_LEN 8
++struct drm_msm_fp16_csc {
++	__u64 flags;
++	__u32 cfg_param_0_len;
++	__u32 cfg_param_0[FP16_CSC_CFG0_PARAM_LEN];
++	__u32 cfg_param_1_len;
++	__u32 cfg_param_1[FP16_CSC_CFG1_PARAM_LEN];
++};
++
++#define DIMMING_ENABLE (1 << 0)
++#define DIMMING_MIN_BL_VALID (1 << 1)
++struct drm_msm_backlight_info {
++	__u32 brightness_max;
++	__u32 brightness;
++	__u32 bl_level_max;
++	__u32 bl_level;
++	__u32 bl_scale;
++	__u32 bl_scale_sv;
++	__u32 status;
++	__u32 min_bl;
++	__u32 bl_scale_max;
++	__u32 bl_scale_sv_max;
++};
++
++#define DIMMING_BL_LUT_LEN 8192
++struct drm_msm_dimming_bl_lut {
++	__u32 length;
++	__u32 mapped_bl[DIMMING_BL_LUT_LEN];
++};
++
++struct drm_msm_opr_value {
++	__u32 num_valid_opr;
++	__u32 opr_value[MAX_DSI_DISPLAY];
++};
++
++#define SDE_MAX_ROI 4
++struct drm_msm_roi {
++	__u32 num_rects;
++	struct drm_clip_rect roi[SDE_MAX_ROI];
++};
++
++struct drm_msm_misr_sign {
++	__u64 num_valid_misr;
++	struct drm_msm_roi roi_list;
++	__u64 misr_sign_value[MAX_DSI_DISPLAY];
++};
++
++#endif /* _MSM_DRM_PP_H_ */
+diff --git a/include/display/drm/sde_drm.h b/include/display/drm/sde_drm.h
+new file mode 100644
+index 00000000..5eee6bd8
+--- /dev/null
++++ b/include/display/drm/sde_drm.h
+@@ -0,0 +1,955 @@
++/* SPDX-License-Identifier: GPL-2.0-only WITH Linux-syscall-note */
++/*
++ * Copyright (c) 2021-2022 Qualcomm Innovation Center, Inc. All rights reserved.
++ * Copyright (c) 2017-2021, The Linux Foundation. All rights reserved.
++ */
++
++#ifndef _SDE_DRM_H_
++#define _SDE_DRM_H_
++
++#include <drm/drm.h>
++
++#if defined(__cplusplus)
++extern "C" {
++#endif
++
++/* Total number of supported color planes */
++#define SDE_MAX_PLANES  4
++
++/* Total number of parameterized detail enhancer mapping curves */
++#define SDE_MAX_DE_CURVES 3
++
++ /* Y/RGB and UV filter configuration */
++#define FILTER_EDGE_DIRECTED_2D		0x0
++#define FILTER_CIRCULAR_2D		0x1
++#define FILTER_SEPARABLE_1D		0x2
++#define FILTER_BILINEAR			0x3
++
++/* Alpha filters */
++#define FILTER_ALPHA_DROP_REPEAT	0x0
++#define FILTER_ALPHA_BILINEAR		0x1
++#define FILTER_ALPHA_2D			0x3
++
++/* Blend filters */
++#define FILTER_BLEND_CIRCULAR_2D	0x0
++#define FILTER_BLEND_SEPARABLE_1D	0x1
++
++/* LUT configuration flags */
++#define SCALER_LUT_SWAP			0x1
++#define SCALER_LUT_DIR_WR		0x2
++#define SCALER_LUT_Y_CIR_WR		0x4
++#define SCALER_LUT_UV_CIR_WR		0x8
++#define SCALER_LUT_Y_SEP_WR		0x10
++#define SCALER_LUT_UV_SEP_WR		0x20
++
++/**
++ * DRM format modifier tokens
++ *
++ * @DRM_FORMAT_MOD_QCOM_DX:         Refers to a DX variant of the base format.
++ *                                  Implementation may be platform and
++ *                                  base-format specific.
++ */
++#define DRM_FORMAT_MOD_QCOM_DX	fourcc_mod_code(QCOM, 0x2)
++
++/**
++ * @DRM_FORMAT_MOD_QCOM_TIGHT:      Refers to a tightly packed variant of the
++ *                                  base variant. Implementation may be
++ *                                  platform and base-format specific.
++ */
++#define DRM_FORMAT_MOD_QCOM_TIGHT	fourcc_mod_code(QCOM, 0x4)
++
++/**
++ * @DRM_FORMAT_MOD_QCOM_TILE:       Refers to a tile variant of the base format.
++ *                                  Implementation may be platform and
++ *                                  base-format specific.
++ */
++#define DRM_FORMAT_MOD_QCOM_TILE	fourcc_mod_code(QCOM, 0x8)
++
++/**
++ * @DRM_FORMAT_MOD_QCOM_ALPHA_SWAP:	Refers to a pixel format for which
++ *					its alpha ordering has been reversed.
++ *					Implementation may be platform and
++ *					base-format specific.
++ */
++#define DRM_FORMAT_MOD_QCOM_ALPHA_SWAP	fourcc_mod_code(QCOM, 0x10)
++
++/**
++ * Blend operations for "blend_op" property
++ *
++ * @SDE_DRM_BLEND_OP_NOT_DEFINED:   No blend operation defined for the layer.
++ * @SDE_DRM_BLEND_OP_OPAQUE:        Apply a constant blend operation. The layer
++ *                                  would appear opaque in case fg plane alpha
++ *                                  is 0xff.
++ * @SDE_DRM_BLEND_OP_PREMULTIPLIED: Apply source over blend rule. Layer already
++ *                                  has alpha pre-multiplication done. If the fg
++ *                                  plane alpha is less than 0xff, apply
++ *                                  modulation as well. This operation is
++ *                                  intended on layers having alpha channel.
++ * @SDE_DRM_BLEND_OP_COVERAGE:      Apply source over blend rule. Layer is not
++ *                                  alpha pre-multiplied. Apply
++ *                                  pre-multiplication. If fg plane alpha is
++ *                                  less than 0xff, apply modulation as well.
++ * @SDE_DRM_BLEND_OP_MAX:           Used to track maximum blend operation
++ *                                  possible by mdp.
++ * @SDE_DRM_BLEND_OP_SKIP:          Skip staging the layer in the layer mixer.
++ */
++#define SDE_DRM_BLEND_OP_NOT_DEFINED    0
++#define SDE_DRM_BLEND_OP_OPAQUE         1
++#define SDE_DRM_BLEND_OP_PREMULTIPLIED  2
++#define SDE_DRM_BLEND_OP_COVERAGE       3
++#define SDE_DRM_BLEND_OP_MAX            4
++#define SDE_DRM_BLEND_OP_SKIP           5
++
++/**
++ * Bit masks for "src_config" property
++ * construct bitmask via (1UL << SDE_DRM_<flag>)
++ */
++#define SDE_DRM_DEINTERLACE         0   /* Specifies interlaced input */
++
++/* DRM bitmasks are restricted to 0..63 */
++#define SDE_DRM_BITMASK_COUNT       64
++
++/**
++ * Framebuffer modes for "fb_translation_mode" PLANE and CONNECTOR property
++ *
++ * @SDE_DRM_FB_NON_SEC:          IOMMU configuration for this framebuffer mode
++ *                               is non-secure domain and requires
++ *                               both stage I and stage II translations when
++ *                               this buffer is accessed by the display HW.
++ *                               This is the default mode of all frambuffers.
++ * @SDE_DRM_FB_SEC:              IOMMU configuration for this framebuffer mode
++ *                               is secure domain and requires
++ *                               both stage I and stage II translations when
++ *                               this buffer is accessed by the display HW.
++ * @SDE_DRM_FB_NON_SEC_DIR_TRANS: IOMMU configuration for this framebuffer mode
++ *                               is non-secure domain and requires
++ *                               only stage II translation when
++ *                               this buffer is accessed by the display HW.
++ * @SDE_DRM_FB_SEC_DIR_TRANS:    IOMMU configuration for this framebuffer mode
++ *                               is secure domain and requires
++ *                               only stage II translation when
++ *                               this buffer is accessed by the display HW.
++ */
++
++#define SDE_DRM_FB_NON_SEC              0
++#define SDE_DRM_FB_SEC                  1
++#define SDE_DRM_FB_NON_SEC_DIR_TRANS    2
++#define SDE_DRM_FB_SEC_DIR_TRANS        3
++
++/**
++ * Secure levels for "security_level" CRTC property.
++ *                        CRTC property which specifies what plane types
++ *                        can be attached to this CRTC. Plane component
++ *                        derives the plane type based on the FB_MODE.
++ * @ SDE_DRM_SEC_NON_SEC: Both Secure and non-secure plane types can be
++ *                        attached to this CRTC. This is the default state of
++ *                        the CRTC.
++ * @ SDE_DRM_SEC_ONLY:    Only secure planes can be added to this CRTC. If a
++ *                        CRTC is instructed to be in this mode it follows the
++ *                        platform dependent restrictions.
++ */
++#define SDE_DRM_SEC_NON_SEC            0
++#define SDE_DRM_SEC_ONLY               1
++
++/**
++ * struct sde_drm_pix_ext_v1 - version 1 of pixel ext structure
++ * @num_ext_pxls_lr: Number of total horizontal pixels
++ * @num_ext_pxls_tb: Number of total vertical lines
++ * @left_ftch:       Number of extra pixels to overfetch from left
++ * @right_ftch:      Number of extra pixels to overfetch from right
++ * @top_ftch:        Number of extra lines to overfetch from top
++ * @btm_ftch:        Number of extra lines to overfetch from bottom
++ * @left_rpt:        Number of extra pixels to repeat from left
++ * @right_rpt:       Number of extra pixels to repeat from right
++ * @top_rpt:         Number of extra lines to repeat from top
++ * @btm_rpt:         Number of extra lines to repeat from bottom
++ */
++struct sde_drm_pix_ext_v1 {
++	/*
++	 * Number of pixels ext in left, right, top and bottom direction
++	 * for all color components.
++	 */
++	__s32 num_ext_pxls_lr[SDE_MAX_PLANES];
++	__s32 num_ext_pxls_tb[SDE_MAX_PLANES];
++
++	/*
++	 * Number of pixels needs to be overfetched in left, right, top
++	 * and bottom directions from source image for scaling.
++	 */
++	__s32 left_ftch[SDE_MAX_PLANES];
++	__s32 right_ftch[SDE_MAX_PLANES];
++	__s32 top_ftch[SDE_MAX_PLANES];
++	__s32 btm_ftch[SDE_MAX_PLANES];
++	/*
++	 * Number of pixels needs to be repeated in left, right, top and
++	 * bottom directions for scaling.
++	 */
++	__s32 left_rpt[SDE_MAX_PLANES];
++	__s32 right_rpt[SDE_MAX_PLANES];
++	__s32 top_rpt[SDE_MAX_PLANES];
++	__s32 btm_rpt[SDE_MAX_PLANES];
++
++};
++
++/**
++ * struct sde_drm_scaler_v1 - version 1 of struct sde_drm_scaler
++ * @lr:            Pixel extension settings for left/right
++ * @tb:            Pixel extension settings for top/botton
++ * @init_phase_x:  Initial scaler phase values for x
++ * @phase_step_x:  Phase step values for x
++ * @init_phase_y:  Initial scaler phase values for y
++ * @phase_step_y:  Phase step values for y
++ * @horz_filter:   Horizontal filter array
++ * @vert_filter:   Vertical filter array
++ */
++struct sde_drm_scaler_v1 {
++	/*
++	 * Pix ext settings
++	 */
++	struct sde_drm_pix_ext_v1 pe;
++	/*
++	 * Phase settings
++	 */
++	__s32 init_phase_x[SDE_MAX_PLANES];
++	__s32 phase_step_x[SDE_MAX_PLANES];
++	__s32 init_phase_y[SDE_MAX_PLANES];
++	__s32 phase_step_y[SDE_MAX_PLANES];
++
++	/*
++	 * Filter type to be used for scaling in horizontal and vertical
++	 * directions
++	 */
++	__u32 horz_filter[SDE_MAX_PLANES];
++	__u32 vert_filter[SDE_MAX_PLANES];
++};
++
++/**
++ * struct sde_drm_de_v1 - version 1 of detail enhancer structure
++ * @enable:         Enables/disables detail enhancer
++ * @sharpen_level1: Sharpening strength for noise
++ * @sharpen_level2: Sharpening strength for context
++ * @clip:           Clip coefficient
++ * @limit:          Detail enhancer limit factor
++ * @thr_quiet:      Quite zone threshold
++ * @thr_dieout:     Die-out zone threshold
++ * @thr_low:        Linear zone left threshold
++ * @thr_high:       Linear zone right threshold
++ * @prec_shift:     Detail enhancer precision
++ * @adjust_a:       Mapping curves A coefficients
++ * @adjust_b:       Mapping curves B coefficients
++ * @adjust_c:       Mapping curves C coefficients
++ */
++struct sde_drm_de_v1 {
++	__u32 enable;
++	__s16 sharpen_level1;
++	__s16 sharpen_level2;
++	__u16 clip;
++	__u16 limit;
++	__u16 thr_quiet;
++	__u16 thr_dieout;
++	__u16 thr_low;
++	__u16 thr_high;
++	__u16 prec_shift;
++	__s16 adjust_a[SDE_MAX_DE_CURVES];
++	__s16 adjust_b[SDE_MAX_DE_CURVES];
++	__s16 adjust_c[SDE_MAX_DE_CURVES];
++};
++
++/*
++ * Scaler configuration flags
++ */
++
++/* Disable dynamic expansion */
++#define SDE_DYN_EXP_DISABLE 0x1
++
++#define SDE_DE_LPF_BLEND_FILT
++#define SDE_DE_LPF_BLEND_FLAG_EN (1 << 0)
++
++#define SDE_DRM_QSEED3LITE
++#define SDE_DRM_QSEED4
++#define SDE_DRM_INLINE_PREDOWNSCALE
++
++/**
++ * struct sde_drm_scaler_v2 - version 2 of struct sde_drm_scaler
++ * @enable:            Scaler enable
++ * @dir_en:            Detail enhancer enable
++ * @pe:                Pixel extension settings
++ * @horz_decimate:     Horizontal decimation factor
++ * @vert_decimate:     Vertical decimation factor
++ * @init_phase_x:      Initial scaler phase values for x
++ * @phase_step_x:      Phase step values for x
++ * @init_phase_y:      Initial scaler phase values for y
++ * @phase_step_y:      Phase step values for y
++ * @preload_x:         Horizontal preload value
++ * @preload_y:         Vertical preload value
++ * @src_width:         Source width
++ * @src_height:        Source height
++ * @dst_width:         Destination width
++ * @dst_height:        Destination height
++ * @y_rgb_filter_cfg:  Y/RGB plane filter configuration
++ * @uv_filter_cfg:     UV plane filter configuration
++ * @alpha_filter_cfg:  Alpha filter configuration
++ * @blend_cfg:         Selection of blend coefficients
++ * @lut_flag:          LUT configuration flags
++ * @dir_lut_idx:       2d 4x4 LUT index
++ * @y_rgb_cir_lut_idx: Y/RGB circular LUT index
++ * @uv_cir_lut_idx:    UV circular LUT index
++ * @y_rgb_sep_lut_idx: Y/RGB separable LUT index
++ * @uv_sep_lut_idx:    UV separable LUT index
++ * @de:                Detail enhancer settings
++ * @dir_weight:        Directional Weight
++ * @unsharp_mask_blend: Unsharp Blend Filter Ratio
++ * @de_blend:          Ratio of two unsharp mask filters
++ * @flags:             Scaler configuration flags
++ * @pre_downscale_x_0  Pre-downscale ratio, x-direction, plane 0(Y/RGB)
++ * @pre_downscale_x_1  Pre-downscale ratio, x-direction, plane 1(UV)
++ * @pre_downscale_y_0  Pre-downscale ratio, y-direction, plane 0(Y/RGB)
++ * @pre_downscale_y_1  Pre-downscale ratio, y-direction, plane 1(UV)
++ * @de_lpf_flags:      Detail enhancer lpf blned configuration flags
++ * @de_lpf_h:          Detail enhancer lpf blend high
++ * @de_lpf_l:          Detail enhancer lpf blend low
++ * @de_lpf_m:          Detail enhancer lpf blend medium
++ */
++struct sde_drm_scaler_v2 {
++	/*
++	 * General definitions
++	 */
++	__u32 enable;
++	__u32 dir_en;
++
++	/*
++	 * Pix ext settings
++	 */
++	struct sde_drm_pix_ext_v1 pe;
++
++	/*
++	 * Decimation settings
++	 */
++	__u32 horz_decimate;
++	__u32 vert_decimate;
++
++	/*
++	 * Phase settings
++	 */
++	__s32 init_phase_x[SDE_MAX_PLANES];
++	__s32 phase_step_x[SDE_MAX_PLANES];
++	__s32 init_phase_y[SDE_MAX_PLANES];
++	__s32 phase_step_y[SDE_MAX_PLANES];
++
++	__u32 preload_x[SDE_MAX_PLANES];
++	__u32 preload_y[SDE_MAX_PLANES];
++	__u32 src_width[SDE_MAX_PLANES];
++	__u32 src_height[SDE_MAX_PLANES];
++
++	__u32 dst_width;
++	__u32 dst_height;
++
++	__u32 y_rgb_filter_cfg;
++	__u32 uv_filter_cfg;
++	__u32 alpha_filter_cfg;
++	__u32 blend_cfg;
++
++	__u32 lut_flag;
++	__u32 dir_lut_idx;
++
++	/* for Y(RGB) and UV planes*/
++	__u32 y_rgb_cir_lut_idx;
++	__u32 uv_cir_lut_idx;
++	__u32 y_rgb_sep_lut_idx;
++	__u32 uv_sep_lut_idx;
++
++	/*
++	 * Detail enhancer settings
++	 */
++	struct sde_drm_de_v1 de;
++	__u32 dir_weight;
++	__u32 unsharp_mask_blend;
++	__u32 de_blend;
++	__u32 flags;
++
++	/*
++	 * Inline pre-downscale settings
++	 */
++	__u32 pre_downscale_x_0;
++	__u32 pre_downscale_x_1;
++	__u32 pre_downscale_y_0;
++	__u32 pre_downscale_y_1;
++
++	__u32 de_lpf_flags;
++	__u32 de_lpf_h;
++	__u32 de_lpf_l;
++	__u32 de_lpf_m;
++};
++
++/* Number of dest scalers supported */
++#define SDE_MAX_DS_COUNT 4
++
++/*
++ * Destination scaler flag config
++ */
++#define SDE_DRM_DESTSCALER_ENABLE           0x1
++#define SDE_DRM_DESTSCALER_SCALE_UPDATE     0x2
++#define SDE_DRM_DESTSCALER_ENHANCER_UPDATE  0x4
++#define SDE_DRM_DESTSCALER_PU_ENABLE        0x8
++
++/**
++ * struct sde_drm_dest_scaler_cfg - destination scaler config structure
++ * @flags:      Flag to switch between mode for destination scaler
++ *              refer to destination scaler flag config
++ * @index:      Destination scaler selection index
++ * @lm_width:   Layer mixer width configuration
++ * @lm_height:  Layer mixer height configuration
++ * @scaler_cfg: The scaling parameters for all the mode except disable
++ *              Userspace pointer to struct sde_drm_scaler_v2
++ */
++struct sde_drm_dest_scaler_cfg {
++	__u32 flags;
++	__u32 index;
++	__u32 lm_width;
++	__u32 lm_height;
++	__u64 scaler_cfg;
++};
++
++/**
++ * struct sde_drm_dest_scaler_data - destination scaler data struct
++ * @num_dest_scaler: Number of dest scalers to be configured
++ * @ds_cfg:          Destination scaler block configuration
++ */
++struct sde_drm_dest_scaler_data {
++	__u32 num_dest_scaler;
++	struct sde_drm_dest_scaler_cfg ds_cfg[SDE_MAX_DS_COUNT];
++};
++
++/*
++ * Define constants for struct sde_drm_csc
++ */
++#define SDE_CSC_MATRIX_COEFF_SIZE   9
++#define SDE_CSC_CLAMP_SIZE          6
++#define SDE_CSC_BIAS_SIZE           3
++
++/**
++ * struct sde_drm_csc_v1 - version 1 of struct sde_drm_csc
++ * @ctm_coeff:          Matrix coefficients, in S31.32 format
++ * @pre_bias:           Pre-bias array values
++ * @post_bias:          Post-bias array values
++ * @pre_clamp:          Pre-clamp array values
++ * @post_clamp:         Post-clamp array values
++ */
++struct sde_drm_csc_v1 {
++	__s64 ctm_coeff[SDE_CSC_MATRIX_COEFF_SIZE];
++	__u32 pre_bias[SDE_CSC_BIAS_SIZE];
++	__u32 post_bias[SDE_CSC_BIAS_SIZE];
++	__u32 pre_clamp[SDE_CSC_CLAMP_SIZE];
++	__u32 post_clamp[SDE_CSC_CLAMP_SIZE];
++};
++
++/**
++ * struct sde_drm_color - struct to store the color and alpha values
++ * @color_0: Color 0 value
++ * @color_1: Color 1 value
++ * @color_2: Color 2 value
++ * @color_3: Color 3 value
++ */
++struct sde_drm_color {
++	__u32 color_0;
++	__u32 color_1;
++	__u32 color_2;
++	__u32 color_3;
++};
++
++/* Total number of supported dim layers */
++#define SDE_MAX_DIM_LAYERS 7
++
++/* SDE_DRM_DIM_LAYER_CONFIG_FLAG - flags for Dim Layer */
++/* Color fill inside of the rect, including border */
++#define SDE_DRM_DIM_LAYER_INCLUSIVE     0x1
++/* Color fill outside of the rect, excluding border */
++#define SDE_DRM_DIM_LAYER_EXCLUSIVE     0x2
++
++ /* bitmask for allowed_dsc_reservation_switch property */
++#define SDE_DP_DSC_RESERVATION_SWITCH (1 << 0)
++
++/**
++ * struct sde_drm_dim_layer - dim layer cfg struct
++ * @flags:         Refer SDE_DRM_DIM_LAYER_CONFIG_FLAG for possible values
++ * @stage:         Blending stage of the dim layer
++ * @color_fill:    Color fill for dim layer
++ * @rect:          Dim layer coordinates
++ */
++struct sde_drm_dim_layer_cfg {
++	__u32 flags;
++	__u32 stage;
++	struct sde_drm_color color_fill;
++	struct drm_clip_rect rect;
++};
++
++/**
++ * struct sde_drm_dim_layer_v1 - version 1 of dim layer struct
++ * @num_layers:    Numer of Dim Layers
++ * @layer:         Dim layer user cfgs ptr for the num_layers
++ */
++struct sde_drm_dim_layer_v1 {
++	__u32 num_layers;
++	struct sde_drm_dim_layer_cfg layer_cfg[SDE_MAX_DIM_LAYERS];
++};
++
++/* Writeback Config version definition */
++#define SDE_DRM_WB_CFG		0x1
++
++/* SDE_DRM_WB_CONFIG_FLAGS - Writeback configuration flags */
++#define SDE_DRM_WB_CFG_FLAGS_CONNECTED	(1<<0)
++
++/**
++ * struct sde_drm_wb_cfg - Writeback configuration structure
++ * @flags:		see DRM_MSM_WB_CONFIG_FLAGS
++ * @connector_id:	writeback connector identifier
++ * @count_modes:	Count of modes in modes_ptr
++ * @modes:		Pointer to struct drm_mode_modeinfo
++ */
++struct sde_drm_wb_cfg {
++	__u32 flags;
++	__u32 connector_id;
++	__u32 count_modes;
++	__u64 modes;
++};
++
++#define SDE_MAX_ROI_V1	4
++
++/**
++ * struct sde_drm_roi_v1 - list of regions of interest for a drm object
++ * @num_rects: number of valid rectangles in the roi array
++ * @roi: list of roi rectangles
++ */
++struct sde_drm_roi_v1 {
++	__u32 num_rects;
++	struct drm_clip_rect roi[SDE_MAX_ROI_V1];
++};
++
++/**
++ * Define extended power modes supported by the SDE connectors.
++ */
++#define SDE_MODE_DPMS_ON	0
++#define SDE_MODE_DPMS_LP1	1
++#define SDE_MODE_DPMS_LP2	2
++#define SDE_MODE_DPMS_STANDBY	3
++#define SDE_MODE_DPMS_SUSPEND	4
++#define SDE_MODE_DPMS_OFF	5
++
++/**
++ * sde recovery events for notifying client
++ */
++#define SDE_RECOVERY_SUCCESS		0
++#define SDE_RECOVERY_CAPTURE		1
++#define SDE_RECOVERY_HARD_RESET		2
++
++/**
++ * Define UBWC statistics config
++ */
++#define UBWC_STATS_MAX_ROI		0x3
++
++/**
++ * struct sde_drm_ubwc_stats_roi - region of interest for ubwc stats
++ * y_coord0: first y offset from top of display
++ * y_coord1: second y offset from top of display
++ */
++struct sde_drm_ubwc_stats_roi {
++	__u16 y_coord0;
++	__u16 y_coord1;
++};
++
++/**
++ * struct sde_drm_ubwc_stats_data: ubwc statistics
++ * roi: region of interest
++ * worst_bw: worst bandwidth, per roi
++ * worst_bw_y_coord: y offset (row) location of worst bandwidth, per roi
++ * total_bw: total bandwidth, per roi
++ * error: error status
++ * meta_error: meta error data
++ */
++struct sde_drm_ubwc_stats_data {
++	struct sde_drm_ubwc_stats_roi roi;
++	__u16 worst_bw[UBWC_STATS_MAX_ROI];
++	__u16 worst_bw_y_coord[UBWC_STATS_MAX_ROI];
++	__u32 total_bw[UBWC_STATS_MAX_ROI];
++	__u32 error;
++	__u32 meta_error;
++};
++
++/**
++ * Define frame data config
++ */
++#define SDE_FRAME_DATA_BUFFER_MAX	0x3
++#define SDE_FRAME_DATA_GUARD_BYTES	0xFF
++#define SDE_FRAME_DATA_MAX_PLANES	0x14
++
++/**
++ * struct sde_drm_frame_data_buffers_ctrl - control frame data buffers
++ * num_buffers: number of allocated buffers
++ * fds: fd list for allocated buffers
++ */
++struct sde_drm_frame_data_buffers_ctrl {
++	__u32 num_buffers;
++	__u32 fds[SDE_FRAME_DATA_BUFFER_MAX];
++};
++
++/**
++ * struct sde_drm_frame_data_buf - frame data buffer info sent to userspace
++ * fd: buffer fd
++ * offset: offset from buffer address
++ * status: status flag
++ */
++struct sde_drm_frame_data_buf {
++	__u32 fd;
++	__u32 offset;
++	__u32 status;
++};
++
++/**
++ * struct sde_drm_plane_frame_data - definition of plane frame data struct
++ * plane_id: drm plane id
++ * ubwc_stats: ubwc statistics
++ */
++struct sde_drm_plane_frame_data {
++	__u32 plane_id;
++
++	struct sde_drm_ubwc_stats_data ubwc_stats;
++};
++
++/**
++ * struct sde_drm_frame_data_packet - definition of frame data struct
++ * frame_count: interface frame count
++ * commit_count: sw commit count
++ * plane_frame_data: data available per plane
++ */
++struct sde_drm_frame_data_packet {
++	__u32 frame_count;
++	__u64 commit_count;
++
++	struct sde_drm_plane_frame_data plane_frame_data[SDE_FRAME_DATA_MAX_PLANES];
++};
++
++/*
++ * Colorimetry Data Block values
++ * These bit nums are defined as per the CTA spec
++ * and indicate the colorspaces supported by the sink
++ */
++#define DRM_EDID_CLRMETRY_xvYCC_601   (1 << 0)
++#define DRM_EDID_CLRMETRY_xvYCC_709   (1 << 1)
++#define DRM_EDID_CLRMETRY_sYCC_601    (1 << 2)
++#define DRM_EDID_CLRMETRY_ADOBE_YCC_601  (1 << 3)
++#define DRM_EDID_CLRMETRY_ADOBE_RGB     (1 << 4)
++#define DRM_EDID_CLRMETRY_BT2020_CYCC (1 << 5)
++#define DRM_EDID_CLRMETRY_BT2020_YCC  (1 << 6)
++#define DRM_EDID_CLRMETRY_BT2020_RGB  (1 << 7)
++#define DRM_EDID_CLRMETRY_DCI_P3      (1 << 15)
++
++/*
++ * HDR Metadata
++ * These are defined as per EDID spec and shall be used by the sink
++ * to set the HDR metadata for playback from userspace.
++ */
++
++#define HDR_PRIMARIES_COUNT   3
++
++/* HDR EOTF */
++#define HDR_EOTF_SDR_LUM_RANGE	0x0
++#define HDR_EOTF_HDR_LUM_RANGE	0x1
++#define HDR_EOTF_SMTPE_ST2084	0x2
++#define HDR_EOTF_HLG		0x3
++
++#define DRM_MSM_EXT_HDR_METADATA
++#define DRM_MSM_EXT_HDR_PLUS_METADATA
++struct drm_msm_ext_hdr_metadata {
++	__u32 hdr_state;        /* HDR state */
++	__u32 eotf;             /* electro optical transfer function */
++	__u32 hdr_supported;    /* HDR supported */
++	__u32 display_primaries_x[HDR_PRIMARIES_COUNT]; /* Primaries x */
++	__u32 display_primaries_y[HDR_PRIMARIES_COUNT]; /* Primaries y */
++	__u32 white_point_x;    /* white_point_x */
++	__u32 white_point_y;    /* white_point_y */
++	__u32 max_luminance;    /* Max luminance */
++	__u32 min_luminance;    /* Min Luminance */
++	__u32 max_content_light_level; /* max content light level */
++	__u32 max_average_light_level; /* max average light level */
++
++	__u64 hdr_plus_payload;     /* user pointer to dynamic HDR payload */
++	__u32 hdr_plus_payload_size;/* size of dynamic HDR payload data */
++};
++
++/**
++ * HDR sink properties
++ * These are defined as per EDID spec and shall be used by the userspace
++ * to determine the HDR properties to be set to the sink.
++ */
++#define DRM_MSM_EXT_HDR_PROPERTIES
++#define DRM_MSM_EXT_HDR_PLUS_PROPERTIES
++struct drm_msm_ext_hdr_properties {
++	__u8 hdr_metadata_type_one;   /* static metadata type one */
++	__u32 hdr_supported;          /* HDR supported */
++	__u32 hdr_eotf;               /* electro optical transfer function */
++	__u32 hdr_max_luminance;      /* Max luminance */
++	__u32 hdr_avg_luminance;      /* Avg luminance */
++	__u32 hdr_min_luminance;      /* Min Luminance */
++
++	__u32 hdr_plus_supported;     /* HDR10+ supported */
++};
++
++/* HDR WRGB x and y index */
++#define DISPLAY_PRIMARIES_WX 0
++#define DISPLAY_PRIMARIES_WY 1
++#define DISPLAY_PRIMARIES_RX 2
++#define DISPLAY_PRIMARIES_RY 3
++#define DISPLAY_PRIMARIES_GX 4
++#define DISPLAY_PRIMARIES_GY 5
++#define DISPLAY_PRIMARIES_BX 6
++#define DISPLAY_PRIMARIES_BY 7
++#define DISPLAY_PRIMARIES_MAX 8
++
++struct drm_panel_hdr_properties {
++	__u32 hdr_enabled;
++
++	/* WRGB X and y values arrayed in format */
++	/* [WX, WY, RX, RY, GX, GY, BX, BY] */
++	__u32 display_primaries[DISPLAY_PRIMARIES_MAX];
++
++	/* peak brightness supported by panel */
++	__u32 peak_brightness;
++	/* Blackness level supported by panel */
++	__u32 blackness_level;
++};
++
++/**
++ * struct drm_msm_event_req - Payload to event enable/disable ioctls.
++ * @object_id: DRM object id. e.g.: for crtc pass crtc id.
++ * @object_type: DRM object type. e.g.: for crtc set it to DRM_MODE_OBJECT_CRTC.
++ * @event: Event for which notification is being enabled/disabled.
++ *         e.g.: for Histogram set - DRM_EVENT_HISTOGRAM.
++ * @client_context: Opaque pointer that will be returned during event response
++ *                  notification.
++ * @index: Object index(e.g.: crtc index), optional for user-space to set.
++ *         Driver will override value based on object_id and object_type.
++ */
++struct drm_msm_event_req {
++	__u32 object_id;
++	__u32 object_type;
++	__u32 event;
++	__u64 client_context;
++	__u32 index;
++};
++
++/**
++ * struct drm_msm_event_resp - payload returned when read is called for
++ *                            custom notifications.
++ * @base: Event type and length of complete notification payload.
++ * @info: Contains information about DRM that which raised this event.
++ * @data: Custom payload that driver returns for event type.
++ *        size of data = base.length - (sizeof(base) + sizeof(info))
++ */
++struct drm_msm_event_resp {
++	struct drm_event base;
++	struct drm_msm_event_req info;
++	__u8 data[];
++};
++
++/**
++ * struct drm_msm_power_ctrl: Payload to enable/disable the power vote
++ * @enable: enable/disable the power vote
++ * @flags:  operation control flags, for future use
++ */
++struct drm_msm_power_ctrl {
++	__u32 enable;
++	__u32 flags;
++};
++
++/**
++ * struct drm_msm_early_wakeup: Payload to early wake up display
++ * @wakeup_hint:  early wakeup hint.
++ * @connector_id: connector id. e.g.: for connector pass connector id.
++ */
++struct drm_msm_early_wakeup {
++	__u32 wakeup_hint;
++	__u32 connector_id;
++};
++
++/**
++ * struct drm_msm_display_hint: Payload for display hint
++ * @hint_flags:  display hint flags.
++ * @data: data struct. e.g.: for display hint parameter.
++ *        Userspace pointer to struct base on hint flags.
++ */
++struct drm_msm_display_hint {
++	__u64 data;
++	__u32 hint_flags;
++};
++
++#define DRM_NOISE_LAYER_CFG
++#define DRM_NOISE_TEMPORAL_FLAG (1 << 0)
++#define DRM_NOISE_ATTN_MAX 255
++#define DRM_NOISE_STREN_MAX 6
++
++/**
++ * struct drm_msm_noise_layer_cfg: Payload to enable/disable noise blend
++ * @flags: operation control flags, for future use
++ * @zposn: noise zorder
++ * @zposattn: attenuation zorder
++ * @attn_factor: attenuation factor in range of 1 to 255
++ * @stength: strength in range of 0 to 6
++ * @alpha_noise: attenuation in range of 1 to 255
++*/
++struct drm_msm_noise_layer_cfg {
++	__u64 flags;
++	__u32 zposn;
++	__u32 zposattn;
++	__u32 attn_factor;
++	__u32 strength;
++	__u32 alpha_noise;
++};
++
++#define FEATURE_DNSC_BLUR
++/* Downscale Blur - number of gaussian coefficient LUTs */
++#define DNSC_BLUR_COEF_NUM		64
++
++/* Downscale Blur flags */
++#define DNSC_BLUR_EN			(1 << 0)
++#define DNSC_BLUR_RND_8B_EN		(1 << 1)
++#define DNSC_BLUR_DITHER_EN		(1 << 2)
++
++#define DNSC_BLUR_MIRROR_BLK_CFG	(1 << 16)
++#define DNSC_BLUR_INDEPENDENT_BLK_CFG	(1 << 17)
++
++/* Downscale Blur horizontal/vertical filter flags */
++#define DNSC_BLUR_GAUS_FILTER		(1 << 0)
++#define DNSC_BLUR_PCMN_FILTER		(1 << 1)
++
++/* Downscale Blur Dither matrix size */
++#define DNSC_BLUR_DITHER_MATRIX_SZ	16
++
++/* Downscale Blur Dither flags */
++#define DNSC_BLUR_DITHER_LUMA_MODE	(1 << 0)
++
++/**
++ * struct sde_drm_dnsc_blur_cfg - Downscale Blur config structure
++ * @flags: Flags to indicate features enabled, values are
++ *          based on "Downscale Blur flags"
++ * @num_blocks: Active dnsc_blur blocks used for the display
++ * @src_width: Source width configuration
++ * @src_height: Source height configuration
++ * @dst_width: Destination width configuration
++ * @dst_height: Destination height configuration
++ * @flags_h: Flags for horizontal downscaling, values are
++ *            based on "Downscale Blur horizontal/vertical filter flags"
++ * @flags_v: Flags for veritcal downscaling
++ * @phase_init_h: Initial phase value for horizontal downscaling
++ * @phase_step_h: Phase step value for horizontal downscaling
++ * @phase_init_v: Initial phase value for vertical downscaling
++ * @phase_step_v: Phase step value for vertical downscaling
++ * @norm_h: Horizontal downscale normalization downshift value
++ * @ratio_h: Horizontal downscale ratio value
++ * @norm_v: Vertical downscale normalization downshift value
++ * @ratio_v: Vertical downscale ratio value
++ * @coef_hori: Horizontal downscale LUT coefficients
++ * @coef_vert: Vertical downscale LUT coefficients
++ * @dither_flags: Flags for dither customization, values are
++ *                 based on "Downscale Blur Dither flags"
++ * @temporal_en: Temperal dither enable
++ * @c0_bitdepth: c0 component bit depth
++ * @c1_bitdepth: c1 component bit depth
++ * @c2_bitdepth: c2 component bit depth
++ * @c3_bitdepth: c2 component bit depth
++ * @dither_matrix: Dither strength matrix
++ */
++struct sde_drm_dnsc_blur_cfg {
++	__u64 flags;
++	__u32 num_blocks;
++
++	__u32 src_width;
++	__u32 src_height;
++	__u32 dst_width;
++	__u32 dst_height;
++
++	__u32 flags_h;
++	__u32 flags_v;
++
++	/* pcmn filter parameters */
++	__u32 phase_init_h;
++	__u32 phase_step_h;
++	__u32 phase_init_v;
++	__u32 phase_step_v;
++
++	/* gaussian filter parameters */
++	__u32 norm_h;
++	__u32 ratio_h;
++	__u32 norm_v;
++	__u32 ratio_v;
++	__u32 coef_hori[DNSC_BLUR_COEF_NUM];
++	__u32 coef_vert[DNSC_BLUR_COEF_NUM];
++
++	/* dither configs */
++	__u64 dither_flags;
++	__u32 temporal_en;
++	__u32 c0_bitdepth;
++	__u32 c1_bitdepth;
++	__u32 c2_bitdepth;
++	__u32 c3_bitdepth;
++	__u32 dither_matrix[DNSC_BLUR_DITHER_MATRIX_SZ];
++};
++
++#define DRM_SDE_WB_CONFIG              0x40
++#define DRM_MSM_REGISTER_EVENT         0x41
++#define DRM_MSM_DEREGISTER_EVENT       0x42
++#define DRM_MSM_RMFB2                  0x43
++#define DRM_MSM_POWER_CTRL             0x44
++#define DRM_MSM_DISPLAY_HINT           0x45
++
++/* sde custom events */
++#define DRM_EVENT_HISTOGRAM 0x80000000
++#define DRM_EVENT_AD_BACKLIGHT 0x80000001
++#define DRM_EVENT_CRTC_POWER 0x80000002
++#define DRM_EVENT_SYS_BACKLIGHT 0x80000003
++#define DRM_EVENT_SDE_POWER 0x80000004
++#define DRM_EVENT_IDLE_NOTIFY 0x80000005
++#define DRM_EVENT_PANEL_DEAD 0x80000006 /* ESD event */
++#define DRM_EVENT_SDE_HW_RECOVERY 0X80000007
++#define DRM_EVENT_LTM_HIST 0X80000008
++#define DRM_EVENT_LTM_WB_PB 0X80000009
++#define DRM_EVENT_LTM_OFF 0X8000000A
++#define DRM_EVENT_MMRM_CB 0X8000000B
++#define DRM_EVENT_FRAME_DATA 0x8000000C
++#define DRM_EVENT_DIMMING_BL 0X8000000D
++#define DRM_EVENT_VM_RELEASE 0X8000000E
++#define DRM_EVENT_OPR_VALUE 0X8000000F
++#define DRM_EVENT_MISR_SIGN 0X80000010
++
++#ifndef DRM_MODE_FLAG_VID_MODE_PANEL
++#define DRM_MODE_FLAG_VID_MODE_PANEL        0x01
++#endif
++#ifndef DRM_MODE_FLAG_CMD_MODE_PANEL
++#define DRM_MODE_FLAG_CMD_MODE_PANEL        0x02
++#endif
++
++/* display hint flags*/
++#define DRM_MSM_DISPLAY_EARLY_WAKEUP_HINT         0x01
++#define DRM_MSM_DISPLAY_POWER_COLLAPSE_HINT       0x02
++#define DRM_MSM_DISPLAY_IDLE_TIMEOUT_HINT         0x04
++#define DRM_MSM_DISPLAY_MODE_CHANGE_HINT          0x08
++
++#define DRM_MSM_WAKE_UP_ALL_DISPLAYS        0xFFFFFFFF
++
++#define DRM_IOCTL_SDE_WB_CONFIG \
++	DRM_IOW((DRM_COMMAND_BASE + DRM_SDE_WB_CONFIG), struct sde_drm_wb_cfg)
++#define DRM_IOCTL_MSM_REGISTER_EVENT   DRM_IOW((DRM_COMMAND_BASE + \
++			DRM_MSM_REGISTER_EVENT), struct drm_msm_event_req)
++#define DRM_IOCTL_MSM_DEREGISTER_EVENT DRM_IOW((DRM_COMMAND_BASE + \
++			DRM_MSM_DEREGISTER_EVENT), struct drm_msm_event_req)
++#define DRM_IOCTL_MSM_RMFB2 DRM_IOW((DRM_COMMAND_BASE + \
++			DRM_MSM_RMFB2), unsigned int)
++#define DRM_IOCTL_MSM_POWER_CTRL DRM_IOW((DRM_COMMAND_BASE + \
++			DRM_MSM_POWER_CTRL), struct drm_msm_power_ctrl)
++#define DRM_IOCTL_MSM_DISPLAY_HINT DRM_IOW((DRM_COMMAND_BASE + \
++			DRM_MSM_DISPLAY_HINT), struct drm_msm_display_hint)
++
++#if defined(__cplusplus)
++}
++#endif
++
++#endif /* _SDE_DRM_H_ */
+diff --git a/include/display/media/mmm_color_fmt.h b/include/display/media/mmm_color_fmt.h
+new file mode 100644
+index 00000000..917b2d37
+--- /dev/null
++++ b/include/display/media/mmm_color_fmt.h
+@@ -0,0 +1,1472 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++/*
++ * Copyright (c) 2020-2021, The Linux Foundation. All rights reserved.
++ * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
++ */
++#ifndef __MMM_COLOR_FMT_INFO_H__
++#define __MMM_COLOR_FMT_INFO_H__
++
++/* Width and Height should be multiple of 16 */
++#define INTERLACE_WIDTH_MAX 1920
++#define INTERLACE_HEIGHT_MAX 1920
++#define INTERLACE_MB_PER_FRAME_MAX ((1920*1088)/256)
++
++#ifndef MMM_COLOR_FMT_ALIGN
++#define MMM_COLOR_FMT_ALIGN(__sz, __align) (((__align) & ((__align) - 1)) ?\
++	((((__sz) + (__align) - 1) / (__align)) * (__align)) :\
++	(((__sz) + (__align) - 1) & (~((__align) - 1))))
++#endif
++
++#ifndef MMM_COLOR_FMT_ROUNDUP
++#define MMM_COLOR_FMT_ROUNDUP(__sz, __r) (((__sz) + ((__r) - 1)) / (__r))
++#endif
++
++enum mmm_color_fmts {
++	/* Venus NV12:
++	 * YUV 4:2:0 image with a plane of 8 bit Y samples followed
++	 * by an interleaved U/V plane containing 8 bit 2x2 subsampled
++	 * colour difference samples.
++	 *
++	 * <-------- Y/UV_Stride -------->
++	 * <------- Width ------->
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  ^           ^
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |           |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  Height      |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |          Y_Scanlines
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |           |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |           |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |           |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  V           |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              V
++	 * U V U V U V U V U V U V . . . .  ^
++	 * U V U V U V U V U V U V . . . .  |
++	 * U V U V U V U V U V U V . . . .  |
++	 * U V U V U V U V U V U V . . . .  UV_Scanlines
++	 * . . . . . . . . . . . . . . . .  |
++	 * . . . . . . . . . . . . . . . .  V
++	 * . . . . . . . . . . . . . . . .  --> Buffer size alignment
++	 *
++	 * Y_Stride : Width aligned to 128
++	 * UV_Stride : Width aligned to 128
++	 * Y_Scanlines: Height aligned to 32
++	 * UV_Scanlines: Height/2 aligned to 16
++	 * Total size = align(Y_Stride * Y_Scanlines
++	 *          + UV_Stride * UV_Scanlines, 4096)
++	 */
++	MMM_COLOR_FMT_NV12,
++	/* Venus NV21:
++	 * YUV 4:2:0 image with a plane of 8 bit Y samples followed
++	 * by an interleaved V/U plane containing 8 bit 2x2 subsampled
++	 * colour difference samples.
++	 *
++	 * <-------- Y/UV_Stride -------->
++	 * <------- Width ------->
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  ^           ^
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |           |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  Height      |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |          Y_Scanlines
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |           |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |           |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |           |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  V           |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              V
++	 * V U V U V U V U V U V U . . . .  ^
++	 * V U V U V U V U V U V U . . . .  |
++	 * V U V U V U V U V U V U . . . .  |
++	 * V U V U V U V U V U V U . . . .  UV_Scanlines
++	 * . . . . . . . . . . . . . . . .  |
++	 * . . . . . . . . . . . . . . . .  V
++	 * . . . . . . . . . . . . . . . .  --> Padding & Buffer size alignment
++	 *
++	 * Y_Stride : Width aligned to 128
++	 * UV_Stride : Width aligned to 128
++	 * Y_Scanlines: Height aligned to 32
++	 * UV_Scanlines: Height/2 aligned to 16
++	 * Total size = align(Y_Stride * Y_Scanlines
++	 *          + UV_Stride * UV_Scanlines, 4096)
++	 */
++	MMM_COLOR_FMT_NV21,
++	/*
++	 * The buffer can be of 2 types:
++	 * (1) Venus NV12 UBWC Progressive
++	 * (2) Venus NV12 UBWC Interlaced
++	 *
++	 * (1) Venus NV12 UBWC Progressive Buffer Format:
++	 * Compressed Macro-tile format for NV12.
++	 * Contains 4 planes in the following order -
++	 * (A) Y_Meta_Plane
++	 * (B) Y_UBWC_Plane
++	 * (C) UV_Meta_Plane
++	 * (D) UV_UBWC_Plane
++	 *
++	 * Y_Meta_Plane consists of meta information to decode compressed
++	 * tile data in Y_UBWC_Plane.
++	 * Y_UBWC_Plane consists of Y data in compressed macro-tile format.
++	 * UBWC decoder block will use the Y_Meta_Plane data together with
++	 * Y_UBWC_Plane data to produce loss-less uncompressed 8 bit Y samples.
++	 *
++	 * UV_Meta_Plane consists of meta information to decode compressed
++	 * tile data in UV_UBWC_Plane.
++	 * UV_UBWC_Plane consists of UV data in compressed macro-tile format.
++	 * UBWC decoder block will use UV_Meta_Plane data together with
++	 * UV_UBWC_Plane data to produce loss-less uncompressed 8 bit 2x2
++	 * subsampled color difference samples.
++	 *
++	 * Each tile in Y_UBWC_Plane/UV_UBWC_Plane is independently decodable
++	 * and randomly accessible. There is no dependency between tiles.
++	 *
++	 * <----- Y_Meta_Stride ---->
++	 * <-------- Width ------>
++	 * M M M M M M M M M M M M . .      ^           ^
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      Height      |
++	 * M M M M M M M M M M M M . .      |         Meta_Y_Scanlines
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      V           |
++	 * . . . . . . . . . . . . . .                  |
++	 * . . . . . . . . . . . . . .                  |
++	 * . . . . . . . . . . . . . .      -------> Buffer size aligned to 4k
++	 * . . . . . . . . . . . . . .                  V
++	 * <--Compressed tile Y Stride--->
++	 * <------- Width ------->
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  ^           ^
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |           |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  Height      |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |        Macro_tile_Y_Scanlines
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |           |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |           |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |           |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  V           |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .  -------> Buffer size aligned to 4k
++	 * . . . . . . . . . . . . . . . .              V
++	 * <----- UV_Meta_Stride ---->
++	 * M M M M M M M M M M M M . .      ^
++	 * M M M M M M M M M M M M . .      |
++	 * M M M M M M M M M M M M . .      |
++	 * M M M M M M M M M M M M . .      M_UV_Scanlines
++	 * . . . . . . . . . . . . . .      |
++	 * . . . . . . . . . . . . . .      V
++	 * . . . . . . . . . . . . . .      -------> Buffer size aligned to 4k
++	 * <--Compressed tile UV Stride--->
++	 * U* V* U* V* U* V* U* V* . . . .  ^
++	 * U* V* U* V* U* V* U* V* . . . .  |
++	 * U* V* U* V* U* V* U* V* . . . .  |
++	 * U* V* U* V* U* V* U* V* . . . .  UV_Scanlines
++	 * . . . . . . . . . . . . . . . .  |
++	 * . . . . . . . . . . . . . . . .  V
++	 * . . . . . . . . . . . . . . . .  -------> Buffer size aligned to 4k
++	 *
++	 * Y_Stride = align(Width, 128)
++	 * UV_Stride = align(Width, 128)
++	 * Y_Scanlines = align(Height, 32)
++	 * UV_Scanlines = align(Height/2, 32)
++	 * Y_UBWC_Plane_size = align(Y_Stride * Y_Scanlines, 4096)
++	 * UV_UBWC_Plane_size = align(UV_Stride * UV_Scanlines, 4096)
++	 * Y_Meta_Stride = align(roundup(Width, Y_TileWidth), 64)
++	 * Y_Meta_Scanlines = align(roundup(Height, Y_TileHeight), 16)
++	 * Y_Meta_Plane_size = align(Y_Meta_Stride * Y_Meta_Scanlines, 4096)
++	 * UV_Meta_Stride = align(roundup(Width, UV_TileWidth), 64)
++	 * UV_Meta_Scanlines = align(roundup(Height, UV_TileHeight), 16)
++	 * UV_Meta_Plane_size = align(UV_Meta_Stride * UV_Meta_Scanlines, 4096)
++	 *
++	 * Total size = align( Y_UBWC_Plane_size + UV_UBWC_Plane_size +
++	 *           Y_Meta_Plane_size + UV_Meta_Plane_size, 4096)
++	 *
++	 *
++	 * (2) Venus NV12 UBWC Interlaced Buffer Format:
++	 * Compressed Macro-tile format for NV12 interlaced.
++	 * Contains 8 planes in the following order -
++	 * (A) Y_Meta_Top_Field_Plane
++	 * (B) Y_UBWC_Top_Field_Plane
++	 * (C) UV_Meta_Top_Field_Plane
++	 * (D) UV_UBWC_Top_Field_Plane
++	 * (E) Y_Meta_Bottom_Field_Plane
++	 * (F) Y_UBWC_Bottom_Field_Plane
++	 * (G) UV_Meta_Bottom_Field_Plane
++	 * (H) UV_UBWC_Bottom_Field_Plane
++	 * Y_Meta_Top_Field_Plane consists of meta information to decode
++	 * compressed tile data for Y_UBWC_Top_Field_Plane.
++	 * Y_UBWC_Top_Field_Plane consists of Y data in compressed macro-tile
++	 * format for top field of an interlaced frame.
++	 * UBWC decoder block will use the Y_Meta_Top_Field_Plane data together
++	 * with Y_UBWC_Top_Field_Plane data to produce loss-less uncompressed
++	 * 8 bit Y samples for top field of an interlaced frame.
++	 *
++	 * UV_Meta_Top_Field_Plane consists of meta information to decode
++	 * compressed tile data in UV_UBWC_Top_Field_Plane.
++	 * UV_UBWC_Top_Field_Plane consists of UV data in compressed macro-tile
++	 * format for top field of an interlaced frame.
++	 * UBWC decoder block will use UV_Meta_Top_Field_Plane data together
++	 * with UV_UBWC_Top_Field_Plane data to produce loss-less uncompressed
++	 * 8 bit subsampled color difference samples for top field of an
++	 * interlaced frame.
++	 *
++	 * Each tile in Y_UBWC_Top_Field_Plane/UV_UBWC_Top_Field_Plane is
++	 * independently decodable and randomly accessible. There is no
++	 * dependency between tiles.
++	 *
++	 * Y_Meta_Bottom_Field_Plane consists of meta information to decode
++	 * compressed tile data for Y_UBWC_Bottom_Field_Plane.
++	 * Y_UBWC_Bottom_Field_Plane consists of Y data in compressed macro-tile
++	 * format for bottom field of an interlaced frame.
++	 * UBWC decoder block will use the Y_Meta_Bottom_Field_Plane data
++	 * together with Y_UBWC_Bottom_Field_Plane data to produce loss-less
++	 * uncompressed 8 bit Y samples for bottom field of an interlaced frame.
++	 *
++	 * UV_Meta_Bottom_Field_Plane consists of meta information to decode
++	 * compressed tile data in UV_UBWC_Bottom_Field_Plane.
++	 * UV_UBWC_Bottom_Field_Plane consists of UV data in compressed
++	 * macro-tile format for bottom field of an interlaced frame.
++	 * UBWC decoder block will use UV_Meta_Bottom_Field_Plane data together
++	 * with UV_UBWC_Bottom_Field_Plane data to produce loss-less
++	 * uncompressed 8 bit subsampled color difference samples for bottom
++	 * field of an interlaced frame.
++	 *
++	 * Each tile in Y_UBWC_Bottom_Field_Plane/UV_UBWC_Bottom_Field_Plane is
++	 * independently decodable and randomly accessible. There is no
++	 * dependency between tiles.
++	 *
++	 * <-----Y_TF_Meta_Stride---->
++	 * <-------- Width ------>
++	 * M M M M M M M M M M M M . .      ^           ^
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . . Half_height      |
++	 * M M M M M M M M M M M M . .      |         Meta_Y_TF_Scanlines
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      V           |
++	 * . . . . . . . . . . . . . .                  |
++	 * . . . . . . . . . . . . . .                  |
++	 * . . . . . . . . . . . . . .      -------> Buffer size aligned to 4k
++	 * . . . . . . . . . . . . . .                  V
++	 * <-Compressed tile Y_TF Stride->
++	 * <------- Width ------->
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  ^           ^
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |           |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . . Half_height  |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |        Macro_tile_Y_TF_Scanlines
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |           |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |           |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |           |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  V           |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .  -------> Buffer size aligned to 4k
++	 * . . . . . . . . . . . . . . . .              V
++	 * <----UV_TF_Meta_Stride---->
++	 * M M M M M M M M M M M M . .      ^
++	 * M M M M M M M M M M M M . .      |
++	 * M M M M M M M M M M M M . .      |
++	 * M M M M M M M M M M M M . .      M_UV_TF_Scanlines
++	 * . . . . . . . . . . . . . .      |
++	 * . . . . . . . . . . . . . .      V
++	 * . . . . . . . . . . . . . .      -------> Buffer size aligned to 4k
++	 * <-Compressed tile UV_TF Stride->
++	 * U* V* U* V* U* V* U* V* . . . .  ^
++	 * U* V* U* V* U* V* U* V* . . . .  |
++	 * U* V* U* V* U* V* U* V* . . . .  |
++	 * U* V* U* V* U* V* U* V* . . . .  UV_TF_Scanlines
++	 * . . . . . . . . . . . . . . . .  |
++	 * . . . . . . . . . . . . . . . .  V
++	 * . . . . . . . . . . . . . . . .  -------> Buffer size aligned to 4k
++	 * <-----Y_BF_Meta_Stride---->
++	 * <-------- Width ------>
++	 * M M M M M M M M M M M M . .      ^           ^
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . . Half_height      |
++	 * M M M M M M M M M M M M . .      |         Meta_Y_BF_Scanlines
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      V           |
++	 * . . . . . . . . . . . . . .                  |
++	 * . . . . . . . . . . . . . .                  |
++	 * . . . . . . . . . . . . . .      -------> Buffer size aligned to 4k
++	 * . . . . . . . . . . . . . .                  V
++	 * <-Compressed tile Y_BF Stride->
++	 * <------- Width ------->
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  ^           ^
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |           |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . . Half_height  |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |        Macro_tile_Y_BF_Scanlines
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |           |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |           |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |           |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  V           |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .  -------> Buffer size aligned to 4k
++	 * . . . . . . . . . . . . . . . .              V
++	 * <----UV_BF_Meta_Stride---->
++	 * M M M M M M M M M M M M . .      ^
++	 * M M M M M M M M M M M M . .      |
++	 * M M M M M M M M M M M M . .      |
++	 * M M M M M M M M M M M M . .      M_UV_BF_Scanlines
++	 * . . . . . . . . . . . . . .      |
++	 * . . . . . . . . . . . . . .      V
++	 * . . . . . . . . . . . . . .      -------> Buffer size aligned to 4k
++	 * <-Compressed tile UV_BF Stride->
++	 * U* V* U* V* U* V* U* V* . . . .  ^
++	 * U* V* U* V* U* V* U* V* . . . .  |
++	 * U* V* U* V* U* V* U* V* . . . .  |
++	 * U* V* U* V* U* V* U* V* . . . .  UV_BF_Scanlines
++	 * . . . . . . . . . . . . . . . .  |
++	 * . . . . . . . . . . . . . . . .  V
++	 * . . . . . . . . . . . . . . . .  -------> Buffer size aligned to 4k
++	 *
++	 * Half_height = (Height+1)>>1
++	 * Y_TF_Stride = align(Width, 128)
++	 * UV_TF_Stride = align(Width, 128)
++	 * Y_TF_Scanlines = align(Half_height, 32)
++	 * UV_TF_Scanlines = align((Half_height+1)/2, 32)
++	 * Y_UBWC_TF_Plane_size = align(Y_TF_Stride * Y_TF_Scanlines, 4096)
++	 * UV_UBWC_TF_Plane_size = align(UV_TF_Stride * UV_TF_Scanlines, 4096)
++	 * Y_TF_Meta_Stride = align(roundup(Width, Y_TileWidth), 64)
++	 * Y_TF_Meta_Scanlines = align(roundup(Half_height, Y_TileHeight), 16)
++	 * Y_TF_Meta_Plane_size =
++	 *     align(Y_TF_Meta_Stride * Y_TF_Meta_Scanlines, 4096)
++	 * UV_TF_Meta_Stride = align(roundup(Width, UV_TileWidth), 64)
++	 * UV_TF_Meta_Scanlines = align(roundup(Half_height, UV_TileHeight), 16)
++	 * UV_TF_Meta_Plane_size =
++	 *     align(UV_TF_Meta_Stride * UV_TF_Meta_Scanlines, 4096)
++	 * Y_BF_Stride = align(Width, 128)
++	 * UV_BF_Stride = align(Width, 128)
++	 * Y_BF_Scanlines = align(Half_height, 32)
++	 * UV_BF_Scanlines = align((Half_height+1)/2, 32)
++	 * Y_UBWC_BF_Plane_size = align(Y_BF_Stride * Y_BF_Scanlines, 4096)
++	 * UV_UBWC_BF_Plane_size = align(UV_BF_Stride * UV_BF_Scanlines, 4096)
++	 * Y_BF_Meta_Stride = align(roundup(Width, Y_TileWidth), 64)
++	 * Y_BF_Meta_Scanlines = align(roundup(Half_height, Y_TileHeight), 16)
++	 * Y_BF_Meta_Plane_size =
++	 *     align(Y_BF_Meta_Stride * Y_BF_Meta_Scanlines, 4096)
++	 * UV_BF_Meta_Stride = align(roundup(Width, UV_TileWidth), 64)
++	 * UV_BF_Meta_Scanlines = align(roundup(Half_height, UV_TileHeight), 16)
++	 * UV_BF_Meta_Plane_size =
++	 *     align(UV_BF_Meta_Stride * UV_BF_Meta_Scanlines, 4096)
++	 *
++	 * Total size = align( Y_UBWC_TF_Plane_size + UV_UBWC_TF_Plane_size +
++	 *           Y_TF_Meta_Plane_size + UV_TF_Meta_Plane_size +
++	 *			 Y_UBWC_BF_Plane_size + UV_UBWC_BF_Plane_size +
++	 *           Y_BF_Meta_Plane_size + UV_BF_Meta_Plane_size +, 4096)
++	 */
++	MMM_COLOR_FMT_NV12_UBWC,
++	/* Venus NV12 10-bit UBWC:
++	 * Compressed Macro-tile format for NV12.
++	 * Contains 4 planes in the following order -
++	 * (A) Y_Meta_Plane
++	 * (B) Y_UBWC_Plane
++	 * (C) UV_Meta_Plane
++	 * (D) UV_UBWC_Plane
++	 *
++	 * Y_Meta_Plane consists of meta information to decode compressed
++	 * tile data in Y_UBWC_Plane.
++	 * Y_UBWC_Plane consists of Y data in compressed macro-tile format.
++	 * UBWC decoder block will use the Y_Meta_Plane data together with
++	 * Y_UBWC_Plane data to produce loss-less uncompressed 10 bit Y samples.
++	 *
++	 * UV_Meta_Plane consists of meta information to decode compressed
++	 * tile data in UV_UBWC_Plane.
++	 * UV_UBWC_Plane consists of UV data in compressed macro-tile format.
++	 * UBWC decoder block will use UV_Meta_Plane data together with
++	 * UV_UBWC_Plane data to produce loss-less uncompressed 10 bit 2x2
++	 * subsampled color difference samples.
++	 *
++	 * Each tile in Y_UBWC_Plane/UV_UBWC_Plane is independently decodable
++	 * and randomly accessible. There is no dependency between tiles.
++	 *
++	 * <----- Y_Meta_Stride ----->
++	 * <-------- Width ------>
++	 * M M M M M M M M M M M M . .      ^           ^
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      Height      |
++	 * M M M M M M M M M M M M . .      |         Meta_Y_Scanlines
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      V           |
++	 * . . . . . . . . . . . . . .                  |
++	 * . . . . . . . . . . . . . .                  |
++	 * . . . . . . . . . . . . . .      -------> Buffer size aligned to 4k
++	 * . . . . . . . . . . . . . .                  V
++	 * <--Compressed tile Y Stride--->
++	 * <------- Width ------->
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  ^           ^
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |           |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  Height      |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |        Macro_tile_Y_Scanlines
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |           |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |           |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |           |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  V           |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .  -------> Buffer size aligned to 4k
++	 * . . . . . . . . . . . . . . . .              V
++	 * <----- UV_Meta_Stride ---->
++	 * M M M M M M M M M M M M . .      ^
++	 * M M M M M M M M M M M M . .      |
++	 * M M M M M M M M M M M M . .      |
++	 * M M M M M M M M M M M M . .      M_UV_Scanlines
++	 * . . . . . . . . . . . . . .      |
++	 * . . . . . . . . . . . . . .      V
++	 * . . . . . . . . . . . . . .      -------> Buffer size aligned to 4k
++	 * <--Compressed tile UV Stride--->
++	 * U* V* U* V* U* V* U* V* . . . .  ^
++	 * U* V* U* V* U* V* U* V* . . . .  |
++	 * U* V* U* V* U* V* U* V* . . . .  |
++	 * U* V* U* V* U* V* U* V* . . . .  UV_Scanlines
++	 * . . . . . . . . . . . . . . . .  |
++	 * . . . . . . . . . . . . . . . .  V
++	 * . . . . . . . . . . . . . . . .  -------> Buffer size aligned to 4k
++	 *
++	 *
++	 * Y_Stride = align(Width * 4/3, 256)
++	 * UV_Stride = align(Width * 4/3, 256)
++	 * Y_Scanlines = align(Height, 32)
++	 * UV_Scanlines = align(Height/2, 16)
++	 * Y_UBWC_Plane_Size = align(Y_Stride * Y_Scanlines, 4096)
++	 * UV_UBWC_Plane_Size = align(UV_Stride * UV_Scanlines, 4096)
++	 * Y_Meta_Stride = align(roundup(Width, Y_TileWidth), 64)
++	 * Y_Meta_Scanlines = align(roundup(Height, Y_TileHeight), 16)
++	 * Y_Meta_Plane_size = align(Y_Meta_Stride * Y_Meta_Scanlines, 4096)
++	 * UV_Meta_Stride = align(roundup(Width, UV_TileWidth), 64)
++	 * UV_Meta_Scanlines = align(roundup(Height, UV_TileHeight), 16)
++	 * UV_Meta_Plane_size = align(UV_Meta_Stride * UV_Meta_Scanlines, 4096)
++	 *
++	 * Total size = align(Y_UBWC_Plane_size + UV_UBWC_Plane_size +
++	 *           Y_Meta_Plane_size + UV_Meta_Plane_size, 4096)
++	 */
++	MMM_COLOR_FMT_NV12_BPP10_UBWC,
++	/* Venus RGBA8888 format:
++	 * Contains 1 plane in the following order -
++	 * (A) RGBA plane
++	 *
++	 * <-------- RGB_Stride -------->
++	 * <------- Width ------->
++	 * R R R R R R R R R R R R . . . .  ^           ^
++	 * R R R R R R R R R R R R . . . .  |           |
++	 * R R R R R R R R R R R R . . . .  Height      |
++	 * R R R R R R R R R R R R . . . .  |       RGB_Scanlines
++	 * R R R R R R R R R R R R . . . .  |           |
++	 * R R R R R R R R R R R R . . . .  |           |
++	 * R R R R R R R R R R R R . . . .  |           |
++	 * R R R R R R R R R R R R . . . .  V           |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              V
++	 *
++	 * RGB_Stride = align(Width * 4, 256)
++	 * RGB_Scanlines = align(Height, 32)
++	 * RGB_Plane_size = align(RGB_Stride * RGB_Scanlines, 4096)
++	 *
++	 * Total size = align(RGB_Plane_size , 4096)
++	 */
++	MMM_COLOR_FMT_RGBA8888,
++	/* Venus RGBA8888 UBWC format:
++	 * Contains 2 planes in the following order -
++	 * (A) Meta plane
++	 * (B) RGBA plane
++	 *
++	 * <--- RGB_Meta_Stride ---->
++	 * <-------- Width ------>
++	 * M M M M M M M M M M M M . .      ^           ^
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      Height      |
++	 * M M M M M M M M M M M M . .      |       Meta_RGB_Scanlines
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      V           |
++	 * . . . . . . . . . . . . . .                  |
++	 * . . . . . . . . . . . . . .                  |
++	 * . . . . . . . . . . . . . .      -------> Buffer size aligned to 4k
++	 * . . . . . . . . . . . . . .                  V
++	 * <-------- RGB_Stride -------->
++	 * <------- Width ------->
++	 * R R R R R R R R R R R R . . . .  ^           ^
++	 * R R R R R R R R R R R R . . . .  |           |
++	 * R R R R R R R R R R R R . . . .  Height      |
++	 * R R R R R R R R R R R R . . . .  |       RGB_Scanlines
++	 * R R R R R R R R R R R R . . . .  |           |
++	 * R R R R R R R R R R R R . . . .  |           |
++	 * R R R R R R R R R R R R . . . .  |           |
++	 * R R R R R R R R R R R R . . . .  V           |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .    -------> Buffer size aligned to 4k
++	 * . . . . . . . . . . . . . . . .              V
++	 *
++	 * RGB_Stride = align(Width * 4, 256)
++	 * RGB_Scanlines = align(Height, 16)
++	 * RGB_Plane_size = align(RGB_Stride * RGB_Scanlines, 4096)
++	 * RGB_Meta_Stride = align(roundup(Width, RGB_TileWidth), 64)
++	 * RGB_Meta_Scanline = align(roundup(Height, RGB_TileHeight), 16)
++	 * RGB_Meta_Plane_size = align(RGB_Meta_Stride *
++	 *		RGB_Meta_Scanlines, 4096)
++	 *
++	 * Total size = align(RGB_Meta_Plane_size + RGB_Plane_size, 4096)
++	 */
++	MMM_COLOR_FMT_RGBA8888_UBWC,
++	/* Venus RGBA1010102 UBWC format:
++	 * Contains 2 planes in the following order -
++	 * (A) Meta plane
++	 * (B) RGBA plane
++	 *
++	 * <--- RGB_Meta_Stride ---->
++	 * <-------- Width ------>
++	 * M M M M M M M M M M M M . .      ^           ^
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      Height      |
++	 * M M M M M M M M M M M M . .      |       Meta_RGB_Scanlines
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      V           |
++	 * . . . . . . . . . . . . . .                  |
++	 * . . . . . . . . . . . . . .                  |
++	 * . . . . . . . . . . . . . .      -------> Buffer size aligned to 4k
++	 * . . . . . . . . . . . . . .                  V
++	 * <-------- RGB_Stride -------->
++	 * <------- Width ------->
++	 * R R R R R R R R R R R R . . . .  ^           ^
++	 * R R R R R R R R R R R R . . . .  |           |
++	 * R R R R R R R R R R R R . . . .  Height      |
++	 * R R R R R R R R R R R R . . . .  |       RGB_Scanlines
++	 * R R R R R R R R R R R R . . . .  |           |
++	 * R R R R R R R R R R R R . . . .  |           |
++	 * R R R R R R R R R R R R . . . .  |           |
++	 * R R R R R R R R R R R R . . . .  V           |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .    -------> Buffer size aligned to 4k
++	 * . . . . . . . . . . . . . . . .              V
++	 *
++	 * RGB_Stride = align(Width * 4, 256)
++	 * RGB_Scanlines = align(Height, 16)
++	 * RGB_Plane_size = align(RGB_Stride * RGB_Scanlines, 4096)
++	 * RGB_Meta_Stride = align(roundup(Width, RGB_TileWidth), 64)
++	 * RGB_Meta_Scanline = align(roundup(Height, RGB_TileHeight), 16)
++	 * RGB_Meta_Plane_size = align(RGB_Meta_Stride *
++	 *		RGB_Meta_Scanlines, 4096)
++	 *
++	 * Total size = align(RGB_Meta_Plane_size + RGB_Plane_size, 4096)
++	 */
++	MMM_COLOR_FMT_RGBA1010102_UBWC,
++	/* Venus RGB565 UBWC format:
++	 * Contains 2 planes in the following order -
++	 * (A) Meta plane
++	 * (B) RGB plane
++	 *
++	 * <--- RGB_Meta_Stride ---->
++	 * <-------- Width ------>
++	 * M M M M M M M M M M M M . .      ^           ^
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      Height      |
++	 * M M M M M M M M M M M M . .      |       Meta_RGB_Scanlines
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      V           |
++	 * . . . . . . . . . . . . . .                  |
++	 * . . . . . . . . . . . . . .                  |
++	 * . . . . . . . . . . . . . .      -------> Buffer size aligned to 4k
++	 * . . . . . . . . . . . . . .                  V
++	 * <-------- RGB_Stride -------->
++	 * <------- Width ------->
++	 * R R R R R R R R R R R R . . . .  ^           ^
++	 * R R R R R R R R R R R R . . . .  |           |
++	 * R R R R R R R R R R R R . . . .  Height      |
++	 * R R R R R R R R R R R R . . . .  |       RGB_Scanlines
++	 * R R R R R R R R R R R R . . . .  |           |
++	 * R R R R R R R R R R R R . . . .  |           |
++	 * R R R R R R R R R R R R . . . .  |           |
++	 * R R R R R R R R R R R R . . . .  V           |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .    -------> Buffer size aligned to 4k
++	 * . . . . . . . . . . . . . . . .              V
++	 *
++	 * RGB_Stride = align(Width * 2, 256)
++	 * RGB_Scanlines = align(Height, 16)
++	 * RGB_Plane_size = align(RGB_Stride * RGB_Scanlines, 4096)
++	 * RGB_Meta_Stride = align(roundup(Width, RGB_TileWidth), 64)
++	 * RGB_Meta_Scanline = align(roundup(Height, RGB_TileHeight), 16)
++	 * RGB_Meta_Plane_size = align(RGB_Meta_Stride *
++	 *		RGB_Meta_Scanlines, 4096)
++	 *
++	 * Total size = align(RGB_Meta_Plane_size + RGB_Plane_size, 4096)
++	 */
++	MMM_COLOR_FMT_RGB565_UBWC,
++	/* P010 UBWC:
++	 * Compressed Macro-tile format for NV12.
++	 * Contains 4 planes in the following order -
++	 * (A) Y_Meta_Plane
++	 * (B) Y_UBWC_Plane
++	 * (C) UV_Meta_Plane
++	 * (D) UV_UBWC_Plane
++	 *
++	 * Y_Meta_Plane consists of meta information to decode compressed
++	 * tile data in Y_UBWC_Plane.
++	 * Y_UBWC_Plane consists of Y data in compressed macro-tile format.
++	 * UBWC decoder block will use the Y_Meta_Plane data together with
++	 * Y_UBWC_Plane data to produce loss-less uncompressed 10 bit Y samples.
++	 *
++	 * UV_Meta_Plane consists of meta information to decode compressed
++	 * tile data in UV_UBWC_Plane.
++	 * UV_UBWC_Plane consists of UV data in compressed macro-tile format.
++	 * UBWC decoder block will use UV_Meta_Plane data together with
++	 * UV_UBWC_Plane data to produce loss-less uncompressed 10 bit 2x2
++	 * subsampled color difference samples.
++	 *
++	 * Each tile in Y_UBWC_Plane/UV_UBWC_Plane is independently decodable
++	 * and randomly accessible. There is no dependency between tiles.
++	 *
++	 * <----- Y_Meta_Stride ----->
++	 * <-------- Width ------>
++	 * M M M M M M M M M M M M . .      ^           ^
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      Height      |
++	 * M M M M M M M M M M M M . .      |         Meta_Y_Scanlines
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      V           |
++	 * . . . . . . . . . . . . . .                  |
++	 * . . . . . . . . . . . . . .                  |
++	 * . . . . . . . . . . . . . .      -------> Buffer size aligned to 4k
++	 * . . . . . . . . . . . . . .                  V
++	 * <--Compressed tile Y Stride--->
++	 * <------- Width ------->
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  ^           ^
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |           |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  Height      |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |        Macro_tile_Y_Scanlines
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |           |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |           |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  |           |
++	 * Y* Y* Y* Y* Y* Y* Y* Y* . . . .  V           |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .  -------> Buffer size aligned to 4k
++	 * . . . . . . . . . . . . . . . .              V
++	 * <----- UV_Meta_Stride ---->
++	 * M M M M M M M M M M M M . .      ^
++	 * M M M M M M M M M M M M . .      |
++	 * M M M M M M M M M M M M . .      |
++	 * M M M M M M M M M M M M . .      M_UV_Scanlines
++	 * . . . . . . . . . . . . . .      |
++	 * . . . . . . . . . . . . . .      V
++	 * . . . . . . . . . . . . . .      -------> Buffer size aligned to 4k
++	 * <--Compressed tile UV Stride--->
++	 * U* V* U* V* U* V* U* V* . . . .  ^
++	 * U* V* U* V* U* V* U* V* . . . .  |
++	 * U* V* U* V* U* V* U* V* . . . .  |
++	 * U* V* U* V* U* V* U* V* . . . .  UV_Scanlines
++	 * . . . . . . . . . . . . . . . .  |
++	 * . . . . . . . . . . . . . . . .  V
++	 * . . . . . . . . . . . . . . . .  -------> Buffer size aligned to 4k
++	 *
++	 *
++	 * Y_Stride = align(Width * 2, 256)
++	 * UV_Stride = align(Width * 2, 256)
++	 * Y_Scanlines = align(Height, 16)
++	 * UV_Scanlines = align(Height/2, 16)
++	 * Y_UBWC_Plane_Size = align(Y_Stride * Y_Scanlines, 4096)
++	 * UV_UBWC_Plane_Size = align(UV_Stride * UV_Scanlines, 4096)
++	 * Y_Meta_Stride = align(roundup(Width, Y_TileWidth), 64)
++	 * Y_Meta_Scanlines = align(roundup(Height, Y_TileHeight), 16)
++	 * Y_Meta_Plane_size = align(Y_Meta_Stride * Y_Meta_Scanlines, 4096)
++	 * UV_Meta_Stride = align(roundup(Width, UV_TileWidth), 64)
++	 * UV_Meta_Scanlines = align(roundup(Height, UV_TileHeight), 16)
++	 * UV_Meta_Plane_size = align(UV_Meta_Stride * UV_Meta_Scanlines, 4096)
++	 *
++	 * Total size = align(Y_UBWC_Plane_size + UV_UBWC_Plane_size +
++	 *           Y_Meta_Plane_size + UV_Meta_Plane_size, 4096)
++	 */
++	MMM_COLOR_FMT_P010_UBWC,
++	/* Venus P010:
++	 * YUV 4:2:0 image with a plane of 10 bit Y samples followed
++	 * by an interleaved U/V plane containing 10 bit 2x2 subsampled
++	 * colour difference samples.
++	 *
++	 * <-------- Y/UV_Stride -------->
++	 * <------- Width ------->
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  ^           ^
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |           |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  Height      |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |          Y_Scanlines
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |           |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |           |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |           |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  V           |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              V
++	 * U V U V U V U V U V U V . . . .  ^
++	 * U V U V U V U V U V U V . . . .  |
++	 * U V U V U V U V U V U V . . . .  |
++	 * U V U V U V U V U V U V . . . .  UV_Scanlines
++	 * . . . . . . . . . . . . . . . .  |
++	 * . . . . . . . . . . . . . . . .  V
++	 * . . . . . . . . . . . . . . . .  --> Buffer size alignment
++	 *
++	 * Y_Stride : Width * 2 aligned to 256
++	 * UV_Stride : Width * 2 aligned to 256
++	 * Y_Scanlines: Height aligned to 32
++	 * UV_Scanlines: Height/2 aligned to 16
++	 * Total size = align(Y_Stride * Y_Scanlines
++	 *          + UV_Stride * UV_Scanlines, 4096)
++	 */
++	MMM_COLOR_FMT_P010,
++	/* Venus P010_512:
++	 * YUV 4:2:0 image with a plane of 10 bit Y samples followed
++	 * by an interleaved U/V plane containing 10 bit 2x2 subsampled
++	 * colour difference samples.
++	 *
++	 * <-------- Y/UV_Stride -------->
++	 * <------- Width ------->
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  ^           ^
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |           |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  Height      |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |          Y_Scanlines
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |           |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |           |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |           |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  V           |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              V
++	 * U V U V U V U V U V U V . . . .  ^
++	 * U V U V U V U V U V U V . . . .  |
++	 * U V U V U V U V U V U V . . . .  |
++	 * U V U V U V U V U V U V . . . .  UV_Scanlines
++	 * . . . . . . . . . . . . . . . .  |
++	 * . . . . . . . . . . . . . . . .  V
++	 * . . . . . . . . . . . . . . . .  --> Buffer size alignment
++	 *
++	 * Y_Stride : Width * 2 aligned to 512
++	 * UV_Stride : Width * 2 aligned to 512
++	 * Y_Scanlines: Height aligned to 32
++	 * UV_Scanlines: Height/2 aligned to 16
++	 * Total size = align(Y_Stride * Y_Scanlines
++	 *          + UV_Stride * UV_Scanlines, 4096)
++	 */
++	MMM_COLOR_FMT_P010_512,
++	/* Venus NV12_512:
++	 * YUV 4:2:0 image with a plane of 8 bit Y samples followed
++	 * by an interleaved U/V plane containing 8 bit 2x2 subsampled
++	 * colour difference samples.
++	 *
++	 * <-------- Y/UV_Stride -------->
++	 * <------- Width ------->
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  ^           ^
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |           |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  Height      |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |          Y_Scanlines
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |           |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |           |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  |           |
++	 * Y Y Y Y Y Y Y Y Y Y Y Y . . . .  V           |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              V
++	 * U V U V U V U V U V U V . . . .  ^
++	 * U V U V U V U V U V U V . . . .  |
++	 * U V U V U V U V U V U V . . . .  |
++	 * U V U V U V U V U V U V . . . .  UV_Scanlines
++	 * . . . . . . . . . . . . . . . .  |
++	 * . . . . . . . . . . . . . . . .  V
++	 * . . . . . . . . . . . . . . . .  --> Buffer size alignment
++	 *
++	 * Y_Stride : Width aligned to 512
++	 * UV_Stride : Width aligned to 512
++	 * Y_Scanlines: Height aligned to 512
++	 * UV_Scanlines: Height/2 aligned to 256
++	 * Total size = align((Y_Stride * Y_Scanlines
++	 *          + UV_Stride  * UV_Scanlines), 4096)
++	 */
++	MMM_COLOR_FMT_NV12_512,
++	/* Venus RGBA FP16 UBWC:
++	 * Contains 2 planes in the following order -
++	 * (A) Meta plane
++	 * (B) RGBA plane
++	 *
++	 * <--- RGB_Meta_Stride ---->
++	 * <-------- Width ------>
++	 * M M M M M M M M M M M M . .      ^           ^
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      Height      |
++	 * M M M M M M M M M M M M . .      |       Meta_RGB_Scanlines
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      |           |
++	 * M M M M M M M M M M M M . .      V           |
++	 * . . . . . . . . . . . . . .                  |
++	 * . . . . . . . . . . . . . .                  |
++	 * . . . . . . . . . . . . . .      -------> Buffer size aligned to 4k
++	 * . . . . . . . . . . . . . .                  V
++	 * <-------- RGB_Stride -------->
++	 * <------- Width ------->
++	 * R R R R R R R R R R R R . . . .  ^           ^
++	 * R R R R R R R R R R R R . . . .  |           |
++	 * R R R R R R R R R R R R . . . .  Height      |
++	 * R R R R R R R R R R R R . . . .  |       RGB_Scanlines
++	 * R R R R R R R R R R R R . . . .  |           |
++	 * R R R R R R R R R R R R . . . .  |           |
++	 * R R R R R R R R R R R R . . . .  |           |
++	 * R R R R R R R R R R R R . . . .  V           |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .              |
++	 * . . . . . . . . . . . . . . . .    -------> Buffer size aligned to 4k
++	 * . . . . . . . . . . . . . . . .              V
++	 *
++	 * RGB_Stride = align(Width * 8, 256)
++	 * RGB_Scanlines = align(Height, 16)
++	 * RGB_Plane_size = align(RGB_Stride * RGB_Scanlines, 4096)
++	 * RGB_Meta_Stride = align(roundup(Width, RGB_TileWidth), 64)
++	 * RGB_Meta_Scanline = align(roundup(Height, RGB_TileHeight), 16)
++	 * RGB_Meta_Plane_size = align(RGB_Meta_Stride *
++	 *              RGB_Meta_Scanlines, 4096)
++	 * RGB_TileWidth = 8 pixels across is 1 tile
++	 * RGB_TileHeight = 4 pixels
++	 * Total size = align(RGB_Meta_Plane_size + RGB_Plane_size, 4096)
++	 */
++	MMM_COLOR_FMT_RGBA16161616F_UBWC,
++};
++
++/*
++ * Function arguments:
++ * @color_fmt
++ * @width
++ * Progressive: width
++ * Interlaced: width
++ */
++static inline unsigned int MMM_COLOR_FMT_Y_STRIDE(unsigned int color_fmt,
++	unsigned int width)
++{
++	unsigned int alignment, stride = 0;
++
++	if (!width)
++		goto invalid_input;
++
++	switch (color_fmt) {
++	case MMM_COLOR_FMT_NV12_512:
++		alignment = 512;
++		stride = MMM_COLOR_FMT_ALIGN(width, alignment);
++		break;
++	case MMM_COLOR_FMT_NV12:
++	case MMM_COLOR_FMT_NV21:
++	case MMM_COLOR_FMT_NV12_UBWC:
++		alignment = 128;
++		stride = MMM_COLOR_FMT_ALIGN(width, alignment);
++		break;
++	case MMM_COLOR_FMT_NV12_BPP10_UBWC:
++		alignment = 256;
++		stride = MMM_COLOR_FMT_ALIGN(width, 192);
++		stride = MMM_COLOR_FMT_ALIGN(stride * 4/3, alignment);
++		break;
++	case MMM_COLOR_FMT_P010_UBWC:
++	case MMM_COLOR_FMT_P010:
++		alignment = 256;
++		stride = MMM_COLOR_FMT_ALIGN(width * 2, alignment);
++		break;
++	case MMM_COLOR_FMT_P010_512:
++		alignment = 512;
++		stride = MMM_COLOR_FMT_ALIGN(width * 2, alignment);
++		break;
++	default:
++		break;
++	}
++invalid_input:
++	return stride;
++}
++
++/*
++ * Function arguments:
++ * @color_fmt
++ * @width
++ * Progressive: width
++ * Interlaced: width
++ */
++static inline unsigned int MMM_COLOR_FMT_UV_STRIDE(unsigned int color_fmt,
++	unsigned int width)
++{
++	unsigned int alignment, stride = 0;
++
++	if (!width)
++		goto invalid_input;
++
++	switch (color_fmt) {
++	case MMM_COLOR_FMT_NV12_512:
++		alignment = 512;
++		stride = MMM_COLOR_FMT_ALIGN(width, alignment);
++		break;
++	case MMM_COLOR_FMT_NV12:
++	case MMM_COLOR_FMT_NV21:
++	case MMM_COLOR_FMT_NV12_UBWC:
++		alignment = 128;
++		stride = MMM_COLOR_FMT_ALIGN(width, alignment);
++		break;
++	case MMM_COLOR_FMT_NV12_BPP10_UBWC:
++		alignment = 256;
++		stride = MMM_COLOR_FMT_ALIGN(width, 192);
++		stride = MMM_COLOR_FMT_ALIGN(stride * 4/3, alignment);
++		break;
++	case MMM_COLOR_FMT_P010_UBWC:
++	case MMM_COLOR_FMT_P010:
++		alignment = 256;
++		stride = MMM_COLOR_FMT_ALIGN(width * 2, alignment);
++		break;
++	case MMM_COLOR_FMT_P010_512:
++		alignment = 512;
++		stride = MMM_COLOR_FMT_ALIGN(width * 2, alignment);
++		break;
++	default:
++		break;
++	}
++invalid_input:
++	return stride;
++}
++
++/*
++ * Function arguments:
++ * @color_fmt
++ * @height
++ * Progressive: height
++ * Interlaced: (height+1)>>1
++ */
++static inline unsigned int MMM_COLOR_FMT_Y_SCANLINES(unsigned int color_fmt,
++	unsigned int height)
++{
++	unsigned int alignment, sclines = 0;
++
++	if (!height)
++		goto invalid_input;
++
++	switch (color_fmt) {
++	case MMM_COLOR_FMT_NV12_512:
++		alignment = 512;
++		break;
++	case MMM_COLOR_FMT_NV12:
++	case MMM_COLOR_FMT_NV21:
++	case MMM_COLOR_FMT_NV12_UBWC:
++	case MMM_COLOR_FMT_P010_512:
++	case MMM_COLOR_FMT_P010:
++		alignment = 32;
++		break;
++	case MMM_COLOR_FMT_NV12_BPP10_UBWC:
++	case MMM_COLOR_FMT_P010_UBWC:
++		alignment = 16;
++		break;
++	default:
++		return 0;
++	}
++	sclines = MMM_COLOR_FMT_ALIGN(height, alignment);
++invalid_input:
++	return sclines;
++}
++
++/*
++ * Function arguments:
++ * @color_fmt
++ * @height
++ * Progressive: height
++ * Interlaced: (height+1)>>1
++ */
++static inline unsigned int MMM_COLOR_FMT_UV_SCANLINES(unsigned int color_fmt,
++	unsigned int height)
++{
++	unsigned int alignment, sclines = 0;
++
++	if (!height)
++		goto invalid_input;
++
++	switch (color_fmt) {
++
++	case MMM_COLOR_FMT_NV12_512:
++		alignment = 256;
++		break;
++	case MMM_COLOR_FMT_NV12:
++	case MMM_COLOR_FMT_NV21:
++	case MMM_COLOR_FMT_NV12_BPP10_UBWC:
++	case MMM_COLOR_FMT_P010_UBWC:
++	case MMM_COLOR_FMT_P010_512:
++	case MMM_COLOR_FMT_P010:
++		alignment = 16;
++		break;
++	case MMM_COLOR_FMT_NV12_UBWC:
++		alignment = 32;
++		break;
++	default:
++		goto invalid_input;
++	}
++
++	sclines = MMM_COLOR_FMT_ALIGN((height+1)>>1, alignment);
++
++invalid_input:
++	return sclines;
++}
++
++/*
++ * Function arguments:
++ * @color_fmt
++ * @width
++ * Progressive: width
++ * Interlaced: width
++ */
++static inline unsigned int MMM_COLOR_FMT_Y_META_STRIDE(unsigned int color_fmt,
++	unsigned int width)
++{
++	int y_tile_width = 0, y_meta_stride = 0;
++
++	if (!width)
++		goto invalid_input;
++
++	switch (color_fmt) {
++	case MMM_COLOR_FMT_NV12_UBWC:
++	case MMM_COLOR_FMT_P010_UBWC:
++		y_tile_width = 32;
++		break;
++	case MMM_COLOR_FMT_NV12_BPP10_UBWC:
++		y_tile_width = 48;
++		break;
++	default:
++		goto invalid_input;
++	}
++
++	y_meta_stride = MMM_COLOR_FMT_ROUNDUP(width, y_tile_width);
++	y_meta_stride = MMM_COLOR_FMT_ALIGN(y_meta_stride, 64);
++
++invalid_input:
++	return y_meta_stride;
++}
++
++/*
++ * Function arguments:
++ * @color_fmt
++ * @height
++ * Progressive: height
++ * Interlaced: (height+1)>>1
++ */
++static inline unsigned int MMM_COLOR_FMT_Y_META_SCANLINES(
++		unsigned int color_fmt,	unsigned int height)
++{
++	int y_tile_height = 0, y_meta_scanlines = 0;
++
++	if (!height)
++		goto invalid_input;
++
++	switch (color_fmt) {
++	case MMM_COLOR_FMT_NV12_UBWC:
++		y_tile_height = 8;
++		break;
++	case MMM_COLOR_FMT_NV12_BPP10_UBWC:
++	case MMM_COLOR_FMT_P010_UBWC:
++		y_tile_height = 4;
++		break;
++	default:
++		goto invalid_input;
++	}
++
++	y_meta_scanlines = MMM_COLOR_FMT_ROUNDUP(height, y_tile_height);
++	y_meta_scanlines = MMM_COLOR_FMT_ALIGN(y_meta_scanlines, 16);
++
++invalid_input:
++	return y_meta_scanlines;
++}
++
++/*
++ * Function arguments:
++ * @color_fmt
++ * @width
++ * Progressive: width
++ * Interlaced: width
++ */
++static inline unsigned int MMM_COLOR_FMT_UV_META_STRIDE(unsigned int color_fmt,
++	unsigned int width)
++{
++	int uv_tile_width = 0, uv_meta_stride = 0;
++
++	if (!width)
++		goto invalid_input;
++
++	switch (color_fmt) {
++	case MMM_COLOR_FMT_NV12_UBWC:
++	case MMM_COLOR_FMT_P010_UBWC:
++		uv_tile_width = 16;
++		break;
++	case MMM_COLOR_FMT_NV12_BPP10_UBWC:
++		uv_tile_width = 24;
++		break;
++	default:
++		goto invalid_input;
++	}
++
++	uv_meta_stride = MMM_COLOR_FMT_ROUNDUP((width+1)>>1, uv_tile_width);
++	uv_meta_stride = MMM_COLOR_FMT_ALIGN(uv_meta_stride, 64);
++
++invalid_input:
++	return uv_meta_stride;
++}
++
++/*
++ * Function arguments:
++ * @color_fmt
++ * @height
++ * Progressive: height
++ * Interlaced: (height+1)>>1
++ */
++static inline unsigned int MMM_COLOR_FMT_UV_META_SCANLINES(
++		unsigned int color_fmt,	unsigned int height)
++{
++	int uv_tile_height = 0, uv_meta_scanlines = 0;
++
++	if (!height)
++		goto invalid_input;
++
++	switch (color_fmt) {
++	case MMM_COLOR_FMT_NV12_UBWC:
++		uv_tile_height = 8;
++		break;
++	case MMM_COLOR_FMT_NV12_BPP10_UBWC:
++	case MMM_COLOR_FMT_P010_UBWC:
++		uv_tile_height = 4;
++		break;
++	default:
++		goto invalid_input;
++	}
++
++	uv_meta_scanlines = MMM_COLOR_FMT_ROUNDUP((height+1)>>1,
++							uv_tile_height);
++	uv_meta_scanlines = MMM_COLOR_FMT_ALIGN(uv_meta_scanlines, 16);
++
++invalid_input:
++	return uv_meta_scanlines;
++}
++
++static inline unsigned int MMM_COLOR_FMT_RGB_STRIDE(unsigned int color_fmt,
++	unsigned int width)
++{
++	unsigned int alignment = 0, stride = 0, bpp = 4;
++
++	if (!width)
++		goto invalid_input;
++
++	switch (color_fmt) {
++	case MMM_COLOR_FMT_RGBA8888:
++		alignment = 256;
++		break;
++	case MMM_COLOR_FMT_RGB565_UBWC:
++		alignment = 256;
++		bpp = 2;
++		break;
++	case MMM_COLOR_FMT_RGBA8888_UBWC:
++	case MMM_COLOR_FMT_RGBA1010102_UBWC:
++		alignment = 256;
++		break;
++	case MMM_COLOR_FMT_RGBA16161616F_UBWC:
++		alignment = 256;
++		bpp = 8;
++		break;
++	default:
++		goto invalid_input;
++	}
++
++	stride = MMM_COLOR_FMT_ALIGN(width * bpp, alignment);
++
++invalid_input:
++	return stride;
++}
++
++static inline unsigned int MMM_COLOR_FMT_RGB_SCANLINES(unsigned int color_fmt,
++	unsigned int height)
++{
++	unsigned int alignment = 0, scanlines = 0;
++
++	if (!height)
++		goto invalid_input;
++
++	switch (color_fmt) {
++	case MMM_COLOR_FMT_RGBA8888:
++		alignment = 32;
++		break;
++	case MMM_COLOR_FMT_RGBA8888_UBWC:
++	case MMM_COLOR_FMT_RGBA1010102_UBWC:
++	case MMM_COLOR_FMT_RGB565_UBWC:
++	case MMM_COLOR_FMT_RGBA16161616F_UBWC:
++		alignment = 16;
++		break;
++	default:
++		goto invalid_input;
++	}
++
++	scanlines = MMM_COLOR_FMT_ALIGN(height, alignment);
++
++invalid_input:
++	return scanlines;
++}
++
++static inline unsigned int MMM_COLOR_FMT_RGB_META_STRIDE(unsigned int color_fmt,
++	unsigned int width)
++{
++	int rgb_tile_width = 0, rgb_meta_stride = 0;
++
++	if (!width)
++		goto invalid_input;
++
++	switch (color_fmt) {
++	case MMM_COLOR_FMT_RGBA8888_UBWC:
++	case MMM_COLOR_FMT_RGBA1010102_UBWC:
++	case MMM_COLOR_FMT_RGB565_UBWC:
++		rgb_tile_width = 16;
++		break;
++	case MMM_COLOR_FMT_RGBA16161616F_UBWC:
++		rgb_tile_width = 8;
++		break;
++	default:
++		goto invalid_input;
++	}
++
++	rgb_meta_stride = MMM_COLOR_FMT_ROUNDUP(width, rgb_tile_width);
++	rgb_meta_stride = MMM_COLOR_FMT_ALIGN(rgb_meta_stride, 64);
++
++invalid_input:
++	return rgb_meta_stride;
++}
++
++static inline unsigned int MMM_COLOR_FMT_RGB_META_SCANLINES(
++		unsigned int color_fmt,	unsigned int height)
++{
++	int rgb_tile_height = 0, rgb_meta_scanlines = 0;
++
++	if (!height)
++		goto invalid_input;
++
++	switch (color_fmt) {
++	case MMM_COLOR_FMT_RGBA8888_UBWC:
++	case MMM_COLOR_FMT_RGBA1010102_UBWC:
++	case MMM_COLOR_FMT_RGB565_UBWC:
++	case MMM_COLOR_FMT_RGBA16161616F_UBWC:
++		rgb_tile_height = 4;
++		break;
++	default:
++		goto invalid_input;
++	}
++
++	rgb_meta_scanlines = MMM_COLOR_FMT_ROUNDUP(height, rgb_tile_height);
++	rgb_meta_scanlines = MMM_COLOR_FMT_ALIGN(rgb_meta_scanlines, 16);
++
++invalid_input:
++	return rgb_meta_scanlines;
++}
++
++/*
++ * Function arguments:
++ * @color_fmt
++ * @width
++ * Progressive: width
++ * Interlaced: width
++ * @height
++ * Progressive: height
++ * Interlaced: height
++ */
++static inline unsigned int MMM_COLOR_FMT_BUFFER_SIZE(unsigned int color_fmt,
++	unsigned int width, unsigned int height)
++{
++	unsigned int size = 0;
++	unsigned int y_plane, uv_plane, y_stride,
++		uv_stride, y_sclines, uv_sclines;
++	unsigned int y_ubwc_plane = 0, uv_ubwc_plane = 0;
++	unsigned int y_meta_stride = 0, y_meta_scanlines = 0;
++	unsigned int uv_meta_stride = 0, uv_meta_scanlines = 0;
++	unsigned int y_meta_plane = 0, uv_meta_plane = 0;
++	unsigned int rgb_stride = 0, rgb_scanlines = 0;
++	unsigned int rgb_plane = 0, rgb_ubwc_plane = 0, rgb_meta_plane = 0;
++	unsigned int rgb_meta_stride = 0, rgb_meta_scanlines = 0;
++
++	if (!width || !height)
++		goto invalid_input;
++
++	y_stride = MMM_COLOR_FMT_Y_STRIDE(color_fmt, width);
++	uv_stride = MMM_COLOR_FMT_UV_STRIDE(color_fmt, width);
++	y_sclines = MMM_COLOR_FMT_Y_SCANLINES(color_fmt, height);
++	uv_sclines = MMM_COLOR_FMT_UV_SCANLINES(color_fmt, height);
++	rgb_stride = MMM_COLOR_FMT_RGB_STRIDE(color_fmt, width);
++	rgb_scanlines = MMM_COLOR_FMT_RGB_SCANLINES(color_fmt, height);
++
++	switch (color_fmt) {
++	case MMM_COLOR_FMT_NV21:
++	case MMM_COLOR_FMT_NV12:
++	case MMM_COLOR_FMT_P010_512:
++	case MMM_COLOR_FMT_P010:
++	case MMM_COLOR_FMT_NV12_512:
++		y_plane = y_stride * y_sclines;
++		uv_plane = uv_stride * uv_sclines;
++		size = y_plane + uv_plane;
++		break;
++	case MMM_COLOR_FMT_NV12_UBWC:
++		y_meta_stride = MMM_COLOR_FMT_Y_META_STRIDE(color_fmt, width);
++		uv_meta_stride = MMM_COLOR_FMT_UV_META_STRIDE(color_fmt, width);
++		if (width <= INTERLACE_WIDTH_MAX &&
++			height <= INTERLACE_HEIGHT_MAX &&
++			(height * width) / 256 <= INTERLACE_MB_PER_FRAME_MAX) {
++			y_sclines = MMM_COLOR_FMT_Y_SCANLINES(color_fmt,
++								(height+1)>>1);
++			y_ubwc_plane =
++				MMM_COLOR_FMT_ALIGN(y_stride * y_sclines, 4096);
++			uv_sclines = MMM_COLOR_FMT_UV_SCANLINES(color_fmt,
++								(height+1)>>1);
++			uv_ubwc_plane =	MMM_COLOR_FMT_ALIGN(
++						uv_stride * uv_sclines, 4096);
++			y_meta_scanlines = MMM_COLOR_FMT_Y_META_SCANLINES(
++						color_fmt, (height+1)>>1);
++			y_meta_plane = MMM_COLOR_FMT_ALIGN(
++				y_meta_stride * y_meta_scanlines, 4096);
++			uv_meta_scanlines = MMM_COLOR_FMT_UV_META_SCANLINES(
++					color_fmt, (height+1)>>1);
++			uv_meta_plane = MMM_COLOR_FMT_ALIGN(uv_meta_stride *
++				uv_meta_scanlines, 4096);
++			size = (y_ubwc_plane + uv_ubwc_plane + y_meta_plane +
++				uv_meta_plane)*2;
++		} else {
++			y_sclines = MMM_COLOR_FMT_Y_SCANLINES(color_fmt,
++									height);
++			y_ubwc_plane =
++				MMM_COLOR_FMT_ALIGN(y_stride * y_sclines, 4096);
++			uv_sclines = MMM_COLOR_FMT_UV_SCANLINES(color_fmt,
++									height);
++			uv_ubwc_plane =
++				MMM_COLOR_FMT_ALIGN(uv_stride * uv_sclines,
++									4096);
++			y_meta_scanlines = MMM_COLOR_FMT_Y_META_SCANLINES(
++							color_fmt, height);
++			y_meta_plane = MMM_COLOR_FMT_ALIGN(
++				y_meta_stride * y_meta_scanlines, 4096);
++			uv_meta_scanlines = MMM_COLOR_FMT_UV_META_SCANLINES(
++							color_fmt, height);
++			uv_meta_plane = MMM_COLOR_FMT_ALIGN(uv_meta_stride *
++				uv_meta_scanlines, 4096);
++			size = (y_ubwc_plane + uv_ubwc_plane + y_meta_plane +
++				uv_meta_plane);
++		}
++		break;
++	case MMM_COLOR_FMT_NV12_BPP10_UBWC:
++		y_ubwc_plane = MMM_COLOR_FMT_ALIGN(y_stride * y_sclines, 4096);
++		uv_ubwc_plane = MMM_COLOR_FMT_ALIGN(uv_stride * uv_sclines,
++									4096);
++		y_meta_stride = MMM_COLOR_FMT_Y_META_STRIDE(color_fmt, width);
++		y_meta_scanlines = MMM_COLOR_FMT_Y_META_SCANLINES(color_fmt,
++									height);
++		y_meta_plane = MMM_COLOR_FMT_ALIGN(
++				y_meta_stride * y_meta_scanlines, 4096);
++		uv_meta_stride = MMM_COLOR_FMT_UV_META_STRIDE(color_fmt, width);
++		uv_meta_scanlines = MMM_COLOR_FMT_UV_META_SCANLINES(color_fmt,
++									height);
++		uv_meta_plane = MMM_COLOR_FMT_ALIGN(uv_meta_stride *
++					uv_meta_scanlines, 4096);
++
++		size = y_ubwc_plane + uv_ubwc_plane + y_meta_plane +
++			uv_meta_plane;
++		break;
++	case MMM_COLOR_FMT_P010_UBWC:
++		y_ubwc_plane = MMM_COLOR_FMT_ALIGN(y_stride * y_sclines, 4096);
++		uv_ubwc_plane = MMM_COLOR_FMT_ALIGN(uv_stride * uv_sclines,
++									4096);
++		y_meta_stride = MMM_COLOR_FMT_Y_META_STRIDE(color_fmt, width);
++		y_meta_scanlines = MMM_COLOR_FMT_Y_META_SCANLINES(color_fmt,
++									height);
++		y_meta_plane = MMM_COLOR_FMT_ALIGN(
++				y_meta_stride * y_meta_scanlines, 4096);
++		uv_meta_stride = MMM_COLOR_FMT_UV_META_STRIDE(color_fmt, width);
++		uv_meta_scanlines = MMM_COLOR_FMT_UV_META_SCANLINES(color_fmt,
++									height);
++		uv_meta_plane = MMM_COLOR_FMT_ALIGN(uv_meta_stride *
++					uv_meta_scanlines, 4096);
++
++		size = y_ubwc_plane + uv_ubwc_plane + y_meta_plane +
++			uv_meta_plane;
++		break;
++	case MMM_COLOR_FMT_RGBA8888:
++		rgb_plane = MMM_COLOR_FMT_ALIGN(rgb_stride  * rgb_scanlines,
++									4096);
++		size = rgb_plane;
++		break;
++	case MMM_COLOR_FMT_RGBA8888_UBWC:
++	case MMM_COLOR_FMT_RGBA1010102_UBWC:
++	case MMM_COLOR_FMT_RGB565_UBWC:
++	case MMM_COLOR_FMT_RGBA16161616F_UBWC:
++		rgb_ubwc_plane = MMM_COLOR_FMT_ALIGN(rgb_stride * rgb_scanlines,
++							4096);
++		rgb_meta_stride = MMM_COLOR_FMT_RGB_META_STRIDE(color_fmt,
++									width);
++		rgb_meta_scanlines = MMM_COLOR_FMT_RGB_META_SCANLINES(color_fmt,
++					height);
++		rgb_meta_plane = MMM_COLOR_FMT_ALIGN(rgb_meta_stride *
++					rgb_meta_scanlines, 4096);
++		size = rgb_ubwc_plane + rgb_meta_plane;
++		break;
++	default:
++		break;
++	}
++invalid_input:
++	return MMM_COLOR_FMT_ALIGN(size, 4096);
++}
++
++static inline unsigned int MMM_COLOR_FMT_BUFFER_SIZE_USED(
++		unsigned int color_fmt,	unsigned int width,
++		unsigned int height, unsigned int interlace)
++{
++	unsigned int size = 0;
++	unsigned int y_stride, uv_stride, y_sclines, uv_sclines;
++	unsigned int y_ubwc_plane = 0, uv_ubwc_plane = 0;
++	unsigned int y_meta_stride = 0, y_meta_scanlines = 0;
++	unsigned int uv_meta_stride = 0, uv_meta_scanlines = 0;
++	unsigned int y_meta_plane = 0, uv_meta_plane = 0;
++
++	if (!width || !height)
++		goto invalid_input;
++
++	if (!interlace && color_fmt == MMM_COLOR_FMT_NV12_UBWC) {
++		y_stride = MMM_COLOR_FMT_Y_STRIDE(color_fmt, width);
++		uv_stride = MMM_COLOR_FMT_UV_STRIDE(color_fmt, width);
++		y_sclines = MMM_COLOR_FMT_Y_SCANLINES(color_fmt, height);
++		y_ubwc_plane = MMM_COLOR_FMT_ALIGN(y_stride * y_sclines, 4096);
++		uv_sclines = MMM_COLOR_FMT_UV_SCANLINES(color_fmt, height);
++		uv_ubwc_plane = MMM_COLOR_FMT_ALIGN(uv_stride * uv_sclines,
++									4096);
++		y_meta_stride = MMM_COLOR_FMT_Y_META_STRIDE(color_fmt, width);
++		y_meta_scanlines =
++			MMM_COLOR_FMT_Y_META_SCANLINES(color_fmt, height);
++		y_meta_plane = MMM_COLOR_FMT_ALIGN(
++			y_meta_stride * y_meta_scanlines, 4096);
++		uv_meta_stride = MMM_COLOR_FMT_UV_META_STRIDE(color_fmt, width);
++		uv_meta_scanlines =
++			MMM_COLOR_FMT_UV_META_SCANLINES(color_fmt, height);
++		uv_meta_plane = MMM_COLOR_FMT_ALIGN(uv_meta_stride *
++			uv_meta_scanlines, 4096);
++		size = (y_ubwc_plane + uv_ubwc_plane + y_meta_plane +
++			uv_meta_plane);
++		size = MMM_COLOR_FMT_ALIGN(size, 4096);
++	} else {
++		size = MMM_COLOR_FMT_BUFFER_SIZE(color_fmt, width, height);
++	}
++invalid_input:
++	return size;
++}
++
++#endif
+diff --git a/include/display/media/msm_sde_rotator.h b/include/display/media/msm_sde_rotator.h
+new file mode 100644
+index 00000000..e8a2083f
+--- /dev/null
++++ b/include/display/media/msm_sde_rotator.h
+@@ -0,0 +1,180 @@
++/* SPDX-License-Identifier: GPL-2.0-only WITH Linux-syscall-note */
++/*
++ * Copyright (c) 2017-2020, The Linux Foundation. All rights reserved.
++ */
++
++#ifndef __UAPI_MSM_SDE_ROTATOR_H__
++#define __UAPI_MSM_SDE_ROTATOR_H__
++
++#include <linux/videodev2.h>
++#include <linux/types.h>
++#include <linux/ioctl.h>
++
++/* SDE Rotator pixel format definitions */
++#define SDE_PIX_FMT_XRGB_8888 \
++	v4l2_fourcc('X', 'R', '2', '4') /* 32  BGRX-8-8-8-8  */
++#define SDE_PIX_FMT_ARGB_8888 \
++	v4l2_fourcc('A', 'R', '2', '4') /* 32  BGRA-8-8-8-8  */
++#define SDE_PIX_FMT_ABGR_8888 \
++	v4l2_fourcc('R', 'A', '2', '4') /* 32-bit ABGR 8:8:8:8 */
++#define SDE_PIX_FMT_RGBA_8888 \
++	v4l2_fourcc('A', 'B', '2', '4') /* 32-bit RGBA 8:8:8:8 */
++#define SDE_PIX_FMT_BGRA_8888 \
++	v4l2_fourcc('B', 'A', '2', '4') /* 32  ARGB-8-8-8-8  */
++#define SDE_PIX_FMT_RGBX_8888 \
++	v4l2_fourcc('X', 'B', '2', '4') /* 32-bit RGBX 8:8:8:8 */
++#define SDE_PIX_FMT_BGRX_8888 \
++	v4l2_fourcc('B', 'X', '2', '4') /* 32  XRGB-8-8-8-8  */
++#define SDE_PIX_FMT_XBGR_8888 \
++	v4l2_fourcc('R', 'X', '2', '4') /* 32-bit XBGR 8:8:8:8 */
++#define SDE_PIX_FMT_RGBA_5551 \
++	v4l2_fourcc('R', 'A', '1', '5') /* 16-bit RGBA 5:5:5:1 */
++#define SDE_PIX_FMT_ARGB_1555 \
++	v4l2_fourcc('A', 'R', '1', '5') /* 16  ARGB-1-5-5-5  */
++#define SDE_PIX_FMT_ABGR_1555 \
++	v4l2_fourcc('A', 'B', '1', '5') /* 16-bit ABGR 1:5:5:5 */
++#define SDE_PIX_FMT_BGRA_5551 \
++	v4l2_fourcc('B', 'A', '1', '5') /* 16-bit BGRA 5:5:5:1 */
++#define SDE_PIX_FMT_BGRX_5551 \
++	v4l2_fourcc('B', 'X', '1', '5') /* 16-bit BGRX 5:5:5:1 */
++#define SDE_PIX_FMT_RGBX_5551 \
++	v4l2_fourcc('R', 'X', '1', '5') /* 16-bit RGBX 5:5:5:1 */
++#define SDE_PIX_FMT_XBGR_1555 \
++	v4l2_fourcc('X', 'B', '1', '5') /* 16-bit XBGR 1:5:5:5 */
++#define SDE_PIX_FMT_XRGB_1555 \
++	v4l2_fourcc('X', 'R', '1', '5') /* 16  XRGB-1-5-5-5  */
++#define SDE_PIX_FMT_ARGB_4444 \
++	v4l2_fourcc('A', 'R', '1', '2') /* 16  aaaarrrr ggggbbbb */
++#define SDE_PIX_FMT_RGBA_4444 \
++	v4l2_fourcc('R', 'A', '1', '2') /* 16-bit RGBA 4:4:4:4 */
++#define SDE_PIX_FMT_BGRA_4444 \
++	v4l2_fourcc('b', 'A', '1', '2') /* 16-bit BGRA 4:4:4:4 */
++#define SDE_PIX_FMT_ABGR_4444 \
++	v4l2_fourcc('A', 'B', '1', '2') /* 16-bit ABGR 4:4:4:4 */
++#define SDE_PIX_FMT_RGBX_4444 \
++	v4l2_fourcc('R', 'X', '1', '2') /* 16-bit RGBX 4:4:4:4 */
++#define SDE_PIX_FMT_XRGB_4444 \
++	v4l2_fourcc('X', 'R', '1', '2') /* 16  xxxxrrrr ggggbbbb */
++#define SDE_PIX_FMT_BGRX_4444 \
++	v4l2_fourcc('B', 'X', '1', '2') /* 16-bit BGRX 4:4:4:4 */
++#define SDE_PIX_FMT_XBGR_4444 \
++	v4l2_fourcc('X', 'B', '1', '2') /* 16-bit XBGR 4:4:4:4 */
++#define SDE_PIX_FMT_RGB_888 \
++	v4l2_fourcc('R', 'G', 'B', '3') /* 24  RGB-8-8-8     */
++#define SDE_PIX_FMT_BGR_888 \
++	v4l2_fourcc('B', 'G', 'R', '3') /* 24  BGR-8-8-8     */
++#define SDE_PIX_FMT_RGB_565 \
++	v4l2_fourcc('R', 'G', 'B', 'P') /* 16  RGB-5-6-5     */
++#define SDE_PIX_FMT_BGR_565 \
++	v4l2_fourcc('B', 'G', '1', '6') /* 16-bit BGR 5:6:5 */
++#define SDE_PIX_FMT_Y_CB_CR_H2V2 \
++	v4l2_fourcc('Y', 'U', '1', '2') /* 12  YUV 4:2:0     */
++#define SDE_PIX_FMT_Y_CR_CB_H2V2 \
++	v4l2_fourcc('Y', 'V', '1', '2') /* 12  YVU 4:2:0     */
++#define SDE_PIX_FMT_Y_CR_CB_GH2V2 \
++	v4l2_fourcc('Y', 'U', '4', '2') /* Planar YVU 4:2:0 A16 */
++#define SDE_PIX_FMT_Y_CBCR_H2V2 \
++	v4l2_fourcc('N', 'V', '1', '2') /* 12  Y/CbCr 4:2:0  */
++#define SDE_PIX_FMT_Y_CRCB_H2V2 \
++	v4l2_fourcc('N', 'V', '2', '1') /* 12  Y/CrCb 4:2:0  */
++#define SDE_PIX_FMT_Y_CBCR_H1V2 \
++	v4l2_fourcc('N', 'H', '1', '6') /* Y/CbCr 4:2:2 */
++#define SDE_PIX_FMT_Y_CRCB_H1V2 \
++	v4l2_fourcc('N', 'H', '6', '1') /* Y/CrCb 4:2:2 */
++#define SDE_PIX_FMT_Y_CBCR_H2V1 \
++	v4l2_fourcc('N', 'V', '1', '6') /* 16  Y/CbCr 4:2:2  */
++#define SDE_PIX_FMT_Y_CRCB_H2V1 \
++	v4l2_fourcc('N', 'V', '6', '1') /* 16  Y/CrCb 4:2:2  */
++#define SDE_PIX_FMT_YCBYCR_H2V1 \
++	v4l2_fourcc('Y', 'U', 'Y', 'V') /* 16  YUV 4:2:2     */
++#define SDE_PIX_FMT_Y_CBCR_H2V2_VENUS \
++	v4l2_fourcc('Q', 'N', 'V', '2') /* Y/CbCr 4:2:0 Venus */
++#define SDE_PIX_FMT_Y_CRCB_H2V2_VENUS \
++	v4l2_fourcc('Q', 'N', 'V', '1') /* Y/CrCb 4:2:0 Venus */
++#define SDE_PIX_FMT_RGBA_8888_UBWC \
++	v4l2_fourcc('Q', 'R', 'G', 'B') /* RGBA 8:8:8:8 UBWC */
++#define SDE_PIX_FMT_RGBX_8888_UBWC \
++	v4l2_fourcc('Q', 'X', 'B', '4') /* RGBX 8:8:8:8 UBWC */
++#define SDE_PIX_FMT_RGB_565_UBWC \
++	v4l2_fourcc('Q', 'R', 'G', '6') /* RGB 5:6:5 UBWC */
++#define SDE_PIX_FMT_Y_CBCR_H2V2_UBWC \
++	v4l2_fourcc('Q', '1', '2', '8') /* UBWC 8-bit Y/CbCr 4:2:0 */
++#define SDE_PIX_FMT_RGBA_1010102 \
++	v4l2_fourcc('A', 'B', '3', '0') /* RGBA 10:10:10:2 */
++#define SDE_PIX_FMT_RGBX_1010102 \
++	v4l2_fourcc('X', 'B', '3', '0') /* RGBX 10:10:10:2 */
++#define SDE_PIX_FMT_ARGB_2101010 \
++	v4l2_fourcc('A', 'R', '3', '0') /* ARGB 2:10:10:10 */
++#define SDE_PIX_FMT_XRGB_2101010 \
++	v4l2_fourcc('X', 'R', '3', '0') /* XRGB 2:10:10:10 */
++#define SDE_PIX_FMT_BGRA_1010102 \
++	v4l2_fourcc('B', 'A', '3', '0') /* BGRA 10:10:10:2 */
++#define SDE_PIX_FMT_BGRX_1010102 \
++	v4l2_fourcc('B', 'X', '3', '0') /* BGRX 10:10:10:2 */
++#define SDE_PIX_FMT_ABGR_2101010 \
++	v4l2_fourcc('R', 'A', '3', '0') /* ABGR 2:10:10:10 */
++#define SDE_PIX_FMT_XBGR_2101010 \
++	v4l2_fourcc('R', 'X', '3', '0') /* XBGR 2:10:10:10 */
++#define SDE_PIX_FMT_RGBA_1010102_UBWC \
++	v4l2_fourcc('Q', 'R', 'B', 'A') /* RGBA 10:10:10:2 UBWC */
++#define SDE_PIX_FMT_RGBX_1010102_UBWC \
++	v4l2_fourcc('Q', 'X', 'B', 'A') /* RGBX 10:10:10:2 UBWC */
++#define SDE_PIX_FMT_Y_CBCR_H2V2_P010 \
++	v4l2_fourcc('P', '0', '1', '0') /* Y/CbCr 4:2:0 P10 */
++#define SDE_PIX_FMT_Y_CBCR_H2V2_P010_VENUS \
++	v4l2_fourcc('Q', 'P', '1', '0') /* Y/CbCr 4:2:0 P10 Venus*/
++#define SDE_PIX_FMT_Y_CBCR_H2V2_TP10 \
++	v4l2_fourcc('T', 'P', '1', '0') /* Y/CbCr 4:2:0 TP10 */
++#define SDE_PIX_FMT_Y_CBCR_H2V2_TP10_UBWC \
++	v4l2_fourcc('Q', '1', '2', 'A') /* UBWC Y/CbCr 4:2:0 TP10 */
++#define SDE_PIX_FMT_Y_CBCR_H2V2_P010_UBWC \
++	v4l2_fourcc('Q', '1', '2', 'B') /* UBWC Y/CbCr 4:2:0 P10 */
++
++/*
++ * struct msm_sde_rotator_fence - v4l2 buffer fence info
++ * @index: id number of the buffer
++ * @type: enum v4l2_buf_type; buffer type
++ * @fd: file descriptor of the fence associated with this buffer
++ */
++struct msm_sde_rotator_fence {
++	__u32	index;
++	__u32	type;
++	__s32	fd;
++	__u32	reserved[5];
++};
++
++/*
++ * struct msm_sde_rotator_comp_ratio - v4l2 buffer compression ratio
++ * @index: id number of the buffer
++ * @type: enum v4l2_buf_type; buffer type
++ * @numer: numerator of the ratio
++ * @denom: denominator of the ratio
++ */
++struct msm_sde_rotator_comp_ratio {
++	__u32	index;
++	__u32	type;
++	__u32	numer;
++	__u32	denom;
++	__u32	reserved[4];
++};
++
++/* SDE Rotator private ioctl ID */
++#define VIDIOC_G_SDE_ROTATOR_FENCE \
++	_IOWR('V', BASE_VIDIOC_PRIVATE + 10, struct msm_sde_rotator_fence)
++#define VIDIOC_S_SDE_ROTATOR_FENCE \
++	_IOWR('V', BASE_VIDIOC_PRIVATE + 11, struct msm_sde_rotator_fence)
++#define VIDIOC_G_SDE_ROTATOR_COMP_RATIO \
++	_IOWR('V', BASE_VIDIOC_PRIVATE + 12, struct msm_sde_rotator_comp_ratio)
++#define VIDIOC_S_SDE_ROTATOR_COMP_RATIO \
++	_IOWR('V', BASE_VIDIOC_PRIVATE + 13, struct msm_sde_rotator_comp_ratio)
++
++/* SDE Rotator private control ID's */
++#define V4L2_CID_SDE_ROTATOR_SECURE	(V4L2_CID_USER_BASE + 0x1000)
++
++/*
++ * This control Id indicates this context is associated with the
++ * secure camera.
++ */
++#define V4L2_CID_SDE_ROTATOR_SECURE_CAMERA	(V4L2_CID_USER_BASE + 0x2000)
++
++#endif /* __UAPI_MSM_SDE_ROTATOR_H__ */
+diff --git a/init/init.qti.display_boot.sh b/init/init.qti.display_boot.sh
+index dbc9db36..6e5a0774 100644
+--- a/init/init.qti.display_boot.sh
++++ b/init/init.qti.display_boot.sh
+@@ -41,6 +41,20 @@ if [ -f /sys/devices/soc0/platform_subtype_id ]; then
+ fi
+ 
+ case "$target" in
++    "bengal")
++    setprop vendor.gralloc.use_dma_buf_heaps 1
++    # Set property to differentiate bengal and khaje
++    # Soc Id for khaje is 518
++    # Soc Id for khaje APQ is 561
++    # Soc Id for khaje Gaming is 585 and IOT is 586
++    case "$soc_hwid" in
++        518|561|585|586)
++        # Set property for khaje
++        setprop vendor.display.disable_layer_stitch 1
++        setprop vendor.display.enable_perf_hint_large_comp_cycle 1
++        ;;
++    esac
++    ;;
+     "pineapple")
+     #SOC ID for Pineapple is 557
+     case "$soc_hwid" in

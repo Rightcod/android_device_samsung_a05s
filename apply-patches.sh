@@ -66,4 +66,8 @@ apply_patch "build/soong" "build_soong.patch"
 # 5. Qualcomm HAL Sepolicy
 apply_patch "device/qcom/sepolicy_vndr/sm6225" "device_qcom_sepolicy_vndr_sm6225.patch"
 
+# 6. Bionic & Qualcomm SM8550 Display HAL
+apply_patch "bionic" "bionic.patch"
+apply_patch "hardware/qcom-caf/sm8550/display" "hardware_qcom-caf_sm8550_display.patch"
+
 echo "==> All Galaxy A05s patches applied successfully!"

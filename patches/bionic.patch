@@ -1,0 +1,17 @@
+diff --git a/libc/include/sched.h b/libc/include/sched.h
+index 4b67538..3793fba 100644
+--- a/libc/include/sched.h
++++ b/libc/include/sched.h
+@@ -96,9 +96,12 @@ __BEGIN_DECLS
+  * See sched_getparam()/sched_setparam() and
+  * sched_getscheduler()/sched_setscheduler().
+  */
++#ifndef _STRUCT_SCHED_PARAM
++#define _STRUCT_SCHED_PARAM
+ struct sched_param {
+   int sched_priority;
+ };
++#endif
+ 
+ /**
+  * [sched_setscheduler(2)](https://man7.org/linux/man-pages/man2/sched_setscheduler.2.html)
