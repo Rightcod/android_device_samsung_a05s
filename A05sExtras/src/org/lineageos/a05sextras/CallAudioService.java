@@ -15,7 +15,7 @@ import android.telephony.TelephonyCallback;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import java.util.ArrayList;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +24,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 /**
  * Native in-call audio routing service for Samsung Galaxy A05s (Qualcomm Bengal).
  *
- * Integrates directly with Android Telecom as an InCallService while maintaining
- * background TelephonyCallback fallbacks and periodic parameter enforcement.
+ * Integrates directly with Android Telecom as an IN_CALL_SERVICE_NON_UI while maintaining
+ * SEC-RIL hardware property monitoring and TelephonyCallback fallbacks.
  *
  * Samsung's audio.primary.bengal.so Audio HAL requires explicit voice session parameters:
  *   - "g_call_sim_slot=1" (SIM 1 / Slot 0, VSID 0x11c05000)
@@ -53,16 +53,30 @@ public class CallAudioService extends InCallService {
     private final Map<Integer, Integer> mSlotCallStates = new HashMap<>();
     private final Map<Integer, TelephonyCallback> mCallbacks = new HashMap<>();
 
+    private static String getProp(String key, String def) {
+        try {
+            Class<?> clazz = Class.forName("android.os.SystemProperties");
+            Method method = clazz.getMethod("get", String.class, String.class);
+            return (String) method.invoke(null, key, def);
+        } catch (Throwable e) {
+            return def;
+        }
+    }
+
     private final Call.Callback mCallCallback = new Call.Callback() {
         @Override
         public void onStateChanged(Call call, int state) {
             Log.i(TAG, "Telecom call onStateChanged: state=" + state + ", call=" + call);
-            mHandler.post(() -> evaluateAllCallStates());
+            if (mHandler != null) {
+                mHandler.post(() -> evaluateAllCallStates());
+            }
         }
 
         @Override
         public void onDetailsChanged(Call call, Call.Details details) {
-            mHandler.post(() -> evaluateAllCallStates());
+            if (mHandler != null) {
+                mHandler.post(() -> evaluateAllCallStates());
+            }
         }
     };
 
@@ -126,7 +140,9 @@ public class CallAudioService extends InCallService {
         Log.i(TAG, "Telecom onCallRemoved: " + call);
         if (call != null) {
             mTrackedCalls.remove(call);
-            call.unregisterCallback(mCallCallback);
+            try {
+                call.unregisterCallback(mCallCallback);
+            } catch (Throwable ignored) {}
         }
         if (mHandler != null) {
             mHandler.post(this::evaluateAllCallStates);
@@ -232,13 +248,19 @@ public class CallAudioService extends InCallService {
                 if (details != null) {
                     PhoneAccountHandle handle = details.getAccountHandle();
                     if (handle != null && handle.getId() != null) {
-                        int subId = Integer.parseInt(handle.getId());
-                        if (mSubscriptionManager != null) {
-                            SubscriptionInfo info = mSubscriptionManager.getActiveSubscriptionInfo(subId);
-                            if (info != null) {
-                                return info.getSimSlotIndex();
+                        try {
+                            int subId = Integer.parseInt(handle.getId());
+                            int slot = SubscriptionManager.getSlotIndex(subId);
+                            if (slot >= 0) {
+                                return slot;
                             }
-                        }
+                            if (mSubscriptionManager != null) {
+                                SubscriptionInfo info = mSubscriptionManager.getActiveSubscriptionInfo(subId);
+                                if (info != null) {
+                                    return info.getSimSlotIndex();
+                                }
+                            }
+                        } catch (NumberFormatException ignored) {}
                     }
                 }
             }
@@ -252,34 +274,58 @@ public class CallAudioService extends InCallService {
         boolean anyActive = false;
         int activeSlot = -1;
 
-        // 1. First priority: Telecom tracked calls
-        for (Call c : mTrackedCalls) {
-            int st = c.getState();
-            if (st == Call.STATE_DIALING || st == Call.STATE_CONNECTING ||
-                st == Call.STATE_RINGING || st == Call.STATE_ACTIVE ||
-                st == Call.STATE_HOLDING) {
-                anyActive = true;
-                int slot = getSlotForCall(c);
-                if (slot >= 0) {
-                    activeSlot = slot;
-                    break;
-                }
-            }
+        // 1. Direct hardware modem RIL indicator (from Samsung libsec-ril)
+        String rildSlot1 = getProp("vendor.calls.slot_id1", "0");
+        String rildSlot0 = getProp("vendor.calls.slot_id0", "0");
+        if ("1".equals(rildSlot1)) {
+            anyActive = true;
+            activeSlot = 1;
+        } else if ("1".equals(rildSlot0)) {
+            anyActive = true;
+            activeSlot = 0;
         }
 
-        // 2. Second priority: TelephonyManager callback states
+        // 2. Authoritative Telecom tracked calls (supports outgoing dialing before RIL connects)
         if (!anyActive) {
-            for (Map.Entry<Integer, Integer> entry : mSlotCallStates.entrySet()) {
-                if (entry.getValue() == TelephonyManager.CALL_STATE_OFFHOOK ||
-                    entry.getValue() == TelephonyManager.CALL_STATE_RINGING) {
+            for (Call c : mTrackedCalls) {
+                int st = c.getState();
+                if (st == Call.STATE_DIALING || st == Call.STATE_CONNECTING ||
+                    st == Call.STATE_RINGING || st == Call.STATE_ACTIVE ||
+                    st == Call.STATE_HOLDING || st == Call.STATE_DISCONNECTING) {
                     anyActive = true;
-                    activeSlot = entry.getKey();
-                    break;
+                    int slot = getSlotForCall(c);
+                    if (slot >= 0) {
+                        activeSlot = slot;
+                        break;
+                    }
                 }
             }
         }
 
-        // 3. Third priority: direct query on active subscriptions
+        // 3. TelephonyCallback states (with sticky slot protection to prevent duplicate callback stealing)
+        if (!anyActive) {
+            // If already in a call on activeSlot, check if that slot is still reporting active
+            if (mCallActive && mActiveSlot >= 0) {
+                Integer currentSlotState = mSlotCallStates.get(mActiveSlot);
+                if (currentSlotState != null && (currentSlotState == TelephonyManager.CALL_STATE_OFFHOOK || currentSlotState == TelephonyManager.CALL_STATE_RINGING)) {
+                    anyActive = true;
+                    activeSlot = mActiveSlot;
+                }
+            }
+
+            if (!anyActive) {
+                for (Map.Entry<Integer, Integer> entry : mSlotCallStates.entrySet()) {
+                    if (entry.getValue() == TelephonyManager.CALL_STATE_OFFHOOK ||
+                        entry.getValue() == TelephonyManager.CALL_STATE_RINGING) {
+                        anyActive = true;
+                        activeSlot = entry.getKey();
+                        break;
+                    }
+                }
+            }
+        }
+
+        // 4. Direct subscription call state query fallback
         if (!anyActive && mSubscriptionManager != null && mTelephonyManager != null) {
             try {
                 List<SubscriptionInfo> subs = mSubscriptionManager.getActiveSubscriptionInfoList();
@@ -333,21 +379,21 @@ public class CallAudioService extends InCallService {
         }
     }
 
-    // Safety watchdog: enforces parameters every 800ms while a call is active,
-    // and checks for orphaned calls every 3000ms when idle.
+    // Safety watchdog: enforces parameters every 600ms while a call is active,
+    // and checks call states / hardware properties every 1000ms when idle.
     private final Runnable mWatchdogRunnable = new Runnable() {
         @Override
         public void run() {
             try {
                 if (mCallActive) {
                     applyRoutingParameters(mActiveSlot, true);
-                    mHandler.postDelayed(this, 800);
+                    mHandler.postDelayed(this, 600);
                 } else {
                     evaluateAllCallStates();
-                    mHandler.postDelayed(this, 3000);
+                    mHandler.postDelayed(this, 1000);
                 }
             } catch (Throwable t) {
-                mHandler.postDelayed(this, 3000);
+                mHandler.postDelayed(this, 1000);
             }
         }
     };

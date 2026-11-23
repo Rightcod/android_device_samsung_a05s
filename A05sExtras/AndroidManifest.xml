@@ -120,6 +120,9 @@
             <intent-filter>
                 <action android:name="android.telecom.InCallService" />
             </intent-filter>
+            <meta-data
+                android:name="android.telecom.IN_CALL_SERVICE_NON_UI"
+                android:value="true" />
         </service>
 
         <receiver
